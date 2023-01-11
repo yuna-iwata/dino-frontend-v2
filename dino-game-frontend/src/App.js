@@ -11,9 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/game" element={<GamePage />} />
-        <Route path="create-account" element={<CreateAccountPage />} />
-      </Routes>
-      <Routes>
+        <Route path="/create-account" element={<CreateAccountPage />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
       </Routes>
     </BrowserRouter>
