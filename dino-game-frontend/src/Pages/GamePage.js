@@ -187,6 +187,7 @@ const config = {
   type: Phaser.AUTO,
   pixelArt: true,
   transparent: true,
+  autoCenter: true,
   physics: {
     default: "arcade",
     arcade: {
