@@ -38,6 +38,7 @@ class MyGame extends Phaser.Scene {
     this.load.image("cacti4", "smallcacti-1.png");
     this.load.image("cacti5", "smallcacti-2.png");
     this.load.image("cacti6", "smallcacti-3.png");
+    this.load.image("dino-hurt", "dino-hurt.png");
   }
 
   create() {
