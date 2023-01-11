@@ -1,5 +1,4 @@
 import React from "react";
-import dino from "/dino-idle.png";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
@@ -30,7 +29,7 @@ export default function Header() {
         <Toolbar disableGutters>
           <Tooltip title="Account profile" placement="left-start">
             <IconButton sx={{ p: 0 }}>
-              <Avatar alt="Dino profile" src={dino} />
+              <Avatar alt="Dino profile" src="/dino-idle.png" />
             </IconButton>
           </Tooltip>
 

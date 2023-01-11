@@ -7,14 +7,13 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import { CardHeader } from "@mui/material";
-// import dino from "/dino-idle.png";
 
 export default function Leaderboard({ rowList }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 200 }} aria-label="simple table">
         <TableBody>
-          {/* <TableRow
+          <TableRow
             key="1"
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
           >
@@ -23,13 +22,13 @@ export default function Leaderboard({ rowList }) {
             </TableCell>
             <TableCell component="th" scope="row" align="left">
               <CardHeader
-                avatar={<Avatar alt="Dino profile" src={dino} />}
+                avatar={<Avatar alt="Dino profile" src="/dino-idle.png" />}
                 title="Yuna"
               />
             </TableCell>
             <TableCell align="center">9999</TableCell>
-          </TableRow> */}
-
+          </TableRow>
+          {/* 
           {rowList.map((row) => (
             <TableRow
               key={row.rank}
@@ -46,7 +45,7 @@ export default function Leaderboard({ rowList }) {
               </TableCell>
               <TableCell align="center">{row.score}</TableCell>
             </TableRow>
-          ))}
+          ))} */}
         </TableBody>
       </Table>
     </TableContainer>
