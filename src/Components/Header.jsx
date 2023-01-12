@@ -11,6 +11,7 @@ import Badge from "@mui/material/Badge";
 import LeaderboardRoundedIcon from "@mui/icons-material/LeaderboardRounded";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { grey } from "@mui/material/colors";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const primary = grey[100];
@@ -28,9 +29,11 @@ export default function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Tooltip title="Account profile" placement="left-start">
-            <IconButton sx={{ p: 0 }}>
-              <Avatar alt="Dino profile" src="/dino-idle.png" />
-            </IconButton>
+            <Link to="/account-page">
+              <IconButton sx={{ p: 0 }}>
+                <Avatar alt="Dino profile" src="/dino-idle.png" />
+              </IconButton>
+            </Link>
           </Tooltip>
 
           <Typography
@@ -52,11 +55,13 @@ export default function Header() {
           </Grid>
 
           <Tooltip title="Leaderboard" placement="right-start">
-            <IconButton size="large" color="inherit">
-              <Badge color="primary">
-                <LeaderboardRoundedIcon color="action" />
-              </Badge>
-            </IconButton>
+            <Link to="/leaderboard">
+              <IconButton size="large" color="inherit">
+                <Badge color="primary">
+                  <LeaderboardRoundedIcon color="action" />
+                </Badge>
+              </IconButton>
+            </Link>
           </Tooltip>
           <Tooltip title="Log out" placement="right-start">
             <IconButton size="large" color="inherit">
