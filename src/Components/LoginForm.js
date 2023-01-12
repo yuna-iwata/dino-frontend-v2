@@ -1,14 +1,14 @@
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { submitUser } from "../Networking.js";
+// import { useNavigate } from "react-router-dom";
+// import { checkUser } from "../Networking.js";
 // import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export default function CreateAccountForm(props) {
-  //   const { changeUser } = props;
-  const navigate = useNavigate();
-  //   const [usernameExists, setUsernameExists] = useState(false);
+  // const { changeUser } = props;
+  // const navigate = useNavigate();
+  // const [validationError, setValidationError] = useState(null);
 
   function validate(values) {
     const errors = {};
@@ -26,13 +26,6 @@ export default function CreateAccountForm(props) {
       errors.password = "Password can have a maximum of 20 characters";
     }
 
-    if (!values.repassword) {
-      errors.repassword = "Required";
-    }
-    if (values.password !== values.repassword) {
-      errors.repassword = "Passwords must match";
-    }
-
     return errors;
   }
 
@@ -41,16 +34,17 @@ export default function CreateAccountForm(props) {
       initialValues: {
         username: "",
         password: "",
-        repassword: "",
       },
       validate,
       onSubmit: async (values) => {
-        const response = await submitUser(values.username, values.password);
+        // const response = await checkUser(values.username, values.password);
         // if (response.code === 200) {
         //   (() => changeUser(values.username))();
         //   navigate("/search");
-        // } else if (response.code === 304) {
-        //   setUsernameExists(true);
+        // } else if (response.code === 404) {
+        //   setValidationError("Username does not exist. Please try again");
+        // } else if (response.code === 400) {
+        //   setValidationError("Incorrect password. Please try again");
         // }
       },
     }
@@ -84,28 +78,11 @@ export default function CreateAccountForm(props) {
         ) : null}
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="repassword">
-        <Form.Label>Confirm Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Password confirmation"
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-        {touched.repassword && errors.repassword ? (
-          <div className="errorMessage">{errors.repassword}</div>
-        ) : null}
-      </Form.Group>
-
       <Button variant="primary" type="submit">
         Submit
       </Button>
 
-      {/* {usernameExists ? (
-        <p className="errorMessage">
-          Username already exists. Please try a different username
-        </p>
-      ) : null} */}
+      {/* <p className="errorMessage">{validationError}</p> */}
     </Form>
   );
 }
