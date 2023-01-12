@@ -282,5 +282,6 @@ const config = {
 };
 
 export default function Game() {
-  const game = new Phaser.Game(config);
+  // const game = new Phaser.Game(config);
+  new Phaser.Game(config);
 }
