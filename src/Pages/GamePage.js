@@ -13,9 +13,9 @@ const height = 300;
 const scale = 0.5;
 
 class MyGame extends Phaser.Scene {
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
 
   preload() {
     this.load.setBaseURL("https://chrome-dino-game.s3.amazonaws.com/assets");
