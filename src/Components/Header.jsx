@@ -29,21 +29,25 @@ export default function Header(props) {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Tooltip title="Account profile" placement="left-start">
-            <Link to="/account-page">
-              <IconButton sx={{ p: 0 }}>
-                <Avatar alt="Dino profile" src="/dino-idle.png" />
-              </IconButton>
-            </Link>
-          </Tooltip>
+          {currentUser ? (
+            <div className="account-link">
+              <Tooltip title="Account profile" placement="left-start">
+                <Link to="/account-page">
+                  <IconButton sx={{ p: 0 }}>
+                    <Avatar alt="Dino profile" src="/dino-idle.png" />
+                  </IconButton>
+                </Link>
+              </Tooltip>
 
-          <Typography
-            placement="left-start"
-            component="div"
-            sx={{ flexGrow: 1, color: "#6c6c6c" }}
-          >
-            Username
-          </Typography>
+              <Typography
+                placement="left-start"
+                component="div"
+                sx={{ flexGrow: 1, color: "#6c6c6c" }}
+              >
+                {currentUser}
+              </Typography>
+            </div>
+          ) : null}
 
           <Grid container placement="top">
             <Typography
@@ -66,15 +70,17 @@ export default function Header(props) {
           </Tooltip>
           <Tooltip title="Log out" placement="right-start">
             {currentUser ? (
-              <IconButton
-                size="large"
-                color="inherit"
-                onClick={() => changeUser(null)}
-              >
-                <Badge color="primary">
-                  <LogoutIcon color="action" />
-                </Badge>
-              </IconButton>
+              <Link to="/">
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  onClick={() => changeUser(null)}
+                >
+                  <Badge color="primary">
+                    <LogoutIcon color="action" />
+                  </Badge>
+                </IconButton>
+              </Link>
             ) : (
               <Link to="/login">
                 <button>Log In</button>

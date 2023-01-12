@@ -46,6 +46,7 @@ function App() {
               score={score} // the users current score
               rank={rank} // users rank
               scoreList={scoreList} // users list of scores
+              changeUser={changeUser}
             />
           }
         />
