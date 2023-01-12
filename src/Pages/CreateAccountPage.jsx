@@ -1,4 +1,4 @@
-import CreateAccountForm from "../Components/CreateAccountForm.js";
+import CreateAccountForm from "../Components/CreateAccountForm";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 

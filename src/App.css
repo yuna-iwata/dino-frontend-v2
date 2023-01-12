@@ -40,3 +40,19 @@
 .errorMessage {
   color: red;
 }
+
+.welcome-page-container {
+  margin-top: 100px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 4px;
+  border-color: #75d193;
+  padding: 80px 60px;
+  display: inline-block;
+  justify-content: center;
+}
+
+.stack-container {
+  display: flex;
+  justify-content: center;
+}
