@@ -23,8 +23,16 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CardHeader } from "@mui/material";
+import { Link } from "react-router-dom";
 
-export default function Account({ profile, username, score, rank, scoreList }) {
+export default function Account({
+  profile,
+  username,
+  score,
+  rank,
+  scoreList,
+  changeUser,
+}) {
   const theme = createTheme({
     palette: {
       neutral: {
@@ -113,13 +121,16 @@ export default function Account({ profile, username, score, rank, scoreList }) {
               >
                 Change password
               </Button>
-              <Button
-                variant="outlined"
-                color="neutral"
-                startIcon={<LogoutIcon />}
-              >
-                Sign out
-              </Button>
+              <Link style={{ textDecoration: "none" }} to="/">
+                <Button
+                  onClick={() => changeUser(null)}
+                  variant="outlined"
+                  color="neutral"
+                  startIcon={<LogoutIcon />}
+                >
+                  Sign out
+                </Button>
+              </Link>
               <Button
                 variant="outlined"
                 color="neutral"

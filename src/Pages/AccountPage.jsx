@@ -8,6 +8,7 @@ export default function AccountPage({
   score,
   rank,
   scoreList,
+  changeUser,
 }) {
   return (
     <div>
@@ -18,6 +19,7 @@ export default function AccountPage({
         score={score}
         rank={rank}
         scoreList={scoreList}
+        changeUser={changeUser}
       />
     </div>
   );
