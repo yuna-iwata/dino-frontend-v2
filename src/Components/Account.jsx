@@ -90,7 +90,6 @@ export default function Account({ profile, username, score, rank, scoreList }) {
         spacing={1}
       >
         <Grid container justifyContent="space-between">
-          ---- leaderboard ----
           <Stack direction="column" spacing={2}>
             <ThemeProvider theme={theme}>
               <Button
@@ -152,16 +151,16 @@ export default function Account({ profile, username, score, rank, scoreList }) {
                   <TableCell align="center">11/01/2023</TableCell>
                 </TableRow> */}
 
-                {/*  ---- actual code ----
-                {scoreList.map((row) => (
+                {/* ---- actual code ---- */}
+                {scoreList.map((row, index) => (
                   <TableRow
-                    key={row.rank}
+                    key={index}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="center">{row.score}</TableCell>
                     <TableCell align="center">{row.date}</TableCell>
                   </TableRow>
-                ))} */}
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
