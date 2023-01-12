@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./Components/Header.jsx";
-import GamePage from "./Pages/GamePage.js";
-import CreateAccountPage from "./Pages/CreateAccountPage.js";
-import LoginPage from "./Pages/LoginPage";
-import LeaderboardPage from "./Pages/LeaderboardPage.jsx";
-import AccountPage from "./Pages/AccountPage.jsx";
 import { useState } from "react";
+import Header from "./Components/Header";
+import WelcomePage from "./Pages/WelcomePage";
+import GamePage from "./Pages/GamePage";
+import CreateAccountPage from "./Pages/CreateAccountPage";
+import LoginPage from "./Pages/LoginPage";
+import LeaderboardPage from "./Pages/LeaderboardPage";
+import AccountPage from "./Pages/AccountPage";
 import "./App.css";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path="/" element={<WelcomePage />} />
         <Route path="/game" element={<GamePage />} />
         <Route
           path="/create-account"

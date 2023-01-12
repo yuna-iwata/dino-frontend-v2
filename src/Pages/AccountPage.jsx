@@ -1,5 +1,5 @@
-import Account from "../Components/Account.jsx";
-import Cover from "../Components/Coverphoto.jsx";
+import Account from "../Components/Account";
+import Cover from "../Components/Coverphoto";
 import React from "react";
 
 export default function AccountPage({

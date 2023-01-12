@@ -1,5 +1,5 @@
-import Leaderboard from "../Components/Leaderboard.jsx";
-import Cover from "../Components/Coverphoto.jsx";
+import Leaderboard from "../Components/Leaderboard";
+import Cover from "../Components/Coverphoto";
 import React from "react";
 
 export default function LeaderboardPage({ rowList }) {
