@@ -13,7 +13,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Header(props) {
+  const { currentUser, changeUser } = props;
   const primary = grey[100];
 
   return (
@@ -64,11 +65,21 @@ export default function Header() {
             </Link>
           </Tooltip>
           <Tooltip title="Log out" placement="right-start">
-            <IconButton size="large" color="inherit">
-              <Badge color="primary">
-                <LogoutIcon color="action" />
-              </Badge>
-            </IconButton>
+            {currentUser ? (
+              <IconButton
+                size="large"
+                color="inherit"
+                onClick={() => changeUser(null)}
+              >
+                <Badge color="primary">
+                  <LogoutIcon color="action" />
+                </Badge>
+              </IconButton>
+            ) : (
+              <Link to="/login">
+                <button>Log In</button>
+              </Link>
+            )}
           </Tooltip>
         </Toolbar>
       </Container>
