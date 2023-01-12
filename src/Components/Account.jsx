@@ -40,7 +40,7 @@ export default function Account({ profile, username, score, rank, scoreList }) {
   const theme = createTheme({
     palette: {
       neutral: {
-        main: "#6c6c6c",
+        main: "#75d193",
         contrastText: "#fff",
       },
       green: {
@@ -76,10 +76,10 @@ export default function Account({ profile, username, score, rank, scoreList }) {
           <Grid alignItems="center" display="flex" item xs={2}>
             <EmojiEventsIcon />
             <Box sx={{ p: 2 }}>
-              <Typography sx={{ color: "#6c6c6c" }} variant="body1">
+              <Typography sx={{ color: "#75d193" }} variant="body1">
                 High score
               </Typography>
-              <Typography sx={{ color: "#6c6c6c" }} variant="body2">
+              <Typography sx={{ color: "#75d193" }} variant="body2">
                 {score}
               </Typography>
             </Box>
@@ -88,10 +88,10 @@ export default function Account({ profile, username, score, rank, scoreList }) {
           <Grid alignItems="center" display="flex" item xs={2}>
             <PublicIcon color="neutral" />
             <Box sx={{ p: 2 }}>
-              <Typography sx={{ color: "#6c6c6c" }} variant="body1">
+              <Typography sx={{ color: "#75d193" }} variant="body1">
                 World ranking
               </Typography>
-              <Typography sx={{ color: "#6c6c6c" }} variant="body2">
+              <Typography sx={{ color: "#75d193" }} variant="body2">
                 #{rank}
               </Typography>
             </Box>
