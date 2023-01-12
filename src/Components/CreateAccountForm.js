@@ -46,7 +46,6 @@ export default function CreateAccountForm(props) {
       validate,
       onSubmit: async (values) => {
         const response = await submitUser(values.username, values.password);
-        console.log(values.username);
         if (response.code === 200) {
           changeUser(values.username);
           navigate("/game");

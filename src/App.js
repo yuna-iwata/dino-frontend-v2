@@ -33,7 +33,7 @@ function App() {
           path="/create-account"
           element={<CreateAccountPage changeUser={changeUser} />}
         />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage changeUser={changeUser} />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route
           path="/account-page"
