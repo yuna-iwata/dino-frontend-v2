@@ -44,6 +44,8 @@ class MyGame extends Phaser.Scene {
   create() {
     //**********SET UP STATIC OBJECTS********//
     this.speed = 10;
+    this.score = 0;
+
     this.ground = this.add
       .tileSprite(0, height, 100, 26, "ground")
       .setOrigin(0, 1)
@@ -53,6 +55,7 @@ class MyGame extends Phaser.Scene {
       .sprite(0, height - 200)
       .setOrigin(0, 1)
       .setImmovable();
+
     player = this.physics.add
       .sprite(0, height, "dino-idle")
       .setOrigin(0, 1)
@@ -85,6 +88,33 @@ class MyGame extends Phaser.Scene {
 
     cursors = this.input.keyboard.createCursorKeys();
 
+    //**********SCORE AND GAME OVER********//
+
+    this.displayScore = this.add
+      .text(width, 0, "00000", {
+        fill: "#535353",
+        font: "900 35px Courier",
+        resolution: 5,
+      })
+      .setOrigin(1, 0)
+      .setAlpha(0);
+
+    this.highScoreDisplay = this.add
+      .text(0, 0, "00000", {
+        fill: "#535353",
+        font: "900 35px Courier",
+        resolution: 5,
+      })
+      .setOrigin(1, 0)
+      .setAlpha(0);
+
+    this.gameOverScreen = this.add
+      .container(width / 2, height / 2 - 50)
+      .setAlpha(0);
+    this.gameOverText = this.add.image(0, 0, "game-over");
+    this.restart = this.add.image(0, 80, "restart").setInteractive();
+    this.gameOverScreen.add([this.gameOverText, this.restart]);
+
     //**********START GAME WITH SPACEBAR********//
     // prettier-ignore
     this.physics.add.overlap(startBox, player, () => {
@@ -93,17 +123,18 @@ class MyGame extends Phaser.Scene {
         delay: 20,
         loop:true,
         callbackScope: this,
-        callback: () =>{
+        callback: () => {
           player.anims.play("dino-run-anim", true);
           if(this.ground.width<width/scale){
-            if (player.body.deltaAbsY() == 0) {
+            if (player.body.deltaAbsY() === 0) {
               this.ground.width += width / 40;
               player.setVelocityX(60)
             }
-          } else{
+          } else {
             this.ground.width = width/scale
             runGame = true
             player.setVelocityX(0);
+            this.displayScore.setAlpha(1);
             expandGround.remove()
           
           }
@@ -111,22 +142,73 @@ class MyGame extends Phaser.Scene {
       })
    
     }, null, this);
+
     this.createColliders();
+    this.handleScore();
   }
+
   createColliders() {
     // prettier-ignore
     this.physics.add.collider(player, obstacles, () => {
-        runGame = false
-        player.setTexture('dino-hurt')
-        this.anims.pauseAll()
+      this.highScoreDisplay.x = this.displayScore.x - this.displayScore.width - 20;
+
+      const highScore = this.highScoreDisplay.text.substr(this.highScoreDisplay.lenfth - 5);
+
+      const finalScore = Number(this.displayScore.text) > Number(highScore) ? this.displayScore.text : highScore
+
+      this.highScoreDisplay.setText('HI ' + finalScore);
+      this.highScoreDisplay.setAlpha(1);
+
+      this.physics.pause();
+      this.runGame = false
+      this.player.setTexture('dino-hurt')
+      this.anims.pauseAll()
+      this.gameOverScreen.setAlpha(1);
+      this.renderTime = 0;
+      this.speed = 10;
+      this.score = 0;
+
     }, null, this);
   }
 
   renderObstacles() {
-    const obstacleNum = Math.floor(Math.random() * 6 + 1);
+    const obstacleNum = Math.floor(Math.random() * 6) + 1;
     let obstacle = obstacles.create(width, height, `cacti${obstacleNum}`);
     obstacle.body.offset.y = 10;
     obstacle.setOrigin(0, 1).setImmovable().setScale(scale);
+  }
+
+  handleScore() {
+    this.time.addEvent({
+      delay: 1000 / 10,
+      loop: true,
+      callbackScope: this,
+      callback: () => {
+        if (!this.runGame) {
+          return;
+        }
+
+        this.score++;
+        this.speed += 0.01;
+
+        if (this.score % 100 === 0) {
+          this.tweens.add({
+            targets: this.displayScore,
+            duration: 100,
+            repeat: 3,
+            alpha: 0,
+            yoyo: true,
+          });
+        }
+
+        const score = Array.from(String(this.score), Number);
+        for (let i = 0; i < 5 - String(this.score).length; i++) {
+          score.unshift(0);
+        }
+
+        this.displayScore.setText(score.join(""));
+      },
+    });
   }
 
   keyCommands() {
@@ -143,7 +225,7 @@ class MyGame extends Phaser.Scene {
       player.anims.stop();
       player.setTexture("dino-run");
     } else {
-      if (player.body.height == 92 * scale) {
+      if (player.body.height === 92 * scale) {
         player.anims.play("dino-run-anim", true);
       } else {
         player.anims.play("dino-duck-anim", true);
@@ -167,7 +249,7 @@ class MyGame extends Phaser.Scene {
       console.log(renderTime);
       console.log("time between");
       console.log(timeBetweenObstacles);
-      if (renderTime >= 1300 && obstaclesRendered == 0) {
+      if (renderTime >= 1300 && obstaclesRendered === 0) {
         console.log("first");
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         this.renderObstacles();
@@ -187,6 +269,7 @@ const config = {
   type: Phaser.AUTO,
   pixelArt: true,
   transparent: true,
+  autoCenter: true,
   physics: {
     default: "arcade",
     arcade: {
