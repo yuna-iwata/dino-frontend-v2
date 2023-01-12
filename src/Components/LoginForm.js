@@ -1,14 +1,14 @@
 import { useFormik } from "formik";
-// import { useNavigate } from "react-router-dom";
-// import { checkUser } from "../Networking.js";
-// import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { checkUser } from "../Networking.js";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export default function CreateAccountForm(props) {
-  // const { changeUser } = props;
-  // const navigate = useNavigate();
-  // const [validationError, setValidationError] = useState(null);
+  const { changeUser } = props;
+  const navigate = useNavigate();
+  const [validationError, setValidationError] = useState(null);
 
   function validate(values) {
     const errors = {};
@@ -37,15 +37,15 @@ export default function CreateAccountForm(props) {
       },
       validate,
       onSubmit: async (values) => {
-        // const response = await checkUser(values.username, values.password);
-        // if (response.code === 200) {
-        //   (() => changeUser(values.username))();
-        //   navigate("/search");
-        // } else if (response.code === 404) {
-        //   setValidationError("Username does not exist. Please try again");
-        // } else if (response.code === 400) {
-        //   setValidationError("Incorrect password. Please try again");
-        // }
+        const response = await checkUser(values.username, values.password);
+        if (response.code === 200) {
+          (() => changeUser(values.username))();
+          navigate("/search");
+        } else if (response.code === 404) {
+          setValidationError("Username does not exist. Please try again");
+        } else if (response.code === 400) {
+          setValidationError("Incorrect password. Please try again");
+        }
       },
     }
   );
@@ -82,7 +82,7 @@ export default function CreateAccountForm(props) {
         Submit
       </Button>
 
-      {/* <p className="errorMessage">{validationError}</p> */}
+      <p className="errorMessage">{validationError}</p>
     </Form>
   );
 }
