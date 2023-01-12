@@ -70,15 +70,17 @@ export default function Header(props) {
           </Tooltip>
           <Tooltip title="Log out" placement="right-start">
             {currentUser ? (
-              <IconButton
-                size="large"
-                color="inherit"
-                onClick={() => changeUser(null)}
-              >
-                <Badge color="primary">
-                  <LogoutIcon color="action" />
-                </Badge>
-              </IconButton>
+              <Link to="/">
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  onClick={() => changeUser(null)}
+                >
+                  <Badge color="primary">
+                    <LogoutIcon color="action" />
+                  </Badge>
+                </IconButton>
+              </Link>
             ) : (
               <Link to="/login">
                 <button>Log In</button>
