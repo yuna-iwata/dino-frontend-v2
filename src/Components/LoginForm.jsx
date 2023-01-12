@@ -51,38 +51,48 @@ export default function CreateAccountForm(props) {
   );
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="username">
-        <Form.Label>Username</Form.Label>
-        <Form.Control
-          type="username"
-          placeholder="Enter username"
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-        {touched.username && errors.username ? (
-          <div className="errorMessage">{errors.username}</div>
-        ) : null}
-      </Form.Group>
+    <>
+      <style type="text/css">
+        {`
+    .btn-flat {
+      background-color: #75d193;
+      color: white;
+    }
+    `}
+      </style>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="username">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="username"
+            placeholder="Enter username"
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.username && errors.username ? (
+            <div className="errorMessage">{errors.username}</div>
+          ) : null}
+        </Form.Group>
 
-      <Form.Group className="mb-3" controlId="password">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-        {touched.password && errors.password ? (
-          <div className="errorMessage">{errors.password}</div>
-        ) : null}
-      </Form.Group>
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.password && errors.password ? (
+            <div className="errorMessage">{errors.password}</div>
+          ) : null}
+        </Form.Group>
 
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
+        <Button variant="flat" type="submit">
+          Submit
+        </Button>
 
-      <p className="errorMessage">{validationError}</p>
-    </Form>
+        <p className="errorMessage">{validationError}</p>
+      </Form>
+    </>
   );
 }

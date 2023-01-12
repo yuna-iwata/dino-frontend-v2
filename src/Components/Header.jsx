@@ -2,7 +2,6 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -10,6 +9,7 @@ import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import LeaderboardRoundedIcon from "@mui/icons-material/LeaderboardRounded";
 import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
@@ -45,15 +45,14 @@ export default function Header(props) {
             Username
           </Typography>
 
-          <Grid container placement="top">
-            <Typography
-              variant="h5"
-              component="div"
-              sx={{ flexGrow: 1, color: "#6c6c6c" }}
-            >
-              Dino game
-            </Typography>
-          </Grid>
+          <Typography
+            variant="h5"
+            component="div"
+            align="justify"
+            sx={{ flexGrow: 1, color: "#74D193" }}
+          >
+            Dino game
+          </Typography>
 
           <Tooltip title="Leaderboard" placement="right-start">
             <Link to="/leaderboard">
@@ -64,20 +63,27 @@ export default function Header(props) {
               </IconButton>
             </Link>
           </Tooltip>
+
           <Tooltip title="Log out" placement="right-start">
             {currentUser ? (
-              <IconButton
-                size="large"
-                color="inherit"
-                onClick={() => changeUser(null)}
-              >
-                <Badge color="primary">
-                  <LogoutIcon color="action" />
-                </Badge>
-              </IconButton>
+              <Link to="/">
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  onClick={() => changeUser(null)}
+                >
+                  <Badge color="primary">
+                    <LogoutIcon color="action" />
+                  </Badge>
+                </IconButton>
+              </Link>
             ) : (
               <Link to="/login">
-                <button>Log In</button>
+                <IconButton size="large" colour="inherit">
+                  <Badge color="primary">
+                    <LoginIcon color="action" />
+                  </Badge>
+                </IconButton>
               </Link>
             )}
           </Tooltip>
