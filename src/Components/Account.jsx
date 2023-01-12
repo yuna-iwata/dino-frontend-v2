@@ -1,5 +1,4 @@
-import React from "react";
-// import dino from "./dino-idle.png";
+import { React, useState } from "react";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import PublicIcon from "@mui/icons-material/Public";
 import Box from "@mui/material/Box";
@@ -7,35 +6,44 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Stack from "@mui/material/Stack";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PersonIcon from "@mui/icons-material/Person";
-import KeyIcon from "@mui/icons-material/Key";
-import LogoutIcon from "@mui/icons-material/Logout";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableContainer from "@mui/material/TableContainer";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import TabButton from "./TabButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CardHeader } from "@mui/material";
-import { Link } from "react-router-dom";
 
-export default function Account({
-  profile,
-  username,
-  score,
-  rank,
-  scoreList,
-  changeUser,
-}) {
+import PersonalLeaderBoard from "./SubPagePersonalLeaderBoard";
+import AvatarSelection from "./SubPageAvatarSelection";
+import ChangeUsername from "./SubPageChangeUsername";
+import ChangePassword from "./SubPageChangePassword";
+import LogOutConfirmation from "./SubPageLogOutConfirmation";
+import DeleteAccountConfirmation from "./SubPageDeleteAccountConfirmation";
+
+export default function Account({ profile, username, score, rank, scoreList }) {
+  const tabs = {
+    leaderboard: {
+      text: "your leader board",
+      page: <PersonalLeaderBoard scoreList={scoreList} />,
+    },
+    avatar: { text: "change avatar", page: <AvatarSelection /> },
+    username: { text: "change username", page: <ChangeUsername /> },
+    password: { text: "change password", page: <ChangePassword /> },
+    signOut: { text: "sign out", page: <LogOutConfirmation /> },
+    delete: { text: "delete account", page: <DeleteAccountConfirmation /> },
+  };
+  const [currentTab, setCurrentTab] = useState({
+    text: "leaderboard",
+    page: <PersonalLeaderBoard scoreList={scoreList} />,
+  });
+  const changeTab = (tab) => {
+    setCurrentTab(tabs[tab]);
+  };
   const theme = createTheme({
     palette: {
       neutral: {
+        main: "#75d193",
+        contrastText: "#fff",
+      },
+      green: {
         main: "#75d193",
         contrastText: "#fff",
       },
@@ -100,72 +108,21 @@ export default function Account({
         <Grid container justifyContent="space-between">
           <Stack direction="column" spacing={2}>
             <ThemeProvider theme={theme}>
-              <Button
-                variant="outlined"
-                color="neutral"
-                startIcon={<AccountCircleIcon />}
-              >
-                Change avatar
-              </Button>
-              <Button
-                variant="outlined"
-                color="neutral"
-                startIcon={<PersonIcon />}
-              >
-                Change username
-              </Button>
-              <Button
-                variant="outlined"
-                color="neutral"
-                startIcon={<KeyIcon />}
-              >
-                Change password
-              </Button>
-              <Link style={{ textDecoration: "none" }} to="/">
-                <Button
-                  onClick={() => changeUser(null)}
-                  variant="outlined"
-                  color="neutral"
-                  startIcon={<LogoutIcon />}
-                >
-                  Sign out
-                </Button>
-              </Link>
-              <Button
-                variant="outlined"
-                color="neutral"
-                startIcon={<DeleteIcon />}
-              >
-                Delete account
-              </Button>
+              {Object.keys(tabs).map((tab, i) => {
+                return (
+                  <TabButton
+                    tabs={tabs}
+                    tab={tab}
+                    currentTab={currentTab}
+                    changeTab={changeTab}
+                    key={i}
+                  />
+                );
+              })}
             </ThemeProvider>
           </Stack>
         </Grid>
-
-        <Grid container justifyContent="space-between">
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">Score</TableCell>
-                  <TableCell align="center">Date</TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {scoreList.map((row, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell align="center">{row.score}</TableCell>
-                    <TableCell align="center">{row.date}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
+        {currentTab.page}
       </Box>
     </Container>
   );
