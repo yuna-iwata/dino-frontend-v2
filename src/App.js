@@ -27,7 +27,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+      <Header currentUser={currentUser} changeUser={changeUser} />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/game" element={<GamePage />} />
