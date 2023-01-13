@@ -47,15 +47,28 @@ export default function Header(props) {
                 {currentUser}
               </Typography>
             </div>
-          ) : null}
+          ) : (
+            <Typography
+              placement="left-start"
+              component="div"
+              sx={{ flexGrow: 1, color: "#6c6c6c" }}
+            >
+              Hi, user!
+            </Typography>
+          )}
 
           <Typography
             variant="h5"
             component="div"
             align="justify"
-            sx={{ flexGrow: 1, color: "#74D193" }}
+            sx={{ flexGrow: 1 }}
           >
-            Dino game
+            <Link
+              to="/game"
+              style={{ textDecoration: "none", color: "#74D193" }}
+            >
+              Dino game
+            </Link>
           </Typography>
 
           <Tooltip title="Leaderboard" placement="right-start">

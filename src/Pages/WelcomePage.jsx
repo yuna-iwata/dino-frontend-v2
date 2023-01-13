@@ -1,8 +1,8 @@
+import Cover from "../Components/Coverphoto";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
-import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LoginIcon from "@mui/icons-material/Login";
@@ -19,9 +19,7 @@ export default function WelcomePage() {
   });
   return (
     <div className="container">
-      <Card sx={{ display: "flex", maxHeight: 100, m: 5 }}>
-        <img src="/dinobg.jpg" alt="dino-bg" />
-      </Card>
+      <Cover />
       <Grid sx={{ m: 10 }}>
         <Stack direction="column" spacing={8} alignItems="center">
           <ThemeProvider theme={theme}>
