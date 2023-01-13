@@ -12,9 +12,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CardHeader } from "@mui/material";
 
 import PersonalLeaderBoard from "./SubPagePersonalLeaderBoard";
-import AvatarSelection from "./SubPageAvatarSelection";
+import AvatarSelection from "./AccountPageSubPages/SubPageAvatarSelection";
 import ChangeUsername from "./SubPageChangeUsername";
-import ChangePassword from "./SubPageChangePassword";
+import ChangePassword from "./AccountPageSubPages/SubPageChangePassword";
 import LogOutConfirmation from "./SubPageLogOutConfirmation";
 import DeleteAccountConfirmation from "./SubPageDeleteAccountConfirmation";
 

@@ -1,4 +1,4 @@
-const baseUrlUsers = "http://18.132.49.187:5000/";
+const baseUrlUsers = "http://13.40.219.208:5000/";
 
 export async function submitUser(username, password) {
   try {
