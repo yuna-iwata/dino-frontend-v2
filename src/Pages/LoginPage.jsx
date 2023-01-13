@@ -19,18 +19,20 @@ export default function CreateAccountPage(props) {
   return (
     <Container maxWidth="sm">
       <Box display="flex" sx={{ m: 10, flexDirection: "column" }}>
-        <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
-          Login
-        </Typography>
-        <LoginForm changeUser={changeUser} />
-        <Typography sx={{ mb: 2 }}>Don't have an account?</Typography>
-        <ThemeProvider theme={theme}>
-          <Link style={{ textDecoration: "none" }} to="/create-account">
-            <Button variant="outlined" color="green">
-              Sign Up
-            </Button>
-          </Link>
-        </ThemeProvider>
+        <div>
+          <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
+            Login
+          </Typography>
+          <LoginForm changeUser={changeUser} />
+          <Typography sx={{ mb: 2 }}>Don't have an account?</Typography>
+          <ThemeProvider theme={theme}>
+            <Link style={{ textDecoration: "none" }} to="/create-account">
+              <Button variant="outlined" color="green">
+                Sign Up
+              </Button>
+            </Link>
+          </ThemeProvider>
+        </div>
       </Box>
     </Container>
   );

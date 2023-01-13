@@ -1,8 +1,8 @@
-const baseUrlUsers = "http://13.40.219.208:5000/";
+const baseUrl = "http://127.0.0.1:5000/";
 
 export async function submitUser(username, password) {
   try {
-    const response = await fetch(`${baseUrlUsers}create-account`, {
+    const response = await fetch(`${baseUrl}create-account`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,12 +18,27 @@ export async function submitUser(username, password) {
 
 export async function checkUser(username, password) {
   try {
-    const response = await fetch(`${baseUrlUsers}login`, {
+    const response = await fetch(`${baseUrl}login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ username: username, password: password }),
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
+}
+
+export async function deleteUser(username) {
+  try {
+    const response = await fetch(`${baseUrl}delete-account`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username }),
     });
     return await response.json();
   } catch (e) {

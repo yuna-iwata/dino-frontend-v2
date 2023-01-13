@@ -26,11 +26,13 @@ export default function CreateAccountPage(props) {
         <CreateAccountForm changeUser={changeUser} />
         <Typography sx={{ mt: 2, mb: 2 }}>Already have an account?</Typography>
         <ThemeProvider theme={theme}>
-          <Link style={{ textDecoration: "none" }} to="/login">
-            <Button variant="outlined" color="green">
-              Log in
-            </Button>
-          </Link>
+          <div>
+            <Link style={{ textDecoration: "none" }} to="/login">
+              <Button variant="outlined" color="green">
+                Log in
+              </Button>
+            </Link>
+          </div>
         </ThemeProvider>
       </Box>
     </Container>

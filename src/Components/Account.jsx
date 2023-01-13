@@ -18,7 +18,14 @@ import ChangePassword from "./AccountPageSubPages/ChangePassword";
 import LogOutConfirmation from "./AccountPageSubPages/LogOutConfirmation";
 import DeleteAccountConfirmation from "./AccountPageSubPages/DeleteAccountConfirmation";
 
-export default function Account({ profile, username, score, rank, scoreList }) {
+export default function Account({
+  profile,
+  username,
+  score,
+  rank,
+  scoreList,
+  changeUser,
+}) {
   const tabs = {
     leaderboard: {
       text: "your leader board",
@@ -28,7 +35,15 @@ export default function Account({ profile, username, score, rank, scoreList }) {
     changeUsername: { text: "change username", page: <ChangeUsername /> },
     password: { text: "change password", page: <ChangePassword /> },
     signOut: { text: "sign out", page: <LogOutConfirmation /> },
-    delete: { text: "delete account", page: <DeleteAccountConfirmation /> },
+    delete: {
+      text: "delete account",
+      page: (
+        <DeleteAccountConfirmation
+          username={username}
+          changeUser={changeUser}
+        />
+      ),
+    },
   };
   const initialTab = Object.keys(tabs)[0];
   const [currentTab, setCurrentTab] = useState({
