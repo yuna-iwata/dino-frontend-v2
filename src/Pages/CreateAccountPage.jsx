@@ -1,3 +1,4 @@
+import Cover from "../Components/Coverphoto";
 import CreateAccountForm from "../Components/CreateAccountForm";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";

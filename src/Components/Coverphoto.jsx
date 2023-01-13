@@ -1,8 +1,8 @@
 import React from "react";
 import Card from "@mui/material/Card";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function Cover() {
@@ -16,15 +16,16 @@ export default function Cover() {
   });
 
   return (
-    <Card sx={{ display: "flex", maxHeight: 100 }}>
-      <Box sx={{ display: "flex", marginRight: 10, marginLeft: 5 }}>
-        <ThemeProvider theme={theme}>
-          <Button color="neutral">
-            <ArrowBackIosNewIcon /> back
-          </Button>
-        </ThemeProvider>
-      </Box>
-      <img src="/dinobg.jpg" alt="dino-bg" />
-    </Card>
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justify="center"
+    >
+      <Card sx={{ display: "flex", maxHeight: 100, m: 5 }}>
+        <img src="/dinobg.jpg" alt="dino-bg" />
+      </Card>
+    </Grid>
   );
 }
