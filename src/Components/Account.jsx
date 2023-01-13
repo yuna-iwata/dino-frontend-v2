@@ -11,12 +11,12 @@ import TabButton from "./TabButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CardHeader } from "@mui/material";
 
-import PersonalLeaderBoard from "./SubPagePersonalLeaderBoard";
-import AvatarSelection from "./AccountPageSubPages/SubPageAvatarSelection";
-import ChangeUsername from "./SubPageChangeUsername";
-import ChangePassword from "./AccountPageSubPages/SubPageChangePassword";
-import LogOutConfirmation from "./SubPageLogOutConfirmation";
-import DeleteAccountConfirmation from "./SubPageDeleteAccountConfirmation";
+import PersonalLeaderBoard from "./AccountPageSubPages/PersonalLeaderBoard";
+import AvatarSelection from "./AccountPageSubPages/AvatarSelection";
+import ChangeUsername from "./AccountPageSubPages/ChangeUsername";
+import ChangePassword from "./AccountPageSubPages/ChangePassword";
+import LogOutConfirmation from "./AccountPageSubPages/LogOutConfirmation";
+import DeleteAccountConfirmation from "./AccountPageSubPages/DeleteAccountConfirmation";
 
 export default function Account({ profile, username, score, rank, scoreList }) {
   const tabs = {
@@ -25,13 +25,14 @@ export default function Account({ profile, username, score, rank, scoreList }) {
       page: <PersonalLeaderBoard scoreList={scoreList} />,
     },
     avatar: { text: "change avatar", page: <AvatarSelection /> },
-    username: { text: "change username", page: <ChangeUsername /> },
+    changeUsername: { text: "change username", page: <ChangeUsername /> },
     password: { text: "change password", page: <ChangePassword /> },
     signOut: { text: "sign out", page: <LogOutConfirmation /> },
     delete: { text: "delete account", page: <DeleteAccountConfirmation /> },
   };
+  const initialTab = Object.keys(tabs)[0];
   const [currentTab, setCurrentTab] = useState({
-    text: "leaderboard",
+    text: tabs[initialTab].text,
     page: <PersonalLeaderBoard scoreList={scoreList} />,
   });
   const changeTab = (tab) => {
