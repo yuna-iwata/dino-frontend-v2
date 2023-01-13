@@ -81,8 +81,8 @@ export default function Header(props) {
             </Link>
           </Tooltip>
 
-          <Tooltip title="Log out" placement="right-start">
-            {currentUser ? (
+          {currentUser ? (
+            <Tooltip title="Log out" placement="right-start">
               <Link to="/">
                 <IconButton
                   size="large"
@@ -94,7 +94,9 @@ export default function Header(props) {
                   </Badge>
                 </IconButton>
               </Link>
-            ) : (
+            </Tooltip>
+          ) : (
+            <Tooltip title="Log in" placement="right-start">
               <Link to="/login">
                 <IconButton size="large" colour="inherit">
                   <Badge color="primary">
@@ -102,8 +104,8 @@ export default function Header(props) {
                   </Badge>
                 </IconButton>
               </Link>
-            )}
-          </Tooltip>
+            </Tooltip>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
