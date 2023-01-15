@@ -271,11 +271,11 @@ export default class HelloWorldScene extends Phaser.Scene {
       this.physics.resume();
       this.anims.resumeAll();
     });
-    if (cursors.down.isDown) {
+    if (cursors.down.isDown && player.body.velocity.x === 0) {
       player.body.height = 58 * scale;
       player.body.offset.y = 34;
     }
-    if (cursors.up.isDown) {
+    if (cursors.up.isDown && player.body.velocity.x === 0) {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
     }
@@ -293,7 +293,11 @@ export default class HelloWorldScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    if (cursors.space.isDown && player.body.onFloor()) {
+    if (
+      cursors.space.isDown &&
+      player.body.onFloor() &&
+      player.body.velocity.x === 0
+    ) {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
       player.setVelocityY(-1000);
