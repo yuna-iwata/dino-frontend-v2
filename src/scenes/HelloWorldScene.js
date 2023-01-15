@@ -131,7 +131,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    //**********SCORE AND GAME OVER********//
+    //**********SCORE********//
 
     this.displayScore = this.add
       .text(width, 0, "00000", {
@@ -142,14 +142,6 @@ export default class HelloWorldScene extends Phaser.Scene {
       .setOrigin(1, 0)
       .setAlpha(0);
     // this.scoreLabel = this.add.bitmapText(50, "myfont", "0", 128);
-    this.highScoreDisplay = this.add
-      .text(0, 0, "00000", {
-        fill: "#535353",
-        font: "900 35px Courier",
-        resolution: 5,
-      })
-      .setOrigin(1, 0)
-      .setAlpha(0);
     this.startGame();
     this.createColliders();
     this.updateScore();
@@ -196,14 +188,6 @@ export default class HelloWorldScene extends Phaser.Scene {
   createColliders() {
     // prettier-ignore
     this.physics.add.collider(player, obstacles, () => {
-      // this.highScoreDisplay.x = this.displayScore.x - this.displayScore.width - 20;
-
-      // const highScore = this.highScoreDisplay.text.substr(this.highScoreDisplay.lenfth - 5);
-
-      // const finalScore = Number(this.displayScore.text) > Number(highScore) ? this.displayScore.text : highScore
-
-      // this.highScoreDisplay.setText('HI ' + finalScore);
-      // this.highScoreDisplay.setAlpha(1);
 
       this.physics.pause();
       runGame = false
@@ -346,29 +330,4 @@ export default class HelloWorldScene extends Phaser.Scene {
       this.keyCommands();
     }
   }
-  // create() {
-  //   this.createEmitter();
-  // }
-
-  // createEmitter() {
-  //   const particles = this.add.particles("red");
-
-  //   const emitter = particles.createEmitter({
-  //     speed: 100,
-  //     scale: { start: 1, end: 0 },
-  //     blendMode: "ADD",
-  //   });
-
-  //   const logo = this.physics.add.image(400, 100, "logo");
-
-  //   logo.setVelocity(100, 200);
-  //   logo.setBounce(1, 1);
-  //   logo.setCollideWorldBounds(true);
-
-  //   emitter.startFollow(logo);
-  // }
-  // createScore() {
-  //   score++;
-  //   return score;
-  // }
 }

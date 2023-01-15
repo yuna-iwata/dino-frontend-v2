@@ -21,9 +21,10 @@ export default function Gamepage() {
   const game = new Phaser.Game(config);
 
   const [score, setScore] = useState(0);
+  let scene = game.scene.keys.helloworld as HelloWorldScene;
 
   const handleClick = () => {
-    const scene = game.scene.keys.helloworld as HelloWorldScene;
+    scene = game.scene.keys.helloworld as HelloWorldScene;
     const handlescore = scene.createScore();
     console.log(handlescore);
     setScore(handlescore);
