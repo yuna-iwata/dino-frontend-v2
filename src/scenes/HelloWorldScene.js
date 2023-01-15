@@ -66,6 +66,21 @@ export default class HelloWorldScene extends Phaser.Scene {
     player.setGravityY(3000);
 
     obstacles = this.physics.add.group();
+
+    // this.gameOverScreen = this.add
+    //   .container(width / 2, height / 2 - 50)
+    //   .setAlpha(0);
+    this.gameOverText = this.add
+      .image(width / 2, height / 2, "game-over")
+      .setAlpha(0)
+      .setScale(0.7);
+    this.restart = this.add
+      .image(width / 2, height / 2 + 50, "restart")
+      .setAlpha(0)
+      .setScale(0.6)
+      .setInteractive();
+    // this.gameOverScreen.add([this.gameOverText, this.restart]);
+
     //**********ANIMATIONS********//
 
     this.anims.create({
@@ -108,13 +123,6 @@ export default class HelloWorldScene extends Phaser.Scene {
       })
       .setOrigin(1, 0)
       .setAlpha(0);
-
-    // this.gameOverScreen = this.add
-    //   .container(width / 2, height / 2 - 50)
-    //   .setAlpha(0);
-    // this.gameOverText = this.add.image(0, 0, "game-over");
-    // this.restart = this.add.image(0, 80, "restart").setInteractive();
-    // this.gameOverScreen.add([this.gameOverText, this.restart]);
 
     //**********START GAME WITH SPACEBAR********//
     // prettier-ignore
@@ -176,7 +184,8 @@ export default class HelloWorldScene extends Phaser.Scene {
       //this.gameOverScreen.setAlpha(1);
       renderTime = 0;
       this.speed = 10;
-
+      this.gameOverText.setAlpha(1)
+      this.restart.setAlpha(1)
     }, null, this);
   }
 
@@ -218,6 +227,18 @@ export default class HelloWorldScene extends Phaser.Scene {
   }
 
   keyCommands() {
+    this.restart.on("pointerdown", () => {
+      player.setVelocityY(0);
+      player.body.height = 92 * scale;
+      player.body.offset.y = 0;
+      obstacles.clear(true, true);
+      runGame = true;
+      this.gameOverText.setAlpha(0);
+      this.restart.setAlpha(0);
+      score = 0;
+      this.physics.resume();
+      this.anims.resumeAll();
+    });
     if (cursors.down.isDown) {
       player.body.height = 58 * scale;
       player.body.offset.y = 34;
