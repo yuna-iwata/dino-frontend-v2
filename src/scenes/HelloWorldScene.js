@@ -20,12 +20,17 @@ export default class HelloWorldScene extends Phaser.Scene {
 
   preload() {
     this.load.setBaseURL("https://chrome-dino-game.s3.amazonaws.com/assets");
+    //**********LOAD AUDIO********//
+    this.load.audio("jump-audio", "jump.m4a");
+    this.load.audio("hit-audio", "hit.m4a");
+    this.load.audio("reach-audio", "reach.m4a");
     //**********LOAD IMAGES********//
     this.load.image("ground", "ground.png");
     this.load.image("dino-idle", "dino-idle.png");
     this.load.image("dino-hurt", "dino-hurt.png");
     this.load.image("restart", "restart.png");
     this.load.image("game-over", "game-over.png");
+    this.load.image("cloud", "cloud.png");
     //**********LOAD SPRITEs********//
     this.load.spritesheet("enemy-bird", "enemy-bird.png", {
       frameWidth: 92,
@@ -58,7 +63,7 @@ export default class HelloWorldScene extends Phaser.Scene {
       .setScale(scale);
 
     startBox = this.physics.add
-      .sprite(0, height - 200, "hi")
+      .sprite(0, height - 100, "hi")
       .setOrigin(0, 1)
       .setImmovable();
 
@@ -72,9 +77,6 @@ export default class HelloWorldScene extends Phaser.Scene {
 
     obstacles = this.physics.add.group();
 
-    // this.gameOverScreen = this.add
-    //   .container(width / 2, height / 2 - 50)
-    //   .setAlpha(0);
     this.gameOverText = this.add
       .image(width / 2, height / 2, "game-over")
       .setAlpha(0)
@@ -84,8 +86,19 @@ export default class HelloWorldScene extends Phaser.Scene {
       .setAlpha(0)
       .setScale(0.6)
       .setInteractive();
-    // this.gameOverScreen.add([this.gameOverText, this.restart]);
 
+    this.clouds = this.add.group();
+    this.clouds.addMultiple([
+      this.add.image(400, 130, "cloud"),
+      this.add.image(600, 100, "cloud"),
+      this.add.image(700, 50, "cloud"),
+    ]);
+
+    this.clouds.setAlpha(0);
+
+    this.jumpSound = this.sound.add("jump-audio", { volume: 0.2 });
+    this.gameOverSound = this.sound.add("hit-audio", { volume: 0.2 });
+    this.reachSound = this.sound.add("reach-audio", { volume: 0.2 });
     //**********ANIMATIONS********//
 
     this.anims.create({
@@ -137,7 +150,12 @@ export default class HelloWorldScene extends Phaser.Scene {
       })
       .setOrigin(1, 0)
       .setAlpha(0);
+    this.startGame();
+    this.createColliders();
+    this.updateScore();
+  }
 
+  startGame() {
     //**********START GAME WITH SPACEBAR********//
     // prettier-ignore
     this.physics.add.overlap(startBox, player, () => {
@@ -165,9 +183,6 @@ export default class HelloWorldScene extends Phaser.Scene {
       })
    
     }, null, this);
-
-    this.createColliders();
-    this.updateScore();
   }
 
   createScore() {
@@ -195,12 +210,12 @@ export default class HelloWorldScene extends Phaser.Scene {
       this.anims.pauseAll()
       player.setTexture("dino-hurt");
       console.log('hi')
-      //this.gameOverScreen.setAlpha(1);
       renderTime = 0;
       readyForBird = 0;
       this.speed = 10;
       this.gameOverText.setAlpha(1)
       this.restart.setAlpha(1)
+      this.gameOverSound.play()
     }, null, this);
   }
 
@@ -230,24 +245,25 @@ export default class HelloWorldScene extends Phaser.Scene {
 
   updateScore() {
     this.time.addEvent({
-      delay: 1000 / 10,
+      delay: 1000 / 7,
       loop: true,
       callbackScope: this,
       callback: () => {
         if (runGame) {
           score++;
           this.speed += 0.01;
-        }
 
-        // if (this.score % 100 === 0) {
-        //   this.tweens.add({
-        //     targets: this.displayScore,
-        //     duration: 100,
-        //     repeat: 3,
-        //     alpha: 0,
-        //     yoyo: true,
-        //   });
-        // }
+          if (score % 100 === 0) {
+            this.reachSound.play();
+            this.tweens.add({
+              targets: this.displayScore,
+              duration: 100,
+              repeat: 3,
+              alpha: 0,
+              yoyo: true,
+            });
+          }
+        }
 
         let zeroArray = new Array(5 - String(score).length).fill(0);
         let scoreArray = Array.from(String(score), Number);
@@ -298,13 +314,21 @@ export default class HelloWorldScene extends Phaser.Scene {
       player.body.onFloor() &&
       player.body.velocity.x === 0
     ) {
+      this.jumpSound.play();
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
-      player.setVelocityY(-1000);
+      player.setVelocityY(-900);
       console.log("jump");
     }
     //**********START GAME********//
     if (runGame) {
+      this.clouds.setAlpha(1);
+      Phaser.Actions.IncX(this.clouds.getChildren(), -this.speed * scale * 0.5);
+      this.clouds.getChildren().forEach((cloud) => {
+        if (cloud.getBounds().right < 0) {
+          cloud.x = width + 30;
+        }
+      });
       this.ground.tilePositionX += this.speed;
       //**********OBSTACLES********//
       Phaser.Actions.IncX(obstacles.getChildren(), -this.speed * scale);
