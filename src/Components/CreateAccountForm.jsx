@@ -49,7 +49,7 @@ export default function CreateAccountForm(props) {
         if (response.code === 200) {
           changeUser(values.username);
           navigate("/game");
-        } else if (response.code === 304) {
+        } else if (response.code === 500) {
           setUsernameExists(true);
         }
       },
@@ -57,7 +57,7 @@ export default function CreateAccountForm(props) {
   );
 
   return (
-    <>
+    <div>
       <style type="text/css">
         {`
     .btn-flat {
@@ -71,7 +71,7 @@ export default function CreateAccountForm(props) {
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="username"
-            placeholder="Enter username"
+            placeholder="Username"
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -116,6 +116,6 @@ export default function CreateAccountForm(props) {
           </p>
         ) : null}
       </Form>
-    </>
+    </div>
   );
 }

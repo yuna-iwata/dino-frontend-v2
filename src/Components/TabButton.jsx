@@ -22,7 +22,6 @@ export default function TabButton(props) {
   } else if (tab === "delete") {
     icon = <DeleteIcon />;
   }
-  console.log(currentTab, tabs[tab].text);
   return (
     <Button
       variant={currentTab.text === tabs[tab].text ? "contained" : "outlined"}
