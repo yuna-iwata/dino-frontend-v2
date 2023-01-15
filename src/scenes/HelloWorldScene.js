@@ -3,6 +3,7 @@ var player;
 var cursors;
 var startBox;
 var obstacles;
+var readyForBird = 0;
 var runGame = false;
 var renderTime = 0;
 var score = 0;
@@ -26,6 +27,10 @@ export default class HelloWorldScene extends Phaser.Scene {
     this.load.image("restart", "restart.png");
     this.load.image("game-over", "game-over.png");
     //**********LOAD SPRITEs********//
+    this.load.spritesheet("enemy-bird", "enemy-bird.png", {
+      frameWidth: 92,
+      frameHeight: 77,
+    });
     this.load.spritesheet("dino-run", "dino-run.png", {
       frameWidth: 88,
       frameHeight: 94,
@@ -99,6 +104,15 @@ export default class HelloWorldScene extends Phaser.Scene {
         end: 1,
       }),
       frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "enemy-bird-anim",
+      frames: this.anims.generateFrameNumbers("enemy-bird", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 6,
       repeat: -1,
     });
 
@@ -183,6 +197,7 @@ export default class HelloWorldScene extends Phaser.Scene {
       console.log('hi')
       //this.gameOverScreen.setAlpha(1);
       renderTime = 0;
+      readyForBird = 0;
       this.speed = 10;
       this.gameOverText.setAlpha(1)
       this.restart.setAlpha(1)
@@ -190,10 +205,27 @@ export default class HelloWorldScene extends Phaser.Scene {
   }
 
   renderObstacles() {
-    const obstacleNum = Math.floor(Math.random() * 6) + 1;
-    let obstacle = obstacles.create(width, height, `cacti${obstacleNum}`);
-    obstacle.body.offset.y = 10;
-    obstacle.setOrigin(0, 1).setImmovable().setScale(scale);
+    const obstacleNum = Math.floor(Math.random() * 7) + 1;
+    console.log(obstacleNum);
+    if (obstacleNum === 7 && readyForBird > 5) {
+      const birdHeight = [22, 50];
+      let obstacle = obstacles
+        .create(
+          this.game.config.width,
+          this.game.config.height - birdHeight[Math.floor(Math.random() * 2)],
+          `enemy-bird`
+        )
+        .setOrigin(0, 1)
+        .setScale(scale);
+      obstacle.anims.play("enemy-bird-anim", 1);
+      obstacle.body.height = obstacle.body.height / 1.5;
+    } else if (obstacleNum < 7) {
+      readyForBird += 1;
+      console.log(readyForBird);
+      let obstacle = obstacles.create(width, height, `cacti${obstacleNum}`);
+      obstacle.body.offset.y = 10;
+      obstacle.setOrigin(0, 1).setImmovable().setScale(scale);
+    }
   }
 
   updateScore() {
@@ -273,7 +305,7 @@ export default class HelloWorldScene extends Phaser.Scene {
       //**********OBSTACLES********//
       Phaser.Actions.IncX(obstacles.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
-      if (renderTime >= 1300 && obstaclesRendered === 0) {
+      if (renderTime >= 500 && obstaclesRendered === 0) {
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         this.renderObstacles();
         obstaclesRendered += 1;
