@@ -1,16 +1,13 @@
-<<<<<<< HEAD
-# dino-frontend-v2
+# Phaser 3 + Create React App
 
-To setup, run 'npm install'
-To start the app, run 'npm start'
-=======
-# Getting Started with Create React App
+## What's included? - [Check the preview](https://create-react-phaser3-app.netlify.app/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Phaser 3](https://github.com/photonstorm/phaser) - overlaid canvas with the config in `src/PhaserGame.ts` and a scene in `src/scenes/`
+- [Create React App](https://github.com/facebook/create-react-app) - React, TSX, ES6, TypeScript, no need to install bundler, ...etc
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+Clone the project and in the project directory, you can run:
 
 ### `npm start`
 
@@ -74,4 +71,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> 3603823b114d5939e82fdd36e3d9ceb3ed8c39e3

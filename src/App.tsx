@@ -1,17 +1,19 @@
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import Header from "./Components/Header";
-import WelcomePage from "./Pages/WelcomePage";
+import logo from "./logo.svg";
+import "./App.css";
 import GamePage from "./Pages/GamePage";
+import WelcomePage from "./Pages/WelcomePage";
+import Header from "./Components/Header";
+import AccountPage from "./Pages/AccountPage";
 import CreateAccountPage from "./Pages/CreateAccountPage";
 import LoginPage from "./Pages/LoginPage";
 import LeaderboardPage from "./Pages/LeaderboardPage";
-import AccountPage from "./Pages/AccountPage";
-import "./App.css";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const changeUser = (username) => {
+  const changeUser = (username: any) => {
     setCurrentUser(username);
   };
 
@@ -27,7 +29,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header currentUser={currentUser} changeUser={changeUser} />
+      <Header />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/game" element={<GamePage />} />

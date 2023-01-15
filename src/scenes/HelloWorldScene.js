@@ -1,27 +1,30 @@
 import Phaser from "phaser";
-
 var player;
 var cursors;
 var startBox;
 var obstacles;
 var runGame = false;
 var renderTime = 0;
+var score = 0;
 var obstaclesRendered = 0;
 var timeBetweenObstacles = 0;
 const width = 1000;
 const height = 300;
 const scale = 0.5;
 
-class MyGame extends Phaser.Scene {
-  // constructor() {
-  //   super();
-  // }
+export default class HelloWorldScene extends Phaser.Scene {
+  constructor() {
+    super("helloworld");
+  }
 
   preload() {
     this.load.setBaseURL("https://chrome-dino-game.s3.amazonaws.com/assets");
     //**********LOAD IMAGES********//
     this.load.image("ground", "ground.png");
     this.load.image("dino-idle", "dino-idle.png");
+    this.load.image("dino-hurt", "dino-hurt.png");
+    this.load.image("restart", "restart.png");
+    this.load.image("game-over", "game-over.png");
     //**********LOAD SPRITEs********//
     this.load.spritesheet("dino-run", "dino-run.png", {
       frameWidth: 88,
@@ -38,13 +41,11 @@ class MyGame extends Phaser.Scene {
     this.load.image("cacti4", "smallcacti-1.png");
     this.load.image("cacti5", "smallcacti-2.png");
     this.load.image("cacti6", "smallcacti-3.png");
-    this.load.image("dino-hurt", "dino-hurt.png");
+    this.load.bitmapFont("myfont", "dino-pixel.png", "dino-pixel.fnt");
   }
-
   create() {
     //**********SET UP STATIC OBJECTS********//
     this.speed = 10;
-    this.score = 0;
 
     this.ground = this.add
       .tileSprite(0, height, 100, 26, "ground")
@@ -52,7 +53,7 @@ class MyGame extends Phaser.Scene {
       .setScale(scale);
 
     startBox = this.physics.add
-      .sprite(0, height - 200)
+      .sprite(0, height - 200, "hi")
       .setOrigin(0, 1)
       .setImmovable();
 
@@ -98,7 +99,7 @@ class MyGame extends Phaser.Scene {
       })
       .setOrigin(1, 0)
       .setAlpha(0);
-
+    // this.scoreLabel = this.add.bitmapText(50, "myfont", "0", 128);
     this.highScoreDisplay = this.add
       .text(0, 0, "00000", {
         fill: "#535353",
@@ -108,12 +109,12 @@ class MyGame extends Phaser.Scene {
       .setOrigin(1, 0)
       .setAlpha(0);
 
-    this.gameOverScreen = this.add
-      .container(width / 2, height / 2 - 50)
-      .setAlpha(0);
-    this.gameOverText = this.add.image(0, 0, "game-over");
-    this.restart = this.add.image(0, 80, "restart").setInteractive();
-    this.gameOverScreen.add([this.gameOverText, this.restart]);
+    // this.gameOverScreen = this.add
+    //   .container(width / 2, height / 2 - 50)
+    //   .setAlpha(0);
+    // this.gameOverText = this.add.image(0, 0, "game-over");
+    // this.restart = this.add.image(0, 80, "restart").setInteractive();
+    // this.gameOverScreen.add([this.gameOverText, this.restart]);
 
     //**********START GAME WITH SPACEBAR********//
     // prettier-ignore
@@ -144,29 +145,37 @@ class MyGame extends Phaser.Scene {
     }, null, this);
 
     this.createColliders();
-    this.handleScore();
+    this.updateScore();
+  }
+
+  createScore() {
+    if (!runGame) {
+      return score;
+    } else {
+      return 0;
+    }
   }
 
   createColliders() {
     // prettier-ignore
     this.physics.add.collider(player, obstacles, () => {
-      this.highScoreDisplay.x = this.displayScore.x - this.displayScore.width - 20;
+      // this.highScoreDisplay.x = this.displayScore.x - this.displayScore.width - 20;
 
-      const highScore = this.highScoreDisplay.text.substr(this.highScoreDisplay.lenfth - 5);
+      // const highScore = this.highScoreDisplay.text.substr(this.highScoreDisplay.lenfth - 5);
 
-      const finalScore = Number(this.displayScore.text) > Number(highScore) ? this.displayScore.text : highScore
+      // const finalScore = Number(this.displayScore.text) > Number(highScore) ? this.displayScore.text : highScore
 
-      this.highScoreDisplay.setText('HI ' + finalScore);
-      this.highScoreDisplay.setAlpha(1);
+      // this.highScoreDisplay.setText('HI ' + finalScore);
+      // this.highScoreDisplay.setAlpha(1);
 
       this.physics.pause();
-      this.runGame = false
-      this.player.setTexture('dino-hurt')
+      runGame = false
       this.anims.pauseAll()
-      this.gameOverScreen.setAlpha(1);
-      this.renderTime = 0;
+      player.setTexture("dino-hurt");
+      console.log('hi')
+      //this.gameOverScreen.setAlpha(1);
+      renderTime = 0;
       this.speed = 10;
-      this.score = 0;
 
     }, null, this);
   }
@@ -178,35 +187,32 @@ class MyGame extends Phaser.Scene {
     obstacle.setOrigin(0, 1).setImmovable().setScale(scale);
   }
 
-  handleScore() {
+  updateScore() {
     this.time.addEvent({
       delay: 1000 / 10,
       loop: true,
       callbackScope: this,
       callback: () => {
-        if (!this.runGame) {
-          return;
+        if (runGame) {
+          score++;
+          this.speed += 0.01;
         }
 
-        this.score++;
-        this.speed += 0.01;
+        // if (this.score % 100 === 0) {
+        //   this.tweens.add({
+        //     targets: this.displayScore,
+        //     duration: 100,
+        //     repeat: 3,
+        //     alpha: 0,
+        //     yoyo: true,
+        //   });
+        // }
 
-        if (this.score % 100 === 0) {
-          this.tweens.add({
-            targets: this.displayScore,
-            duration: 100,
-            repeat: 3,
-            alpha: 0,
-            yoyo: true,
-          });
-        }
+        let zeroArray = new Array(5 - String(score).length).fill(0);
+        let scoreArray = Array.from(String(score), Number);
+        let zeroScoreArray = zeroArray.concat(scoreArray);
 
-        const score = Array.from(String(this.score), Number);
-        for (let i = 0; i < 5 - String(this.score).length; i++) {
-          score.unshift(0);
-        }
-
-        this.displayScore.setText(score.join(""));
+        this.displayScore.setText(zeroScoreArray.join(""));
       },
     });
   }
@@ -246,11 +252,7 @@ class MyGame extends Phaser.Scene {
       //**********OBSTACLES********//
       Phaser.Actions.IncX(obstacles.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
-      console.log(renderTime);
-      console.log("time between");
-      console.log(timeBetweenObstacles);
       if (renderTime >= 1300 && obstaclesRendered === 0) {
-        console.log("first");
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         this.renderObstacles();
         obstaclesRendered += 1;
@@ -263,25 +265,29 @@ class MyGame extends Phaser.Scene {
       this.keyCommands();
     }
   }
-}
+  // create() {
+  //   this.createEmitter();
+  // }
 
-const config = {
-  type: Phaser.AUTO,
-  pixelArt: true,
-  transparent: true,
-  autoCenter: true,
-  physics: {
-    default: "arcade",
-    arcade: {
-      debug: true,
-    },
-  },
-  width: 1000,
-  height: 300,
-  scene: MyGame,
-};
+  // createEmitter() {
+  //   const particles = this.add.particles("red");
 
-export default function Game() {
-  // const game = new Phaser.Game(config);
-  new Phaser.Game(config);
+  //   const emitter = particles.createEmitter({
+  //     speed: 100,
+  //     scale: { start: 1, end: 0 },
+  //     blendMode: "ADD",
+  //   });
+
+  //   const logo = this.physics.add.image(400, 100, "logo");
+
+  //   logo.setVelocity(100, 200);
+  //   logo.setBounce(1, 1);
+  //   logo.setCollideWorldBounds(true);
+
+  //   emitter.startFollow(logo);
+  // }
+  // createScore() {
+  //   score++;
+  //   return score;
+  // }
 }
