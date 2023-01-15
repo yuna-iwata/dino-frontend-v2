@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import HelloWorldScene from "../scenes/HelloWorldScene";
+//
 
 export default function Gamepage() {
   const config: Phaser.Types.Core.GameConfig = {
