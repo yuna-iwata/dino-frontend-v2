@@ -40,7 +40,10 @@ export default function Account({
       text: "change password",
       page: <ChangePassword changeTab={changeTab} username={username} />,
     },
-    signOut: { text: "sign out", page: <LogOutConfirmation /> },
+    signOut: {
+      text: "sign out",
+      page: <LogOutConfirmation changeTab={changeTab} />,
+    },
     delete: {
       text: "delete account",
       page: (

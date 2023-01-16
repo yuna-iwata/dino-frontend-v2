@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Typography, Button, Grid, Box } from "@mui/material";
+import { Typography, Button, Box } from "@mui/material";
 
-export default function LogOutConfirmation() {
+export default function LogOutConfirmation({ changeTab }) {
   return (
     <Box
       sx={{
@@ -10,7 +10,9 @@ export default function LogOutConfirmation() {
         boxShadow: 1,
         borderRadius: 2,
         p: 2,
-        minWidth: 300,
+        width: 400,
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Typography variant="h5" sx={{ color: "#74D193" }}>
@@ -19,9 +21,13 @@ export default function LogOutConfirmation() {
       <Link to="/" style={{ textDecoration: "none" }}>
         <Button>Yes</Button>
       </Link>
-      <Link to="/account-page" style={{ textDecoration: "none" }}>
-        <Button>No</Button>
-      </Link>
+      <Button
+        onClick={() => {
+          changeTab("leaderboard");
+        }}
+      >
+        No
+      </Button>
     </Box>
   );
 }
