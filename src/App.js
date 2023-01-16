@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import "./App.css";
-import GamePage from "./Pages/GamePage";
-import WelcomePage from "./Pages/WelcomePage";
 import Header from "./Components/Header";
-import AccountPage from "./Pages/AccountPage";
+import WelcomePage from "./Pages/WelcomePage";
+import GamePage from "./Pages/GamePage";
 import CreateAccountPage from "./Pages/CreateAccountPage";
 import LoginPage from "./Pages/LoginPage";
 import LeaderboardPage from "./Pages/LeaderboardPage";
+import AccountPage from "./Pages/AccountPage";
+import "./App.css";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const changeUser = (username: any) => {
+  const changeUser = (username) => {
     setCurrentUser(username);
   };
 
@@ -27,7 +27,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+      <Header currentUser={currentUser} changeUser={changeUser} />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/game" element={<GamePage />} />
