@@ -65,7 +65,7 @@ export default function CreateAccountForm(props) {
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="username"
-            placeholder="Enter username"
+            placeholder="Username"
             onChange={handleChange}
             onBlur={handleBlur}
           />

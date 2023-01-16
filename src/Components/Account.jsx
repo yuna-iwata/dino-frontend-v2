@@ -26,6 +26,9 @@ export default function Account({
   scoreList,
   changeUser,
 }) {
+  const changeTab = (tab) => {
+    setCurrentTab(tabs[tab]);
+  };
   const tabs = {
     leaderboard: {
       text: "your leader board",
@@ -33,8 +36,11 @@ export default function Account({
     },
     avatar: { text: "change avatar", page: <AvatarSelection /> },
     changeUsername: { text: "change username", page: <ChangeUsername /> },
-    password: { text: "change password", page: <ChangePassword /> },
-    signOut: { text: "sign out", page: <LogOutConfirmation changeTab /> },
+    password: {
+      text: "change password",
+      page: <ChangePassword changeTab={changeTab} username={username} />,
+    },
+    signOut: { text: "sign out", page: <LogOutConfirmation /> },
     delete: {
       text: "delete account",
       page: (
@@ -50,9 +56,6 @@ export default function Account({
     text: tabs[initialTab].text,
     page: <PersonalLeaderBoard scoreList={scoreList} />,
   });
-  const changeTab = (tab) => {
-    setCurrentTab(tabs[tab]);
-  };
   const theme = createTheme({
     palette: {
       neutral: {

@@ -1,28 +1,41 @@
 import Phaser from "phaser";
-
 var player;
 var cursors;
 var startBox;
 var obstacles;
+var readyForBird = 0;
 var runGame = false;
 var renderTime = 0;
+var score = 0;
 var obstaclesRendered = 0;
 var timeBetweenObstacles = 0;
 const width = 1000;
 const height = 300;
 const scale = 0.5;
 
-class MyGame extends Phaser.Scene {
-  // constructor() {
-  //   super();
-  // }
+export default class DinoGameScene extends Phaser.Scene {
+  constructor() {
+    super("helloworld");
+  }
 
   preload() {
     this.load.setBaseURL("https://chrome-dino-game.s3.amazonaws.com/assets");
+    //**********LOAD AUDIO********//
+    this.load.audio("jump-audio", "jump.m4a");
+    this.load.audio("hit-audio", "hit.m4a");
+    this.load.audio("reach-audio", "reach.m4a");
     //**********LOAD IMAGES********//
     this.load.image("ground", "ground.png");
     this.load.image("dino-idle", "dino-idle.png");
+    this.load.image("dino-hurt", "dino-hurt.png");
+    this.load.image("restart", "restart.png");
+    this.load.image("game-over", "game-over.png");
+    this.load.image("cloud", "cloud.png");
     //**********LOAD SPRITEs********//
+    this.load.spritesheet("enemy-bird", "enemy-bird.png", {
+      frameWidth: 92,
+      frameHeight: 77,
+    });
     this.load.spritesheet("dino-run", "dino-run.png", {
       frameWidth: 88,
       frameHeight: 94,
@@ -38,13 +51,11 @@ class MyGame extends Phaser.Scene {
     this.load.image("cacti4", "smallcacti-1.png");
     this.load.image("cacti5", "smallcacti-2.png");
     this.load.image("cacti6", "smallcacti-3.png");
-    this.load.image("dino-hurt", "dino-hurt.png");
+    this.load.bitmapFont("myfont", "dino-pixel.png", "dino-pixel.fnt");
   }
-
   create() {
     //**********SET UP STATIC OBJECTS********//
     this.speed = 10;
-    this.score = 0;
 
     this.ground = this.add
       .tileSprite(0, height, 100, 26, "ground")
@@ -52,7 +63,7 @@ class MyGame extends Phaser.Scene {
       .setScale(scale);
 
     startBox = this.physics.add
-      .sprite(0, height - 200)
+      .sprite(0, height - 100, "hi")
       .setOrigin(0, 1)
       .setImmovable();
 
@@ -65,6 +76,29 @@ class MyGame extends Phaser.Scene {
     player.setGravityY(3000);
 
     obstacles = this.physics.add.group();
+
+    this.gameOverText = this.add
+      .image(width / 2, height / 2, "game-over")
+      .setAlpha(0)
+      .setScale(0.7);
+    this.restart = this.add
+      .image(width / 2, height / 2 + 50, "restart")
+      .setAlpha(0)
+      .setScale(0.6)
+      .setInteractive();
+
+    this.clouds = this.add.group();
+    this.clouds.addMultiple([
+      this.add.image(400, 130, "cloud"),
+      this.add.image(600, 100, "cloud"),
+      this.add.image(700, 50, "cloud"),
+    ]);
+
+    this.clouds.setAlpha(0);
+
+    this.jumpSound = this.sound.add("jump-audio", { volume: 0.2 });
+    this.gameOverSound = this.sound.add("hit-audio", { volume: 0.2 });
+    this.reachSound = this.sound.add("reach-audio", { volume: 0.2 });
     //**********ANIMATIONS********//
 
     this.anims.create({
@@ -85,10 +119,19 @@ class MyGame extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
+    this.anims.create({
+      key: "enemy-bird-anim",
+      frames: this.anims.generateFrameNumbers("enemy-bird", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 6,
+      repeat: -1,
+    });
 
     cursors = this.input.keyboard.createCursorKeys();
 
-    //**********SCORE AND GAME OVER********//
+    //**********SCORE********//
 
     this.displayScore = this.add
       .text(width, 0, "00000", {
@@ -98,23 +141,13 @@ class MyGame extends Phaser.Scene {
       })
       .setOrigin(1, 0)
       .setAlpha(0);
+    // this.scoreLabel = this.add.bitmapText(50, "myfont", "0", 128);
+    this.startGame();
+    this.createColliders();
+    this.updateScore();
+  }
 
-    this.highScoreDisplay = this.add
-      .text(0, 0, "00000", {
-        fill: "#535353",
-        font: "900 35px Courier",
-        resolution: 5,
-      })
-      .setOrigin(1, 0)
-      .setAlpha(0);
-
-    this.gameOverScreen = this.add
-      .container(width / 2, height / 2 - 50)
-      .setAlpha(0);
-    this.gameOverText = this.add.image(0, 0, "game-over");
-    this.restart = this.add.image(0, 80, "restart").setInteractive();
-    this.gameOverScreen.add([this.gameOverText, this.restart]);
-
+  startGame() {
     //**********START GAME WITH SPACEBAR********//
     // prettier-ignore
     this.physics.add.overlap(startBox, player, () => {
@@ -142,81 +175,107 @@ class MyGame extends Phaser.Scene {
       })
    
     }, null, this);
+  }
 
-    this.createColliders();
-    this.handleScore();
+  createScore() {
+    if (!runGame) {
+      return score;
+    } else {
+      return 0;
+    }
   }
 
   createColliders() {
     // prettier-ignore
     this.physics.add.collider(player, obstacles, () => {
-      this.highScoreDisplay.x = this.displayScore.x - this.displayScore.width - 20;
-
-      const highScore = this.highScoreDisplay.text.substr(this.highScoreDisplay.lenfth - 5);
-
-      const finalScore = Number(this.displayScore.text) > Number(highScore) ? this.displayScore.text : highScore
-
-      this.highScoreDisplay.setText('HI ' + finalScore);
-      this.highScoreDisplay.setAlpha(1);
 
       this.physics.pause();
-      this.runGame = false
-      this.player.setTexture('dino-hurt')
+      runGame = false
       this.anims.pauseAll()
-      this.gameOverScreen.setAlpha(1);
-      this.renderTime = 0;
+      player.setTexture("dino-hurt");
+      console.log('hi')
+      renderTime = 0;
+      readyForBird = 0;
       this.speed = 10;
-      this.score = 0;
-
+      this.gameOverText.setAlpha(1)
+      this.restart.setAlpha(1)
+      this.gameOverSound.play()
     }, null, this);
   }
 
   renderObstacles() {
-    const obstacleNum = Math.floor(Math.random() * 6) + 1;
-    let obstacle = obstacles.create(width, height, `cacti${obstacleNum}`);
-    obstacle.body.offset.y = 10;
-    obstacle.setOrigin(0, 1).setImmovable().setScale(scale);
+    const obstacleNum = Math.floor(Math.random() * 7) + 1;
+    console.log(obstacleNum);
+    if (obstacleNum === 7 && readyForBird > 5) {
+      const birdHeight = [22, 50];
+      let obstacle = obstacles
+        .create(
+          this.game.config.width,
+          this.game.config.height - birdHeight[Math.floor(Math.random() * 2)],
+          `enemy-bird`
+        )
+        .setOrigin(0, 1)
+        .setScale(scale);
+      obstacle.anims.play("enemy-bird-anim", 1);
+      obstacle.body.height = obstacle.body.height / 1.5;
+    } else if (obstacleNum < 7) {
+      readyForBird += 1;
+      console.log(readyForBird);
+      let obstacle = obstacles.create(width, height, `cacti${obstacleNum}`);
+      obstacle.body.offset.y = 10;
+      obstacle.setOrigin(0, 1).setImmovable().setScale(scale);
+    }
   }
 
-  handleScore() {
+  updateScore() {
     this.time.addEvent({
-      delay: 1000 / 10,
+      delay: 1000 / 7,
       loop: true,
       callbackScope: this,
       callback: () => {
-        if (!this.runGame) {
-          return;
+        if (runGame) {
+          score++;
+          this.speed += 0.01;
+
+          if (score % 100 === 0) {
+            this.reachSound.play();
+            this.tweens.add({
+              targets: this.displayScore,
+              duration: 100,
+              repeat: 3,
+              alpha: 0,
+              yoyo: true,
+            });
+          }
         }
 
-        this.score++;
-        this.speed += 0.01;
+        let zeroArray = new Array(5 - String(score).length).fill(0);
+        let scoreArray = Array.from(String(score), Number);
+        let zeroScoreArray = zeroArray.concat(scoreArray);
 
-        if (this.score % 100 === 0) {
-          this.tweens.add({
-            targets: this.displayScore,
-            duration: 100,
-            repeat: 3,
-            alpha: 0,
-            yoyo: true,
-          });
-        }
-
-        const score = Array.from(String(this.score), Number);
-        for (let i = 0; i < 5 - String(this.score).length; i++) {
-          score.unshift(0);
-        }
-
-        this.displayScore.setText(score.join(""));
+        this.displayScore.setText(zeroScoreArray.join(""));
       },
     });
   }
 
   keyCommands() {
-    if (cursors.down.isDown) {
+    this.restart.on("pointerdown", () => {
+      player.setVelocityY(0);
+      player.body.height = 92 * scale;
+      player.body.offset.y = 0;
+      obstacles.clear(true, true);
+      runGame = true;
+      this.gameOverText.setAlpha(0);
+      this.restart.setAlpha(0);
+      score = 0;
+      this.physics.resume();
+      this.anims.resumeAll();
+    });
+    if (cursors.down.isDown && player.body.velocity.x === 0) {
       player.body.height = 58 * scale;
       player.body.offset.y = 34;
     }
-    if (cursors.up.isDown) {
+    if (cursors.up.isDown && player.body.velocity.x === 0) {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
     }
@@ -234,23 +293,31 @@ class MyGame extends Phaser.Scene {
   }
 
   update(time, delta) {
-    if (cursors.space.isDown && player.body.onFloor()) {
+    if (
+      cursors.space.isDown &&
+      player.body.onFloor() &&
+      player.body.velocity.x === 0
+    ) {
+      this.jumpSound.play();
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
-      player.setVelocityY(-1000);
+      player.setVelocityY(-900);
       console.log("jump");
     }
     //**********START GAME********//
     if (runGame) {
+      this.clouds.setAlpha(1);
+      Phaser.Actions.IncX(this.clouds.getChildren(), -this.speed * scale * 0.5);
+      this.clouds.getChildren().forEach((cloud) => {
+        if (cloud.getBounds().right < 0) {
+          cloud.x = width + 30;
+        }
+      });
       this.ground.tilePositionX += this.speed;
       //**********OBSTACLES********//
       Phaser.Actions.IncX(obstacles.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
-      console.log(renderTime);
-      console.log("time between");
-      console.log(timeBetweenObstacles);
-      if (renderTime >= 1300 && obstaclesRendered === 0) {
-        console.log("first");
+      if (renderTime >= 500 && obstaclesRendered === 0) {
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         this.renderObstacles();
         obstaclesRendered += 1;
@@ -263,25 +330,4 @@ class MyGame extends Phaser.Scene {
       this.keyCommands();
     }
   }
-}
-
-const config = {
-  type: Phaser.AUTO,
-  pixelArt: true,
-  transparent: true,
-  autoCenter: true,
-  physics: {
-    default: "arcade",
-    arcade: {
-      debug: true,
-    },
-  },
-  width: 1000,
-  height: 300,
-  scene: MyGame,
-};
-
-export default function Game() {
-  // const game = new Phaser.Game(config);
-  new Phaser.Game(config);
 }
