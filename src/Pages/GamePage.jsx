@@ -38,6 +38,7 @@ export default function Gamepage({ game, setGame, currentUser }) {
     console.log(handlescore);
     setScore(handlescore);
     const response = await submitScore(handlescore, currentUser);
+    console.log(response);
   };
 
   return (
