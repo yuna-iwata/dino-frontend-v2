@@ -34,7 +34,7 @@ export default function Account({
     avatar: { text: "change avatar", page: <AvatarSelection /> },
     changeUsername: { text: "change username", page: <ChangeUsername /> },
     password: { text: "change password", page: <ChangePassword /> },
-    signOut: { text: "sign out", page: <LogOutConfirmation /> },
+    signOut: { text: "sign out", page: <LogOutConfirmation changeTab /> },
     delete: {
       text: "delete account",
       page: (
@@ -138,7 +138,9 @@ export default function Account({
             </ThemeProvider>
           </Stack>
         </Grid>
-        {currentTab.page}
+        <Grid container justifyContent="space-between">
+          {currentTab.page}
+        </Grid>
       </Box>
     </Container>
   );
