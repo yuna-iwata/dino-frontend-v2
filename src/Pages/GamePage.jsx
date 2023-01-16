@@ -28,7 +28,8 @@ export default function Gamepage({ game, setGame }) {
       const newGame = new Phaser.Game(gameConfig);
       setGame(newGame);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClick = () => {
     let scene = game.scene.keys.helloworld;
