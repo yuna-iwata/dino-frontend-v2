@@ -17,7 +17,7 @@ import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 export default function Header(props) {
-  const { currentUser, changeUser } = props;
+  const { currentUser, changeUser, currentAvatar } = props;
 
   const primary = grey[100];
 
@@ -50,20 +50,22 @@ export default function Header(props) {
                 <Link to="/account-page" style={{ textDecoration: "none" }}>
                   <CardHeader
                     className={classes.avatarTitle}
-                    avatar={<Avatar alt="Dino profile" src="/dino-idle.png" />}
+                    avatar={<Avatar alt="Dino profile" src={currentAvatar} />}
                     title={currentUser}
                   />
                 </Link>
               </Tooltip>
             </Box>
           ) : (
-            <Typography
-              placement="left-start"
-              component="div"
-              sx={{ flexGrow: 1, color: "#6c6c6c" }}
-            >
-              Hi, user!
-            </Typography>
+            <Box>
+              <Typography
+                placement="left-start"
+                component="div"
+                sx={{ flexGrow: 1, color: "#6c6c6c" }}
+              >
+                Hi, user!
+              </Typography>
+            </Box>
           )}
 
           <Typography

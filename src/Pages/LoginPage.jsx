@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function CreateAccountPage(props) {
-  const { changeUser } = props;
+  const { changeUser, changeProfileAvatar } = props;
   const theme = createTheme({
     palette: {
       green: {
@@ -23,7 +23,10 @@ export default function CreateAccountPage(props) {
           <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
             Login
           </Typography>
-          <LoginForm changeUser={changeUser} />
+          <LoginForm
+            changeUser={changeUser}
+            changeProfileAvatar={changeProfileAvatar}
+          />
           <Typography sx={{ mb: 2 }}>Don't have an account?</Typography>
           <ThemeProvider theme={theme}>
             <Link style={{ textDecoration: "none" }} to="/create-account">

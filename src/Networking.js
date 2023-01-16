@@ -1,4 +1,4 @@
-const baseUrl = "http://13.40.219.208:5000/";
+const baseUrl = "http://127.0.0.1:5000/";
 
 export async function submitUser(username, password) {
   const response = await fetch(`${baseUrl}create-account`, {
@@ -73,6 +73,24 @@ export async function changeUsername(oldUsername, newUsername, password) {
         oldUsername: oldUsername,
         newUsername: newUsername,
         password: password,
+      }),
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
+}
+
+export async function changeAvatar(newAvatar, username) {
+  try {
+    const response = await fetch(`${baseUrl}change-avatar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        newAvatar: newAvatar,
       }),
     });
     return await response.json();

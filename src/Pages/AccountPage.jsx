@@ -3,23 +3,25 @@ import Cover from "../Components/Coverphoto";
 import React from "react";
 
 export default function AccountPage({
-  profile,
+  currentAvatar,
   username,
   score,
   rank,
   scoreList,
   changeUser,
+  changeProfileAvatar,
 }) {
   return (
     <div>
       <Cover />
       <Account
-        profile={profile}
+        currentAvatar={currentAvatar}
         username={username}
         score={score}
         rank={rank}
         scoreList={scoreList}
         changeUser={changeUser}
+        changeProfileAvatar={changeProfileAvatar}
       />
     </div>
   );

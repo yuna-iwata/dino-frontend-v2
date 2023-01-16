@@ -19,12 +19,13 @@ import LogOutConfirmation from "./AccountPageSubPages/LogOutConfirmation";
 import DeleteAccountConfirmation from "./AccountPageSubPages/DeleteAccountConfirmation";
 
 export default function Account({
-  profile,
+  currentAvatar,
   username,
   score,
   rank,
   scoreList,
   changeUser,
+  changeProfileAvatar,
 }) {
   const changeTab = (tab) => {
     setCurrentTab(tabs[tab]);
@@ -34,7 +35,15 @@ export default function Account({
       text: "your leader board",
       page: <PersonalLeaderBoard scoreList={scoreList} />,
     },
-    avatar: { text: "change avatar", page: <AvatarSelection /> },
+    avatar: {
+      text: "change avatar",
+      page: (
+        <AvatarSelection
+          username={username}
+          changeProfileAvatar={changeProfileAvatar}
+        />
+      ),
+    },
     changeUsername: {
       text: "change username",
       page: (
@@ -93,7 +102,7 @@ export default function Account({
               avatar={
                 <Avatar
                   alt="Dino profile"
-                  src={profile}
+                  src={currentAvatar}
                   style={{
                     border: "0.1px solid lightgray",
                   }}
