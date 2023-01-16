@@ -11,31 +11,31 @@ import {
 export default function AvatarSelection() {
   const itemData = [
     {
-      img: "/dino-idle.png",
+      img: "dino-idle.png",
       title: "original dino",
     },
     {
-      img: "/dino-baseball.png",
+      img: "dino-baseball.png",
       title: "baseball dino",
     },
     {
-      img: "/dino-disco.png",
+      img: "dino-disco.png",
       title: "disco dino",
     },
     {
-      img: "/dino-mariachi.png",
+      img: "dino-mariachi.png",
       title: "mariachi dino",
     },
     {
-      img: "/dino-rainbow.png",
+      img: "dino-rainbow.png",
       title: "rainbow dino",
     },
     {
-      img: "/dino-sigma.png",
+      img: "dino-sigma.png",
       title: "sigma dino",
     },
     {
-      img: "/dino-spiderman.png",
+      img: "dino-spiderman.png",
       title: "spiderman dino",
     },
   ];
@@ -51,12 +51,14 @@ export default function AvatarSelection() {
       }}
     >
       <Typography sx={{ p: 2 }}>Select an avatar</Typography>
-      <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+      <ImageList sx={{ width: 500, height: 200 }} cols={3} rowHeight={1.5}>
         {itemData.map((item, id) => (
           <ImageListItem key={id}>
             <Tooltip title={item.title}>
-              <IconButton sx={{ p: 0 }}>
-                <Avatar
+              <IconButton style={{ borderRadius: 25 }}>
+                <img
+                  width="37px"
+                  height="37px"
                   alt={item.title}
                   src={`https://chrome-dino-game.s3.amazonaws.com/assets/${item.img}`}
                 />

@@ -10,12 +10,27 @@ import Badge from "@mui/material/Badge";
 import LeaderboardRoundedIcon from "@mui/icons-material/LeaderboardRounded";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
+import Box from "@mui/material/Box";
+import { CardHeader } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 export default function Header(props) {
   const { currentUser, changeUser } = props;
+
   const primary = grey[100];
+
+  const useStyles = makeStyles(() => ({
+    title: {
+      flexGrow: 1,
+      textAlign: "center",
+    },
+    avatarTitle: {
+      color: "black",
+    },
+  }));
+  const classes = useStyles();
 
   return (
     <AppBar
@@ -30,23 +45,17 @@ export default function Header(props) {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {currentUser ? (
-            <div className="account-link">
+            <Box>
               <Tooltip title="Account profile" placement="left-start">
-                <Link to="/account-page">
-                  <IconButton sx={{ p: 0 }}>
-                    <Avatar alt="Dino profile" src="/dino-idle.png" />
-                  </IconButton>
+                <Link to="/account-page" style={{ textDecoration: "none" }}>
+                  <CardHeader
+                    className={classes.avatarTitle}
+                    avatar={<Avatar alt="Dino profile" src="/dino-idle.png" />}
+                    title={currentUser}
+                  />
                 </Link>
               </Tooltip>
-
-              <Typography
-                placement="left-start"
-                component="div"
-                sx={{ flexGrow: 1, color: "#6c6c6c" }}
-              >
-                {currentUser}
-              </Typography>
-            </div>
+            </Box>
           ) : (
             <Typography
               placement="left-start"
@@ -58,9 +67,9 @@ export default function Header(props) {
           )}
 
           <Typography
+            className={classes.title}
             variant="h5"
             component="div"
-            align="justify"
             sx={{ flexGrow: 1 }}
           >
             <Link

@@ -35,7 +35,7 @@ export default function ChangePassword(props) {
         if (response.code === 200) {
           changeTab("leaderboard");
           alert("password changed successfully");
-        } else if (response.code === 400) {
+        } else if (response.code === 401) {
           setIsIncorrectPassword(true);
         }
       },

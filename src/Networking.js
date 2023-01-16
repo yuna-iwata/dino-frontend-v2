@@ -61,3 +61,22 @@ export async function changePassword(username, oldPassword, newPassword) {
     console.log(e.message);
   }
 }
+
+export async function changeUsername(oldUsername, newUsername, password) {
+  try {
+    const response = await fetch(`${baseUrl}change-username`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        oldUsername: oldUsername,
+        newUsername: newUsername,
+        password: password,
+      }),
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
+}

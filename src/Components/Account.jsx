@@ -35,7 +35,16 @@ export default function Account({
       page: <PersonalLeaderBoard scoreList={scoreList} />,
     },
     avatar: { text: "change avatar", page: <AvatarSelection /> },
-    changeUsername: { text: "change username", page: <ChangeUsername /> },
+    changeUsername: {
+      text: "change username",
+      page: (
+        <ChangeUsername
+          changeTab={changeTab}
+          username={username}
+          changeUser={changeUser}
+        />
+      ),
+    },
     password: {
       text: "change password",
       page: <ChangePassword changeTab={changeTab} username={username} />,

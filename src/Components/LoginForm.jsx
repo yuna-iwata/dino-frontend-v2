@@ -43,7 +43,7 @@ export default function CreateAccountForm(props) {
           navigate("/game");
         } else if (response.code === 404) {
           setValidationError("Username does not exist. Please try again");
-        } else if (response.code === 400) {
+        } else if (response.code === 401) {
           setValidationError("Incorrect password. Please try again");
         }
       },
