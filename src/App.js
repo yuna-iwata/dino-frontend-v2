@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { Game } from "phaser";
 import Header from "./Components/Header";
@@ -16,6 +16,8 @@ function App() {
   const changeUser = (username) => {
     setCurrentUser(username);
   };
+
+  // const navigate = useNavigate();
 
   const profile =
     "https://chrome-dino-game.s3.amazonaws.com/assets/dino-idle.png";
