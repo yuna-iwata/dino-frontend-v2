@@ -193,7 +193,6 @@ export default class DinoGameScene extends Phaser.Scene {
       runGame = false
       this.anims.pauseAll()
       player.setTexture("dino-hurt");
-      console.log('hi')
       renderTime = 0;
       readyForBird = 0;
       this.speed = 10;
@@ -205,7 +204,6 @@ export default class DinoGameScene extends Phaser.Scene {
 
   renderObstacles() {
     const obstacleNum = Math.floor(Math.random() * 7) + 1;
-    console.log(obstacleNum);
     if (obstacleNum === 7 && readyForBird > 5) {
       const birdHeight = [22, 50];
       let obstacle = obstacles
@@ -220,7 +218,6 @@ export default class DinoGameScene extends Phaser.Scene {
       obstacle.body.height = obstacle.body.height / 1.5;
     } else if (obstacleNum < 7) {
       readyForBird += 1;
-      console.log(readyForBird);
       let obstacle = obstacles.create(width, height, `cacti${obstacleNum}`);
       obstacle.body.offset.y = 10;
       obstacle.setOrigin(0, 1).setImmovable().setScale(scale);

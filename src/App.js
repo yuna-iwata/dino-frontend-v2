@@ -33,7 +33,9 @@ function App() {
         <Route path="/" element={<WelcomePage game={game} />} />
         <Route
           path="/game"
-          element={<GamePage game={game} setGame={setGame} />}
+          element={
+            <GamePage game={game} setGame={setGame} currentUser={currentUser} />
+          }
         />
         <Route
           path="/create-account"

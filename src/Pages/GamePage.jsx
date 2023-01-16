@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import DinoGameScene from "../scenes/DinoGameScene";
 import Phaser from "phaser";
+import { submitScore } from "../Networking";
 
-export default function Gamepage({ game, setGame }) {
+export default function Gamepage({ game, setGame, currentUser }) {
   const gameConfig = {
     type: Phaser.AUTO,
     pixelArt: true,
@@ -31,18 +32,20 @@ export default function Gamepage({ game, setGame }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClick = () => {
+  const handleSendClick = async () => {
     let scene = game.scene.keys.helloworld;
     const handlescore = scene.createScore();
     console.log(handlescore);
     setScore(handlescore);
+    const response = await submitScore(handlescore, currentUser);
+    console.log(response);
   };
 
   return (
     <div>
       <h1> Game Page</h1>
       <h3>score: {score}</h3>
-      <button onClick={handleClick}>get score</button>
+      <button onClick={handleSendClick}>send score to leaderboard</button>
     </div>
   );
 }
