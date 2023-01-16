@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import { Game } from "phaser";
 import Header from "./Components/Header";
 import WelcomePage from "./Pages/WelcomePage";
 import GamePage from "./Pages/GamePage";
@@ -10,6 +11,7 @@ import AccountPage from "./Pages/AccountPage";
 import "./App.css";
 
 function App() {
+  const [game, setGame] = useState(<Game />);
   const [currentUser, setCurrentUser] = useState(null);
   const changeUser = (username) => {
     setCurrentUser(username);
@@ -29,14 +31,20 @@ function App() {
     <BrowserRouter>
       <Header currentUser={currentUser} changeUser={changeUser} />
       <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/game" element={<GamePage />} />
+        <Route path="/" element={<WelcomePage game={game} />} />
+        <Route
+          path="/game"
+          element={<GamePage game={game} setGame={setGame} />}
+        />
         <Route
           path="/create-account"
-          element={<CreateAccountPage changeUser={changeUser} />}
+          element={<CreateAccountPage changeUser={changeUser} game={game} />}
         />
-        <Route path="/login" element={<LoginPage changeUser={changeUser} />} />
-        <Route path="/leaderboard" element={<LeaderboardPage />} />
+        <Route
+          path="/login"
+          element={<LoginPage changeUser={changeUser} game={game} />}
+        />
+        <Route path="/leaderboard" element={<LeaderboardPage game={game} />} />
         <Route
           path="/account-page"
           element={
@@ -47,6 +55,7 @@ function App() {
               rank={rank} // users rank
               scoreList={scoreList} // users list of scores
               changeUser={changeUser}
+              game={game}
             />
           }
         />
