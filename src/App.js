@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import Header from "./Components/Header";
 import WelcomePage from "./Pages/WelcomePage";
@@ -14,6 +14,8 @@ function App() {
   const changeUser = (username) => {
     setCurrentUser(username);
   };
+
+  // const navigate = useNavigate();
 
   const profile =
     "https://chrome-dino-game.s3.amazonaws.com/assets/dino-idle.png";
@@ -31,25 +33,50 @@ function App() {
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/game" element={<GamePage />} />
-        <Route
-          path="/create-account"
-          element={<CreateAccountPage changeUser={changeUser} />}
-        />
-        <Route path="/login" element={<LoginPage changeUser={changeUser} />} />
+        {currentUser ? (
+          <Route
+            path="/create-account"
+            element={<Navigate to="/account-page" replace={true} />}
+          />
+        ) : (
+          <Route
+            path="/create-account"
+            element={<CreateAccountPage changeUser={changeUser} />}
+          />
+        )}
+        {currentUser ? (
+          <Route
+            path="/login"
+            element={<Navigate to="/account-page" replace={true} />}
+          />
+        ) : (
+          <Route
+            path="/login"
+            element={<LoginPage changeUser={changeUser} />}
+          />
+        )}
         <Route path="/leaderboard" element={<LeaderboardPage />} />
-        <Route
-          path="/account-page"
-          element={
-            <AccountPage
-              profile={profile} // avatar
-              username={currentUser}
-              score={score} // the users current score
-              rank={rank} // users rank
-              scoreList={scoreList} // users list of scores
-              changeUser={changeUser}
-            />
-          }
-        />
+        {currentUser ? (
+          <Route
+            path="/account-page"
+            element={
+              <AccountPage
+                profile={profile} // avatar
+                username={currentUser}
+                score={score} // the users current score
+                rank={rank} // users rank
+                scoreList={scoreList} // users list of scores
+                changeUser={changeUser}
+              />
+            }
+          />
+        ) : (
+          <Route
+            path="/account-page"
+            element={<Navigate to="/login" replace={true} />}
+          />
+        )}
+        <Route path="*" element={<p>Error 404: Page Not Found</p>} />
       </Routes>
     </BrowserRouter>
   );
