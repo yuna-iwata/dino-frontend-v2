@@ -83,7 +83,6 @@ export async function changeUsername(oldUsername, newUsername, password) {
 
 export async function submitScore(score, username) {
   try {
-    console.log(score, username);
     const response = await fetch(`${baseUrl}submit-score`, {
       method: "POST",
       headers: {
