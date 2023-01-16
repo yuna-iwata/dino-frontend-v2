@@ -28,7 +28,7 @@ export default function Gamepage({ game, setGame }) {
       const newGame = new Phaser.Game(gameConfig);
       setGame(newGame);
     }
-  }, []);
+  });
 
   const handleClick = () => {
     let scene = game.scene.keys.helloworld;
