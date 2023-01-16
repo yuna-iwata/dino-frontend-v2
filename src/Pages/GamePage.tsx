@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import HelloWorldScene from "../scenes/HelloWorldScene";
 //
 
@@ -8,6 +8,7 @@ export default function Gamepage() {
     pixelArt: true,
     transparent: true,
     //autoCenter: true,
+    parent: "game",
     physics: {
       default: "arcade",
       arcade: {
@@ -21,10 +22,10 @@ export default function Gamepage() {
   const game = new Phaser.Game(config);
 
   const [score, setScore] = useState(0);
-  let scene = game.scene.keys.helloworld as HelloWorldScene;
+  //let scene = game.scene.keys.helloworld as HelloWorldScene;
 
   const handleClick = () => {
-    scene = game.scene.keys.helloworld as HelloWorldScene;
+    let scene = game.scene.keys.helloworld as HelloWorldScene;
     const handlescore = scene.createScore();
     console.log(handlescore);
     setScore(handlescore);
