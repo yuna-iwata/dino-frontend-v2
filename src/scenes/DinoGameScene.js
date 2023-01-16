@@ -13,7 +13,7 @@ const width = 1000;
 const height = 300;
 const scale = 0.5;
 
-export default class HelloWorldScene extends Phaser.Scene {
+export default class DinoGameScene extends Phaser.Scene {
   constructor() {
     super("helloworld");
   }

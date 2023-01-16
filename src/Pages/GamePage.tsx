@@ -1,5 +1,5 @@
 import { useState } from "react";
-import HelloWorldScene from "../scenes/HelloWorldScene";
+import DinoGameScene from "../scenes/DinoGameScene";
 //
 
 export default function Gamepage() {
@@ -17,7 +17,7 @@ export default function Gamepage() {
     },
     width: 1000,
     height: 300,
-    scene: [HelloWorldScene],
+    scene: [DinoGameScene],
   };
   const game = new Phaser.Game(config);
 
@@ -25,7 +25,7 @@ export default function Gamepage() {
   //let scene = game.scene.keys.helloworld as HelloWorldScene;
 
   const handleClick = () => {
-    let scene = game.scene.keys.helloworld as HelloWorldScene;
+    let scene = game.scene.keys.helloworld as DinoGameScene;
     const handlescore = scene.createScore();
     console.log(handlescore);
     setScore(handlescore);
