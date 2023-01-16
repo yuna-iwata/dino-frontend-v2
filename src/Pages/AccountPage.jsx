@@ -9,7 +9,11 @@ export default function AccountPage({
   rank,
   scoreList,
   changeUser,
+  game,
 }) {
+  if (game.key !== null) {
+    game?.destroy(true);
+  }
   return (
     <div>
       <Cover />

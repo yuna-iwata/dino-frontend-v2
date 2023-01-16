@@ -8,7 +8,10 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
-export default function WelcomePage() {
+export default function WelcomePage({ game }) {
+  if (game.key !== null) {
+    game?.destroy(true);
+  }
   const theme = createTheme({
     palette: {
       green: {

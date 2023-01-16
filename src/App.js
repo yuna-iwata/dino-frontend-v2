@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
+import { Game } from "phaser";
 import Header from "./Components/Header";
 import WelcomePage from "./Pages/WelcomePage";
 import GamePage from "./Pages/GamePage";
@@ -10,6 +11,7 @@ import AccountPage from "./Pages/AccountPage";
 import "./App.css";
 
 function App() {
+  const [game, setGame] = useState(<Game />);
   const [currentUser, setCurrentUser] = useState(null);
   const changeUser = (username) => {
     setCurrentUser(username);
@@ -31,52 +33,34 @@ function App() {
     <BrowserRouter>
       <Header currentUser={currentUser} changeUser={changeUser} />
       <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/game" element={<GamePage />} />
-        {currentUser ? (
-          <Route
-            path="/create-account"
-            element={<Navigate to="/account-page" replace={true} />}
-          />
-        ) : (
-          <Route
-            path="/create-account"
-            element={<CreateAccountPage changeUser={changeUser} />}
-          />
-        )}
-        {currentUser ? (
-          <Route
-            path="/login"
-            element={<Navigate to="/account-page" replace={true} />}
-          />
-        ) : (
-          <Route
-            path="/login"
-            element={<LoginPage changeUser={changeUser} />}
-          />
-        )}
-        <Route path="/leaderboard" element={<LeaderboardPage />} />
-        {currentUser ? (
-          <Route
-            path="/account-page"
-            element={
-              <AccountPage
-                profile={profile} // avatar
-                username={currentUser}
-                score={score} // the users current score
-                rank={rank} // users rank
-                scoreList={scoreList} // users list of scores
-                changeUser={changeUser}
-              />
-            }
-          />
-        ) : (
-          <Route
-            path="/account-page"
-            element={<Navigate to="/login" replace={true} />}
-          />
-        )}
-        <Route path="*" element={<p>Error 404: Page Not Found</p>} />
+        <Route path="/" element={<WelcomePage game={game} />} />
+        <Route
+          path="/game"
+          element={<GamePage game={game} setGame={setGame} />}
+        />
+        <Route
+          path="/create-account"
+          element={<CreateAccountPage changeUser={changeUser} game={game} />}
+        />
+        <Route
+          path="/login"
+          element={<LoginPage changeUser={changeUser} game={game} />}
+        />
+        <Route path="/leaderboard" element={<LeaderboardPage game={game} />} />
+        <Route
+          path="/account-page"
+          element={
+            <AccountPage
+              profile={profile} // avatar
+              username={currentUser}
+              score={score} // the users current score
+              rank={rank} // users rank
+              scoreList={scoreList} // users list of scores
+              changeUser={changeUser}
+              game={game}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
