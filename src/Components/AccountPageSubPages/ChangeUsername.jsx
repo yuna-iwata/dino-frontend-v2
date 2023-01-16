@@ -89,6 +89,5 @@ export default function ChangeUsername(props) {
         </Button>
       </Form>
     </div>
->>>>>>> 4c7a3b939a31f02e825c828acdf7941e02ed2882
   );
 }
