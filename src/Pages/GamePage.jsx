@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import DinoGameScene from "../scenes/DinoGameScene";
 import Phaser from "phaser";
-import { Game } from "phaser";
-import useGame from "../hooks/useGame";
-import { setNestedObjectValues } from "formik";
-//
 
 export default function Gamepage({ game, setGame }) {
   const gameConfig = {
@@ -24,7 +20,7 @@ export default function Gamepage({ game, setGame }) {
     scene: [DinoGameScene],
   };
 
-  // const [game, setGame] = useState(<Game />);
+  const [score, setScore] = useState(0);
 
   console.log(game.key);
   useEffect(() => {
@@ -32,21 +28,19 @@ export default function Gamepage({ game, setGame }) {
       const newGame = new Phaser.Game(gameConfig);
       setGame(newGame);
     }
-    // return () => {
-    //   game?.destroy(true);
-    // };
   }, []);
 
   const handleClick = () => {
     let scene = game.scene.keys.helloworld;
     const handlescore = scene.createScore();
     console.log(handlescore);
+    setScore(handlescore);
   };
 
   return (
     <div>
       <h1> Game Page</h1>
-      <h3>score: </h3>
+      <h3>score: {score}</h3>
       <button onClick={handleClick}>get score</button>
     </div>
   );
