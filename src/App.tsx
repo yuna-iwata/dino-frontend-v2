@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import GamePage from "./Pages/GamePage";
 import WelcomePage from "./Pages/WelcomePage";
