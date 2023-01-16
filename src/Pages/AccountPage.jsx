@@ -5,9 +5,7 @@ import React from "react";
 export default function AccountPage({
   profile,
   username,
-  score,
   rank,
-  scoreList,
   changeUser,
   game,
 }) {
@@ -20,9 +18,7 @@ export default function AccountPage({
       <Account
         profile={profile}
         username={username}
-        score={score}
         rank={rank}
-        scoreList={scoreList}
         changeUser={changeUser}
       />
     </div>

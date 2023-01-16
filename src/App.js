@@ -12,19 +12,13 @@ import "./App.css";
 
 function App() {
   const [game, setGame] = useState(<Game />);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState("guest");
   const changeUser = (username) => {
     setCurrentUser(username);
   };
   const profile =
     "https://chrome-dino-game.s3.amazonaws.com/assets/dino-idle.png";
   const rank = 12;
-  const scoreList = [
-    { score: 9999, date: "01/01/2023" },
-    { score: 9999, date: "01/01/2023" },
-    { score: 9999, date: "01/01/2023" },
-  ];
-  const score = scoreList[0].score;
 
   return (
     <BrowserRouter>
@@ -52,9 +46,7 @@ function App() {
             <AccountPage
               profile={profile} // avatar
               username={currentUser}
-              score={score} // the users current score
               rank={rank} // users rank
-              scoreList={scoreList} // users list of scores
               changeUser={changeUser}
               game={game}
             />

@@ -23,7 +23,6 @@ export default function Account({
   username,
   score,
   rank,
-  scoreList,
   changeUser,
 }) {
   const changeTab = (tab) => {
@@ -32,7 +31,7 @@ export default function Account({
   const tabs = {
     leaderboard: {
       text: "your leader board",
-      page: <PersonalLeaderBoard scoreList={scoreList} />,
+      page: <PersonalLeaderBoard username={username} />,
     },
     avatar: { text: "change avatar", page: <AvatarSelection /> },
     changeUsername: {
@@ -63,7 +62,12 @@ export default function Account({
   const initialTab = Object.keys(tabs)[0];
   const [currentTab, setCurrentTab] = useState({
     text: tabs[initialTab].text,
-    page: <PersonalLeaderBoard scoreList={scoreList} />,
+    page: (
+      <PersonalLeaderBoard
+        username={username}
+        //scoreList={scoreList}
+      />
+    ),
   });
   const theme = createTheme({
     palette: {
