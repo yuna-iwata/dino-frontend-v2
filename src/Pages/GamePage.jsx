@@ -1,9 +1,10 @@
 import { useState } from "react";
 import DinoGameScene from "../scenes/DinoGameScene";
+import Phaser from "phaser";
 //
 
 export default function Gamepage() {
-  const config: Phaser.Types.Core.GameConfig = {
+  const config = {
     type: Phaser.AUTO,
     pixelArt: true,
     transparent: true,
@@ -25,7 +26,7 @@ export default function Gamepage() {
   //let scene = game.scene.keys.helloworld as HelloWorldScene;
 
   const handleClick = () => {
-    let scene = game.scene.keys.helloworld as DinoGameScene;
+    let scene = game.scene.keys.helloworld;
     const handlescore = scene.createScore();
     console.log(handlescore);
     setScore(handlescore);
