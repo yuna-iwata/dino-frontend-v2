@@ -38,7 +38,7 @@ export default function Account({
     changeUsername: { text: "change username", page: <ChangeUsername /> },
     password: {
       text: "change password",
-      page: <ChangePassword changeTab={changeTab} />,
+      page: <ChangePassword changeTab={changeTab} username={username} />,
     },
     signOut: { text: "sign out", page: <LogOutConfirmation /> },
     delete: {

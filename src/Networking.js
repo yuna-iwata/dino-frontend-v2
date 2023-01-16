@@ -43,7 +43,7 @@ export async function deleteUser(username) {
   }
 }
 
-export async function changePassword(username, confirmPassword, newPassword) {
+export async function changePassword(username, oldPassword, newPassword) {
   try {
     const response = await fetch(`${baseUrl}change-password`, {
       method: "POST",
@@ -52,7 +52,7 @@ export async function changePassword(username, confirmPassword, newPassword) {
       },
       body: JSON.stringify({
         username: username,
-        confirmPassword: confirmPassword,
+        oldPassword: oldPassword,
         newPassword: newPassword,
       }),
     });
