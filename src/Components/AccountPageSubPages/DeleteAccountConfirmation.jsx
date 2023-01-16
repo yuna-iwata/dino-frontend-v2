@@ -17,7 +17,6 @@ export default function DeleteAccountConfirmation(props) {
           Yes
         </Button>
       </Link>
-      <Button>No</Button>
     </div>
   );
 }
