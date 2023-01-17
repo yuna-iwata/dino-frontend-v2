@@ -56,6 +56,7 @@ export default class DinoGameScene extends Phaser.Scene {
   create() {
     //**********SET UP STATIC OBJECTS********//
     this.speed = 10;
+    score = 0;
 
     this.ground = this.add
       .tileSprite(0, height, 100, 26, "ground")
@@ -180,6 +181,8 @@ export default class DinoGameScene extends Phaser.Scene {
   createScore() {
     if (!runGame) {
       return score;
+    } else {
+      return 0;
     }
   }
 
@@ -193,7 +196,6 @@ export default class DinoGameScene extends Phaser.Scene {
         this.anims.pauseAll();
         player.setTexture("dino-hurt");
         renderTime = 0;
-        score = 0;
         readyForBird = 0;
         this.speed = 10;
         this.gameOverText.setAlpha(1);
@@ -265,6 +267,7 @@ export default class DinoGameScene extends Phaser.Scene {
       player.body.offset.y = 0;
       obstacles.clear(true, true);
       runGame = true;
+      score = 0;
       this.gameOverText.setAlpha(0);
       this.restart.setAlpha(0);
       this.physics.resume();

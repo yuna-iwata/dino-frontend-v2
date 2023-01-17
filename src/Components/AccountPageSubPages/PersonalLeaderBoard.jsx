@@ -23,16 +23,13 @@ export default function PersonalLeaderBoard({ username }) {
   }, []);
 
   const onOrderByScoreClick = () => {
-    const orderedByScore = scoreList.sort(
-      ({ score: a }, { score: b }) => b - a
-    );
-    console.log(orderedByScore); //put here to get rid of assigned value but never used error
+    scoreList.sort(({ score: a }, { score: b }) => b - a);
     setByScoreClicked(byScoreClicked + 1);
   };
-
-  useEffect(() => {}, [byScoreClicked]);
-
-  const onOrderByDateClick = () => {};
+  const onOrderByDateClick = () => {
+    scoreList.sort(({ date: a }, { date: b }) => new Date(b) - new Date(a));
+    setByScoreClicked(byScoreClicked + 1);
+  };
 
   return (
     <>
