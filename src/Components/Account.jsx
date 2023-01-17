@@ -183,7 +183,7 @@ export default function Account({
         container
         spacing={1}
       >
-        <Grid container>
+        <Grid container xs={6}>
           <Stack direction="column" spacing={2}>
             <ThemeProvider theme={theme}>
               {Object.keys(tabs).map((tab, i) => {
@@ -200,9 +200,7 @@ export default function Account({
             </ThemeProvider>
           </Stack>
         </Grid>
-        <Grid container justifyContent="space-between">
-          {tabs[currentTab].page}
-        </Grid>
+        <Grid container>{tabs[currentTab].page}</Grid>
       </Box>
     </Container>
   );
