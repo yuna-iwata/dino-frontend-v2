@@ -32,10 +32,13 @@ export default function Gamepage({ game, setGame, currentUser }) {
 
   const handleSendClick = async () => {
     let scene = game.scene.keys.helloworld;
-    const handlescore = scene.createScore();
+    let handlescore = scene.createScore();
     console.log(handlescore);
-    const response = await submitScore(handlescore, currentUser);
-    console.log(response);
+    if (handlescore !== 0) {
+      const response = await submitScore(handlescore, currentUser);
+      console.log(response);
+      handlescore = 0;
+    }
   };
 
   return (

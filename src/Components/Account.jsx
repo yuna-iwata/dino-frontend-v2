@@ -81,12 +81,7 @@ export default function Account({
   const initialTab = Object.keys(tabs)[0];
   const [currentTab, setCurrentTab] = useState({
     text: tabs[initialTab].text,
-    page: (
-      <PersonalLeaderBoard
-        username={username}
-        //scoreList={scoreList}
-      />
-    ),
+    page: <PersonalLeaderBoard username={username} />,
   });
   const theme = createTheme({
     palette: {

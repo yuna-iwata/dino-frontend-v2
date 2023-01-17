@@ -101,7 +101,17 @@ function App() {
             }
           />
         )}
-        <Route path="/leaderboard" element={<LeaderboardPage game={game} />} />
+        <Route
+          path="/leaderboard"
+          element={
+            <LeaderboardPage
+              game={game}
+              changeProfileAvatar={changeProfileAvatar}
+              baseUrl={baseUrl}
+              itemData={itemData}
+            />
+          }
+        />
         {currentUser ? (
           <Route
             path="/account-page"
