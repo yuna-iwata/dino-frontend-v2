@@ -289,7 +289,7 @@ export default class DinoGameScene extends Phaser.Scene {
     }
   }
 
-  update(time, delta) {
+  update(delta) {
     if (
       cursors.space.isDown &&
       player.body.onFloor() &&

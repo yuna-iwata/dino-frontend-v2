@@ -19,12 +19,15 @@ import LogOutConfirmation from "./AccountPageSubPages/LogOutConfirmation";
 import DeleteAccountConfirmation from "./AccountPageSubPages/DeleteAccountConfirmation";
 
 export default function Account({
-  profile,
+  currentAvatar,
   username,
   score,
   rank,
   scoreList,
   changeUser,
+  changeProfileAvatar,
+  itemData,
+  baseUrl,
 }) {
   const changeTab = (tab) => {
     setCurrentTab(tabs[tab]);
@@ -34,7 +37,17 @@ export default function Account({
       text: "your leader board",
       page: <PersonalLeaderBoard scoreList={scoreList} />,
     },
-    avatar: { text: "change avatar", page: <AvatarSelection /> },
+    avatar: {
+      text: "change avatar",
+      page: (
+        <AvatarSelection
+          username={username}
+          changeProfileAvatar={changeProfileAvatar}
+          itemData={itemData}
+          baseUrl={baseUrl}
+        />
+      ),
+    },
     changeUsername: {
       text: "change username",
       page: (
@@ -49,7 +62,12 @@ export default function Account({
       text: "change password",
       page: <ChangePassword changeTab={changeTab} username={username} />,
     },
-    signOut: { text: "sign out", page: <LogOutConfirmation /> },
+    signOut: {
+      text: "sign out",
+      page: (
+        <LogOutConfirmation changeTab={changeTab} changeUser={changeUser} />
+      ),
+    },
     delete: {
       text: "delete account",
       page: (
@@ -87,10 +105,11 @@ export default function Account({
         <Grid container spacing={3}>
           <Grid alignItems="center" display="flex" item xs={6}>
             <CardHeader
+              className="avatar-title"
               avatar={
                 <Avatar
                   alt="Dino profile"
-                  src={profile}
+                  src={currentAvatar}
                   style={{
                     border: "0.1px solid lightgray",
                   }}
@@ -150,7 +169,9 @@ export default function Account({
             </ThemeProvider>
           </Stack>
         </Grid>
-        {currentTab.page}
+        <Grid container justifyContent="space-between">
+          {currentTab.page}
+        </Grid>
       </Box>
     </Container>
   );

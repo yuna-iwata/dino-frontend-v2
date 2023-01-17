@@ -6,11 +6,15 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-export default function CreateAccountPage({ changeUser, game }) {
+export default function CreateAccountPage({
+  changeUser,
+  game,
+  changeProfileAvatar,
+}) {
   if (game.key !== null) {
     game?.destroy(true);
   }
-  // const { changeUser } = props;
+
   const theme = createTheme({
     palette: {
       green: {
@@ -26,7 +30,10 @@ export default function CreateAccountPage({ changeUser, game }) {
           <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
             Login
           </Typography>
-          <LoginForm changeUser={changeUser} />
+          <LoginForm
+            changeUser={changeUser}
+            changeProfileAvatar={changeProfileAvatar}
+          />
           <Typography sx={{ mb: 2 }}>Don't have an account?</Typography>
           <ThemeProvider theme={theme}>
             <Link style={{ textDecoration: "none" }} to="/create-account">

@@ -56,3 +56,12 @@
   display: flex;
   justify-content: center;
 }
+
+.header-center {
+  display: flex;
+  justify-content: center;
+}
+
+.avatar-title {
+  color: #6c6c6c;
+}

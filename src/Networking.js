@@ -81,6 +81,24 @@ export async function changeUsername(oldUsername, newUsername, password) {
   }
 }
 
+export async function changeAvatar(newAvatar, username) {
+  try {
+    const response = await fetch(`${baseUrl}change-avatar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        newAvatar: newAvatar,
+      }),
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
+}
+
 export async function submitScore(score, username) {
   try {
     const response = await fetch(`${baseUrl}submit-score`, {

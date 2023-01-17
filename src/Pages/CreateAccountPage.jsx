@@ -10,7 +10,7 @@ export default function CreateAccountPage({ changeUser, game }) {
   if (game.key !== null) {
     game?.destroy(true);
   }
-  // const { changeUser } = props;
+
   const theme = createTheme({
     palette: {
       green: {

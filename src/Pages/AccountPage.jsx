@@ -3,12 +3,15 @@ import Cover from "../Components/Coverphoto";
 import React from "react";
 
 export default function AccountPage({
-  profile,
+  currentAvatar,
   username,
   score,
   rank,
   scoreList,
   changeUser,
+  changeProfileAvatar,
+  itemData,
+  baseUrl,
   game,
 }) {
   if (game.key !== null) {
@@ -18,12 +21,15 @@ export default function AccountPage({
     <div>
       <Cover />
       <Account
-        profile={profile}
+        currentAvatar={currentAvatar}
         username={username}
         score={score}
         rank={rank}
         scoreList={scoreList}
         changeUser={changeUser}
+        changeProfileAvatar={changeProfileAvatar}
+        itemData={itemData}
+        baseUrl={baseUrl}
       />
     </div>
   );

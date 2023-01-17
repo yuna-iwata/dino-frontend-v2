@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export default function CreateAccountForm(props) {
-  const { changeUser } = props;
+  const { changeUser, changeProfileAvatar } = props;
   const navigate = useNavigate();
   const [validationError, setValidationError] = useState(null);
 
@@ -39,7 +39,10 @@ export default function CreateAccountForm(props) {
       onSubmit: async (values) => {
         const response = await checkUser(values.username, values.password);
         if (response.code === 200) {
-          (() => changeUser(values.username))();
+          (() => {
+            changeUser(values.username);
+            changeProfileAvatar(response.dino_id);
+          })();
           navigate("/game");
         } else if (response.code === 404) {
           setValidationError("Username does not exist. Please try again");
