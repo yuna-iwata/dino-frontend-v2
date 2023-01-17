@@ -6,6 +6,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import Button from "react-bootstrap/Button";
+import { Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { fetchPersonalLeaderBoard } from "../../Networking";
 
@@ -30,36 +32,52 @@ export default function PersonalLeaderBoard({ username }) {
   };
 
   return (
-    <Grid container justifyContent="space-between">
-      <h1>Personal Leader Board</h1>
-      <div>
-        <p>order by:</p>
-        <button onClick={onOrderByDateClick}>date</button>
-        <button onClick={onOrderByScoreClick}>high score</button>
-      </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">Score</TableCell>
-              <TableCell align="center">Date</TableCell>
-            </TableRow>
-          </TableHead>
-          {scoreList && scoreList.length > 0 ? (
-            <TableBody>
-              {scoreList.map((row, index) => (
-                <TableRow
-                  key={index}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="center">{row.score}</TableCell>
-                  <TableCell align="center">{row.date}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          ) : null}
-        </Table>
-      </TableContainer>
-    </Grid>
+    <>
+      <style type="text/css">
+        {`
+    .btn-flat {
+      background-color: #75d193;
+      color: white;
+    }
+    `}
+      </style>
+      <Grid container justifyContent="space-between">
+        <Typography variant="h4" align="center" sx={{ color: "#74D193" }}>
+          Personal leaderboard
+        </Typography>
+        <Box>
+          <Typography sx={{ p: 1, color: "#74D193" }}>order by:</Typography>
+          <Button variant="flat" onClick={onOrderByDateClick}>
+            date
+          </Button>
+          <Button variant="flat" onClick={onOrderByScoreClick}>
+            high score
+          </Button>
+        </Box>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Score</TableCell>
+                <TableCell align="center">Date</TableCell>
+              </TableRow>
+            </TableHead>
+            {scoreList && scoreList.length > 0 ? (
+              <TableBody>
+                {scoreList.map((row, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="center">{row.score}</TableCell>
+                    <TableCell align="center">{row.date}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            ) : null}
+          </Table>
+        </TableContainer>
+      </Grid>
+    </>
   );
 }
