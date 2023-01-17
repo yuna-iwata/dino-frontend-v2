@@ -3,6 +3,7 @@ import { useState } from "react";
 import { changePassword } from "../../Networking";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Box } from "@mui/system";
 
 export default function ChangePassword(props) {
   const { changeTab, username } = props;
@@ -43,7 +44,14 @@ export default function ChangePassword(props) {
   );
 
   return (
-    <div>
+    <Box
+      sx={{
+        bgcolor: "background.paper",
+        boxShadow: 1,
+        borderRadius: 2,
+        p: 2,
+      }}
+    >
       <h1>Fill in the below form to change your password</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="oldPassword">
@@ -77,6 +85,6 @@ export default function ChangePassword(props) {
           Submit
         </Button>
       </Form>
-    </div>
+    </Box>
   );
 }
