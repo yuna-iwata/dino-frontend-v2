@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import PublicIcon from "@mui/icons-material/Public";
 import Box from "@mui/material/Box";
@@ -17,17 +17,49 @@ import ChangeUsername from "./AccountPageSubPages/ChangeUsername";
 import ChangePassword from "./AccountPageSubPages/ChangePassword";
 import LogOutConfirmation from "./AccountPageSubPages/LogOutConfirmation";
 import DeleteAccountConfirmation from "./AccountPageSubPages/DeleteAccountConfirmation";
+import {
+  fetchPersonalLeaderBoard,
+  fetchGlobalLeaderBoard,
+} from ".././Networking";
 
 export default function Account({
   currentAvatar,
   username,
-  score,
-  rank,
   changeUser,
   changeProfileAvatar,
   itemData,
   baseUrl,
 }) {
+  const [scoreList, setScoreList] = useState([]);
+  const [highScore, setHighScore] = useState(0);
+  const [rank, setRank] = useState(0);
+  useEffect(() => {
+    if (username) {
+      fetchPersonalLeaderBoard(setScoreList, username);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (scoreList.length > 0) {
+      scoreList.sort(({ score: a }, { score: b }) => b - a);
+      setHighScore(scoreList[0]["score"]);
+    }
+  }, [scoreList]);
+
+  const [globalList, setGlobalList] = useState([]);
+
+  useEffect(() => {
+    fetchGlobalLeaderBoard(setGlobalList);
+  }, []);
+  useEffect(() => {
+    if (globalList.length > 0) {
+      const findUser = globalList.filter((item) => item["name"] === username);
+      const findRank = findUser[0]["rank"];
+      setRank(findRank);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [globalList]);
+
   const changeTab = (tab) => {
     setCurrentTab(tab);
   };
@@ -126,7 +158,7 @@ export default function Account({
                 High score
               </Typography>
               <Typography sx={{ color: "#75d193" }} variant="body2">
-                {score}
+                {highScore}
               </Typography>
             </Box>
           </Grid>
