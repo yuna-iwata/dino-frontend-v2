@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,22 +7,25 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import { CardHeader } from "@mui/material";
+import { fetchGlobalLeaderBoard } from "../Networking";
+import { useState } from "react";
 
-export default function Leaderboard({ changeProfileAvatar }) {
-  const rowList = [
-    {
-      rank: "1",
-      name: "yuna",
-      score: "9999",
-      profile: "1",
-    },
-  ];
+export default function Leaderboard({ baseUrl, itemData }) {
+  const [globalList, setGlobalList] = useState([]);
+
+  useEffect(() => {
+    fetchGlobalLeaderBoard(setGlobalList);
+  }, []);
+
+  useEffect(() => {
+    console.log(globalList);
+  }, [globalList]);
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 200 }} aria-label="simple table">
         <TableBody>
-          {rowList.map((row) => (
+          {globalList.map((row) => (
             <TableRow
               key={row.rank}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -32,7 +35,12 @@ export default function Leaderboard({ changeProfileAvatar }) {
               </TableCell>
               <TableCell component="th" scope="row" align="left">
                 <CardHeader
-                  avatar={<Avatar alt="Dino profile" src={row.profile} />}
+                  avatar={
+                    <Avatar
+                      alt="Dino profile"
+                      src={`${baseUrl}${itemData[row.dino_id - 1]["img"]}`}
+                    />
+                  }
                   title={row.name}
                 />
               </TableCell>

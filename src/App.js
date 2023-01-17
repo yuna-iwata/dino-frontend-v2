@@ -93,6 +93,8 @@ function App() {
             <LeaderboardPage
               game={game}
               changeProfileAvatar={changeProfileAvatar}
+              baseUrl={baseUrl}
+              itemData={itemData}
             />
           }
         />
