@@ -13,8 +13,6 @@ export default function AvatarSelectionElement({
   let backgroundColour;
   if (currentAvatar === index) {
     backgroundColour = "lightgrey";
-  } else {
-    backgroundColour = "white";
   }
 
   return (
