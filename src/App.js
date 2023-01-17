@@ -15,37 +15,30 @@ function App() {
 
   const itemData = [
     {
-      id: 1,
       img: "dino-idle.png",
       title: "original dino",
     },
     {
-      id: 2,
       img: "dino-baseball.png",
       title: "baseball dino",
     },
     {
-      id: 3,
       img: "dino-disco.png",
       title: "disco dino",
     },
     {
-      id: 4,
       img: "dino-mariachi.png",
       title: "mariachi dino",
     },
     {
-      id: 5,
       img: "dino-rainbow.png",
       title: "rainbow dino",
     },
     {
-      id: 6,
       img: "dino-sigma.png",
       title: "sigma dino",
     },
     {
-      id: 7,
       img: "dino-spiderman.png",
       title: "spiderman dino",
     },
@@ -58,12 +51,8 @@ function App() {
   };
 
   const changeProfileAvatar = (avatar) => {
-    console.log(`${baseUrl}${itemData[avatar - 1]["img"]}`);
     setCurrentAvatar(`${baseUrl}${itemData[avatar - 1]["img"]}`);
   };
-
-  // const profile =
-  //   "https://chrome-dino-game.s3.amazonaws.com/assets/dino-idle.png";
 
   const rank = 12;
   const scoreList = [
@@ -108,6 +97,8 @@ function App() {
               scoreList={scoreList} // users list of scores
               changeUser={changeUser}
               changeProfileAvatar={changeProfileAvatar}
+              itemData={itemData}
+              baseUrl={baseUrl}
             />
           }
         />

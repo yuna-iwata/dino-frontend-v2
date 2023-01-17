@@ -26,6 +26,8 @@ export default function Account({
   scoreList,
   changeUser,
   changeProfileAvatar,
+  itemData,
+  baseUrl,
 }) {
   const changeTab = (tab) => {
     setCurrentTab(tabs[tab]);
@@ -41,6 +43,8 @@ export default function Account({
         <AvatarSelection
           username={username}
           changeProfileAvatar={changeProfileAvatar}
+          itemData={itemData}
+          baseUrl={baseUrl}
         />
       ),
     },

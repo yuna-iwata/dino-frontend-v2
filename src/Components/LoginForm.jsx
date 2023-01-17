@@ -43,7 +43,6 @@ export default function CreateAccountForm(props) {
             changeUser(values.username);
             changeProfileAvatar(response.dino_id);
           })();
-          // (() => changeProfileAvatar(response.dino_id))();
           navigate("/game");
         } else if (response.code === 404) {
           setValidationError("Username does not exist. Please try again");

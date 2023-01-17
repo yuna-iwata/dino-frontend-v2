@@ -10,6 +10,8 @@ export default function AccountPage({
   scoreList,
   changeUser,
   changeProfileAvatar,
+  itemData,
+  baseUrl,
 }) {
   return (
     <div>
@@ -22,6 +24,8 @@ export default function AccountPage({
         scoreList={scoreList}
         changeUser={changeUser}
         changeProfileAvatar={changeProfileAvatar}
+        itemData={itemData}
+        baseUrl={baseUrl}
       />
     </div>
   );
