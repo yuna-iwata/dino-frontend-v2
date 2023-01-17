@@ -180,8 +180,6 @@ export default class DinoGameScene extends Phaser.Scene {
   createScore() {
     if (!runGame) {
       return score;
-    } else {
-      return 0;
     }
   }
 
@@ -289,7 +287,7 @@ export default class DinoGameScene extends Phaser.Scene {
     }
   }
 
-  update(delta) {
+  update(time, delta) {
     if (
       cursors.space.isDown &&
       player.body.onFloor() &&

@@ -87,7 +87,15 @@ function App() {
             />
           }
         />
-        <Route path="/leaderboard" element={<LeaderboardPage game={game} />} />
+        <Route
+          path="/leaderboard"
+          element={
+            <LeaderboardPage
+              game={game}
+              changeProfileAvatar={changeProfileAvatar}
+            />
+          }
+        />
         <Route
           path="/account-page"
           element={
