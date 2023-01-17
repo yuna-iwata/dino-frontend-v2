@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import DinoGameScene from "../scenes/DinoGameScene";
 import Phaser from "phaser";
 import { submitScore } from "../Networking";
@@ -21,8 +21,6 @@ export default function Gamepage({ game, setGame, currentUser }) {
     scene: [DinoGameScene],
   };
 
-  const [score, setScore] = useState(0);
-
   console.log(game.key);
   useEffect(() => {
     if (game.key == null) {
@@ -36,7 +34,6 @@ export default function Gamepage({ game, setGame, currentUser }) {
     let scene = game.scene.keys.helloworld;
     const handlescore = scene.createScore();
     console.log(handlescore);
-    setScore(handlescore);
     const response = await submitScore(handlescore, currentUser);
     console.log(response);
   };
@@ -44,7 +41,6 @@ export default function Gamepage({ game, setGame, currentUser }) {
   return (
     <div>
       <h1> Game Page</h1>
-      <h3>score: {score}</h3>
       <button onClick={handleSendClick}>send score to leaderboard</button>
     </div>
   );

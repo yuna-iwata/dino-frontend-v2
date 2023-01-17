@@ -57,12 +57,6 @@ function App() {
   };
 
   const rank = 12;
-  const scoreList = [
-    { score: 9999, date: "01/01/2023" },
-    { score: 9999, date: "01/01/2023" },
-    { score: 9999, date: "01/01/2023" },
-  ];
-  const score = scoreList[0].score;
 
   return (
     <BrowserRouter>
@@ -100,9 +94,7 @@ function App() {
             <AccountPage
               currentAvatar={currentAvatar} // avatar
               username={currentUser}
-              score={score} // the users current score
               rank={rank} // users rank
-              scoreList={scoreList} // users list of scores
               changeUser={changeUser}
               changeProfileAvatar={changeProfileAvatar}
               itemData={itemData}

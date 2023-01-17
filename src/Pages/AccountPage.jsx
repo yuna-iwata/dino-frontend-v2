@@ -5,9 +5,7 @@ import React from "react";
 export default function AccountPage({
   currentAvatar,
   username,
-  score,
   rank,
-  scoreList,
   changeUser,
   changeProfileAvatar,
   itemData,
@@ -23,9 +21,7 @@ export default function AccountPage({
       <Account
         currentAvatar={currentAvatar}
         username={username}
-        score={score}
         rank={rank}
-        scoreList={scoreList}
         changeUser={changeUser}
         changeProfileAvatar={changeProfileAvatar}
         itemData={itemData}

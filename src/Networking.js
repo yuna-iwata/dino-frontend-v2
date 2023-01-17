@@ -116,3 +116,11 @@ export async function submitScore(score, username) {
     console.log(e.message);
   }
 }
+
+export async function fetchPersonalLeaderBoard(setScoreList, username) {
+  const apiResponse = await fetch(
+    `${baseUrl}personal-leaderboard?user=${username}`
+  );
+  const scoreData = await apiResponse.json();
+  setScoreList(scoreData);
+}
