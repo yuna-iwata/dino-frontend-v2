@@ -12,7 +12,11 @@ export default function AccountPage({
   changeProfileAvatar,
   itemData,
   baseUrl,
+  game,
 }) {
+  if (game.key !== null) {
+    game?.destroy(true);
+  }
   return (
     <div>
       <Cover />

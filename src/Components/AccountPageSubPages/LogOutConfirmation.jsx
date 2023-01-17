@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Typography, Button, Box } from "@mui/material";
 
-export default function LogOutConfirmation({ changeTab }) {
+export default function LogOutConfirmation({ changeTab, changeUser }) {
   return (
     <Box
       sx={{
@@ -19,7 +19,13 @@ export default function LogOutConfirmation({ changeTab }) {
         Are you sure you want to log out?
       </Typography>
       <Link to="/" style={{ textDecoration: "none" }}>
-        <Button>Yes</Button>
+        <Button
+          onClick={() => {
+            changeUser(null);
+          }}
+        >
+          Yes
+        </Button>
       </Link>
       <Button
         onClick={() => {

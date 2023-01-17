@@ -98,3 +98,21 @@ export async function changeAvatar(newAvatar, username) {
     console.log(e.message);
   }
 }
+
+export async function submitScore(score, username) {
+  try {
+    const response = await fetch(`${baseUrl}submit-score`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        score: score,
+      }),
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
+}

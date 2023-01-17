@@ -64,7 +64,9 @@ export default function Account({
     },
     signOut: {
       text: "sign out",
-      page: <LogOutConfirmation changeTab={changeTab} />,
+      page: (
+        <LogOutConfirmation changeTab={changeTab} changeUser={changeUser} />
+      ),
     },
     delete: {
       text: "delete account",

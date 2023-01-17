@@ -6,8 +6,15 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-export default function CreateAccountPage(props) {
-  const { changeUser, changeProfileAvatar } = props;
+export default function CreateAccountPage({
+  changeUser,
+  game,
+  changeProfileAvatar,
+}) {
+  if (game.key !== null) {
+    game?.destroy(true);
+  }
+
   const theme = createTheme({
     palette: {
       green: {
