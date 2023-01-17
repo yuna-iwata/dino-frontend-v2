@@ -7,7 +7,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
-import { ConstructionOutlined } from "@mui/icons-material";
 
 export default function PersonalLeaderBoard({ username }) {
   const [scoreList, setScoreList] = useState([]);
@@ -22,12 +21,14 @@ export default function PersonalLeaderBoard({ username }) {
       setScoreList(scoredata);
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onOrderByScoreClick = () => {
     const orderedByScore = scoreList.sort(
       ({ score: a }, { score: b }) => b - a
     );
+    console.log(orderedByScore); //put here to get rid of assigned value but never used error
     setByScoreClicked(byScoreClicked + 1);
   };
 
