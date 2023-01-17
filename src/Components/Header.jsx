@@ -16,10 +16,9 @@ import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 export default function Header(props) {
-  const { currentUser, changeUser, currentAvatar } = props;
+  const { currentUser, changeUser, currentAvatar, baseUrl, itemData } = props;
 
   const primary = grey[100];
-
   return (
     <AppBar
       position="static"
@@ -38,7 +37,12 @@ export default function Header(props) {
                 <Link to="/account-page" style={{ textDecoration: "none" }}>
                   <CardHeader
                     className="avatar-title"
-                    avatar={<Avatar alt="Dino profile" src={currentAvatar} />}
+                    avatar={
+                      <Avatar
+                        alt="Dino profile"
+                        src={`${baseUrl}${itemData[currentAvatar]["img"]}`}
+                      />
+                    }
                     title={currentUser}
                   />
                 </Link>

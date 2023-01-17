@@ -17,7 +17,7 @@ function App() {
 
   const itemData = [
     {
-      img: "dino-idle.png",
+      img: "dino-idle-formatted.png",
       title: "original dino",
     },
     {
@@ -52,8 +52,8 @@ function App() {
     setCurrentUser(username);
   };
 
-  const changeProfileAvatar = (avatar) => {
-    setCurrentAvatar(`${baseUrl}${itemData[avatar - 1]["img"]}`);
+  const changeProfileAvatar = (avatarID) => {
+    setCurrentAvatar(avatarID);
   };
 
   const rank = 12;
@@ -64,6 +64,8 @@ function App() {
         currentUser={currentUser}
         currentAvatar={currentAvatar}
         changeUser={changeUser}
+        itemData={itemData}
+        baseUrl={baseUrl}
       />
       <Routes>
         <Route path="/" element={<WelcomePage game={game} />} />

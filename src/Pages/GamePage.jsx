@@ -21,7 +21,6 @@ export default function Gamepage({ game, setGame, currentUser }) {
     scene: [DinoGameScene],
   };
 
-  console.log(game.key);
   useEffect(() => {
     if (game.key == null) {
       const newGame = new Phaser.Game(gameConfig);
