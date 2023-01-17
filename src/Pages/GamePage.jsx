@@ -39,8 +39,8 @@ export default function Gamepage({ game, setGame, currentUser }) {
     if (handlescore !== 0) {
       const response = await submitScore(handlescore, currentUser);
       console.log(response);
-      handlescore = 0;
       navigate("/account-page");
+      handlescore = 0;
     }
   };
 

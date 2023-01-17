@@ -21,18 +21,11 @@ export default function PersonalLeaderBoard({ username }) {
   }, []);
 
   const onOrderByScoreClick = () => {
-    const orderedByScore = scoreList.sort(
-      ({ score: a }, { score: b }) => b - a
-    );
-    setScoreList(orderedByScore);
+    scoreList.sort(({ score: a }, { score: b }) => b - a);
     setByScoreClicked(byScoreClicked + 1);
   };
   const onOrderByDateClick = () => {
-    const orderedByDate = scoreList.sort(
-      ({ date: a }, { date: b }) => new Date(b) - new Date(a)
-    );
-    console.log(orderedByDate);
-    setScoreList(orderedByDate);
+    scoreList.sort(({ date: a }, { date: b }) => new Date(b) - new Date(a));
     setByScoreClicked(byScoreClicked + 1);
   };
 
