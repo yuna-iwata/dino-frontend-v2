@@ -180,26 +180,29 @@ export default class DinoGameScene extends Phaser.Scene {
   createScore() {
     if (!runGame) {
       return score;
-    } else {
-      return 0;
     }
   }
 
   createColliders() {
-    // prettier-ignore
-    this.physics.add.collider(player, obstacles, () => {
-
-      this.physics.pause();
-      runGame = false
-      this.anims.pauseAll()
-      player.setTexture("dino-hurt");
-      renderTime = 0;
-      readyForBird = 0;
-      this.speed = 10;
-      this.gameOverText.setAlpha(1)
-      this.restart.setAlpha(1)
-      this.gameOverSound.play()
-    }, null, this);
+    this.physics.add.collider(
+      player,
+      obstacles,
+      () => {
+        this.physics.pause();
+        runGame = false;
+        this.anims.pauseAll();
+        player.setTexture("dino-hurt");
+        renderTime = 0;
+        score = 0;
+        readyForBird = 0;
+        this.speed = 10;
+        this.gameOverText.setAlpha(1);
+        this.restart.setAlpha(1);
+        this.gameOverSound.play();
+      },
+      null,
+      this
+    );
   }
 
   renderObstacles() {
@@ -264,7 +267,6 @@ export default class DinoGameScene extends Phaser.Scene {
       runGame = true;
       this.gameOverText.setAlpha(0);
       this.restart.setAlpha(0);
-      score = 0;
       this.physics.resume();
       this.anims.resumeAll();
     });

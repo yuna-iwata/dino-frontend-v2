@@ -3,6 +3,8 @@ import { useState } from "react";
 import { changePassword } from "../../Networking";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
 
 export default function ChangePassword(props) {
   const { changeTab, username } = props;
@@ -43,40 +45,61 @@ export default function ChangePassword(props) {
   );
 
   return (
-    <div>
-      <h1>Fill in the below form to change your password</h1>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="oldPassword">
-          <Form.Label>Old Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Old Password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.oldPassword && errors.oldPassword ? (
-            <div className="errorMessage">{errors.oldPassword}</div>
-          ) : null}
-          {isIncorrectPassword ? (
-            <p className="errorMessage">Password incorrect, please try again</p>
-          ) : null}
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="newPassword">
-          <Form.Label>New Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="New Password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.newPassword && errors.newPassword ? (
-            <div className="errorMessage">{errors.newPassword}</div>
-          ) : null}
-        </Form.Group>
-        <Button variant="flat" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </div>
+    <>
+      <style type="text/css">
+        {`
+    .btn-flat {
+      background-color: #75d193;
+      color: white;
+    }
+    `}
+      </style>
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+          p: 2,
+        }}
+      >
+        <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
+          Fill in the below form to change your password
+        </Typography>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="oldPassword">
+            <Form.Label>Old Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Old Password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {touched.oldPassword && errors.oldPassword ? (
+              <div className="errorMessage">{errors.oldPassword}</div>
+            ) : null}
+            {isIncorrectPassword ? (
+              <p className="errorMessage">
+                Password incorrect, please try again
+              </p>
+            ) : null}
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="newPassword">
+            <Form.Label>New Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="New Password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {touched.newPassword && errors.newPassword ? (
+              <div className="errorMessage">{errors.newPassword}</div>
+            ) : null}
+          </Form.Group>
+          <Button variant="flat" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </Box>
+    </>
   );
 }
