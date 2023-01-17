@@ -57,6 +57,7 @@ export default function Account({
       const findRank = findUser[0]["rank"];
       setRank(findRank);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalList]);
 
   const changeTab = (tab) => {
