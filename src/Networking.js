@@ -124,3 +124,13 @@ export async function fetchPersonalLeaderBoard(setScoreList, username) {
   const scoreData = await apiResponse.json();
   setScoreList(scoreData);
 }
+
+export async function fetchGlobalLeaderBoard(setGlobalList) {
+  const apiResponse = await fetch(`${baseUrl}global-leaderboard`);
+  let scoreData = await apiResponse.json();
+  scoreData.sort(({ score: a }, { score: b }) => b - a);
+  for (let i = 0; i < scoreData.length; i++) {
+    scoreData[i].rank = i + 1;
+  }
+  setGlobalList(scoreData);
+}

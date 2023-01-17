@@ -75,14 +75,13 @@ export default function Account({
         <DeleteAccountConfirmation
           username={username}
           changeUser={changeUser}
+          changeTab={changeTab}
         />
       ),
     },
   };
-
   const initialTab = "leaderboard";
   const [currentTab, setCurrentTab] = useState(initialTab);
-
   const theme = createTheme({
     palette: {
       neutral: {
