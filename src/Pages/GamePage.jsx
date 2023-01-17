@@ -44,7 +44,6 @@ export default function Gamepage({ game, setGame, currentUser }) {
   return (
     <div>
       <h1> Game Page</h1>
-      <h3>score: {score}</h3>
       <button onClick={handleSendClick}>send score to leaderboard</button>
     </div>
   );

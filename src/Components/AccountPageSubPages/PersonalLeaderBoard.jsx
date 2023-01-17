@@ -11,6 +11,7 @@ import { ConstructionOutlined } from "@mui/icons-material";
 
 export default function PersonalLeaderBoard({ username }) {
   const [scoreList, setScoreList] = useState([]);
+  const [byScoreClicked, setByScoreClicked] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,9 +24,25 @@ export default function PersonalLeaderBoard({ username }) {
     fetchData();
   }, []);
 
+  const onOrderByScoreClick = () => {
+    const orderedByScore = scoreList.sort(
+      ({ score: a }, { score: b }) => b - a
+    );
+    setByScoreClicked(byScoreClicked + 1);
+  };
+
+  useEffect(() => {}, [byScoreClicked]);
+
+  const onOrderByDateClick = () => {};
+
   return (
     <Grid container justifyContent="space-between">
       <h1>Personal Leader Board</h1>
+      <div>
+        <p>order by:</p>
+        <button onClick={onOrderByDateClick}>date</button>
+        <button onClick={onOrderByScoreClick}>high score</button>
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
