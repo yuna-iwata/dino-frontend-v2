@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { Game } from "phaser";
 import Header from "./Components/Header";
@@ -73,36 +73,58 @@ function App() {
             <GamePage game={game} setGame={setGame} currentUser={currentUser} />
           }
         />
-        <Route
-          path="/create-account"
-          element={<CreateAccountPage changeUser={changeUser} game={game} />}
-        />
-        <Route
-          path="/login"
-          element={
-            <LoginPage
-              changeUser={changeUser}
-              changeProfileAvatar={changeProfileAvatar}
-              game={game}
-            />
-          }
-        />
+        {currentUser ? (
+          <Route
+            path="/create-account"
+            element={<Navigate to="/account-page" replace={true} />}
+          />
+        ) : (
+          <Route
+            path="/create-account"
+            element={<CreateAccountPage changeUser={changeUser} game={game} />}
+          />
+        )}
+        {currentUser ? (
+          <Route
+            path="/login"
+            element={<Navigate to="/account-page" replace={true} />}
+          />
+        ) : (
+          <Route
+            path="/login"
+            element={
+              <LoginPage
+                changeUser={changeUser}
+                changeProfileAvatar={changeProfileAvatar}
+                game={game}
+              />
+            }
+          />
+        )}
         <Route path="/leaderboard" element={<LeaderboardPage game={game} />} />
-        <Route
-          path="/account-page"
-          element={
-            <AccountPage
-              currentAvatar={currentAvatar} // avatar
-              username={currentUser}
-              rank={rank} // users rank
-              changeUser={changeUser}
-              changeProfileAvatar={changeProfileAvatar}
-              itemData={itemData}
-              baseUrl={baseUrl}
-              game={game}
-            />
-          }
-        />
+        {currentUser ? (
+          <Route
+            path="/account-page"
+            element={
+              <AccountPage
+                currentAvatar={currentAvatar} // avatar
+                username={currentUser}
+                rank={rank} // users rank
+                changeUser={changeUser}
+                changeProfileAvatar={changeProfileAvatar}
+                itemData={itemData}
+                baseUrl={baseUrl}
+                game={game}
+              />
+            }
+          />
+        ) : (
+          <Route
+            path="/account-page"
+            element={<Navigate to="/login" replace={true} />}
+          />
+        )}
+        <Route path="*" element={<p>Error 404: Page Not Found</p>} />
       </Routes>
     </BrowserRouter>
   );

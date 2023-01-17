@@ -3,6 +3,7 @@ import { useState } from "react";
 import { changeUsername } from "../../Networking";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Box, Typography } from "@mui/material";
 
 export default function ChangeUsername(props) {
   const { changeTab, changeUser, username } = props;
@@ -49,45 +50,66 @@ export default function ChangeUsername(props) {
   );
 
   return (
-    <div>
-      <h1>Fill in the below form to change your username</h1>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="newUsername">
-          <Form.Label>New Username</Form.Label>
-          <Form.Control
-            placeholder="New Username"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.newUsername && errors.newUsername ? (
-            <div className="errorMessage">{errors.newUsername}</div>
-          ) : null}
-          {isUsernameTaken ? (
-            <p className="errorMessage">
-              Username is already taken, please try another username
-            </p>
-          ) : null}
-        </Form.Group>
+    <>
+      <style type="text/css">
+        {`
+    .btn-flat {
+      background-color: #75d193;
+      color: white;
+    }
+    `}
+      </style>
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+          p: 2,
+        }}
+      >
+        <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
+          Fill in the below form to change your username
+        </Typography>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="newUsername">
+            <Form.Label>New Username</Form.Label>
+            <Form.Control
+              placeholder="New Username"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {touched.newUsername && errors.newUsername ? (
+              <div className="errorMessage">{errors.newUsername}</div>
+            ) : null}
+            {isUsernameTaken ? (
+              <p className="errorMessage">
+                Username is already taken, please try another username
+              </p>
+            ) : null}
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.password && errors.password ? (
-            <div className="errorMessage">{errors.password}</div>
-          ) : null}
-          {isIncorrectPassword ? (
-            <p className="errorMessage">Password incorrect, please try again</p>
-          ) : null}
-        </Form.Group>
-        <Button variant="flat" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </div>
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {touched.password && errors.password ? (
+              <div className="errorMessage">{errors.password}</div>
+            ) : null}
+            {isIncorrectPassword ? (
+              <p className="errorMessage">
+                Password incorrect, please try again
+              </p>
+            ) : null}
+          </Form.Group>
+          <Button variant="flat" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </Box>
+    </>
   );
 }
