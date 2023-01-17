@@ -1,7 +1,6 @@
 import React from "react";
 import { ImageList, ImageListItem, Tooltip, IconButton } from "@mui/material";
 import { changeAvatar } from "../../Networking";
-import { IndeterminateCheckBox } from "@mui/icons-material";
 
 export default function AvatarMap({
   itemData,
