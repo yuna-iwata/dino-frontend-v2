@@ -34,7 +34,7 @@ export default function Leaderboard({ baseUrl, itemData }) {
                   avatar={
                     <Avatar
                       alt="Dino profile"
-                      src={`${baseUrl}${itemData[row.dino_id - 1]["img"]}`}
+                      src={`${baseUrl}${itemData[row.dino_id]["img"]}`}
                     />
                   }
                   title={row.name}
