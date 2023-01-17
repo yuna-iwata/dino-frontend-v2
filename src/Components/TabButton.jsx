@@ -24,8 +24,10 @@ export default function TabButton(props) {
   }
   return (
     <Button
-      variant={currentTab.text === tabs[tab].text ? "contained" : "outlined"}
-      color={currentTab.text === tabs[tab].text ? "green" : "neutral"}
+      variant={
+        tabs[currentTab].text === tabs[tab].text ? "contained" : "outlined"
+      }
+      color={tabs[currentTab].text === tabs[tab].text ? "green" : "neutral"}
       startIcon={icon}
       onClick={() => {
         changeTab(tab);

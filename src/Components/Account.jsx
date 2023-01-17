@@ -29,7 +29,7 @@ export default function Account({
   baseUrl,
 }) {
   const changeTab = (tab) => {
-    setCurrentTab(tabs[tab]);
+    setCurrentTab(tab);
   };
   const tabs = {
     leaderboard: {
@@ -44,6 +44,8 @@ export default function Account({
           changeProfileAvatar={changeProfileAvatar}
           itemData={itemData}
           baseUrl={baseUrl}
+          currentAvatar={currentAvatar}
+          changeTab={changeTab}
         />
       ),
     },
@@ -77,16 +79,10 @@ export default function Account({
       ),
     },
   };
-  const initialTab = Object.keys(tabs)[0];
-  const [currentTab, setCurrentTab] = useState({
-    text: tabs[initialTab].text,
-    page: (
-      <PersonalLeaderBoard
-        username={username}
-        //scoreList={scoreList}
-      />
-    ),
-  });
+
+  const initialTab = "leaderboard";
+  const [currentTab, setCurrentTab] = useState(initialTab);
+
   const theme = createTheme({
     palette: {
       neutral: {
@@ -113,7 +109,7 @@ export default function Account({
               avatar={
                 <Avatar
                   alt="Dino profile"
-                  src={currentAvatar}
+                  src={`${baseUrl}${itemData[currentAvatar]["img"]}`}
                   style={{
                     border: "0.1px solid lightgray",
                   }}
@@ -156,7 +152,7 @@ export default function Account({
         container
         spacing={1}
       >
-        <Grid container justifyContent="space-between">
+        <Grid container>
           <Stack direction="column" spacing={2}>
             <ThemeProvider theme={theme}>
               {Object.keys(tabs).map((tab, i) => {
@@ -174,7 +170,7 @@ export default function Account({
           </Stack>
         </Grid>
         <Grid container justifyContent="space-between">
-          {currentTab.page}
+          {tabs[currentTab].page}
         </Grid>
       </Box>
     </Container>
