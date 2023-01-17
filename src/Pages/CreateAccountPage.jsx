@@ -6,7 +6,11 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-export default function CreateAccountPage({ changeUser, game }) {
+export default function CreateAccountPage({
+  changeUser,
+  game,
+  changeProfileAvatar,
+}) {
   if (game.key !== null) {
     game?.destroy(true);
   }
@@ -26,7 +30,10 @@ export default function CreateAccountPage({ changeUser, game }) {
         <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
           Create Account
         </Typography>
-        <CreateAccountForm changeUser={changeUser} />
+        <CreateAccountForm
+          changeUser={changeUser}
+          changeProfileAvatar={changeProfileAvatar}
+        />
         <Typography sx={{ mt: 2, mb: 2 }}>Already have an account?</Typography>
         <ThemeProvider theme={theme}>
           <div>

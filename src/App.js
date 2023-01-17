@@ -83,7 +83,13 @@ function App() {
         ) : (
           <Route
             path="/create-account"
-            element={<CreateAccountPage changeUser={changeUser} game={game} />}
+            element={
+              <CreateAccountPage
+                changeUser={changeUser}
+                game={game}
+                changeProfileAvatar={changeProfileAvatar}
+              />
+            }
           />
         )}
         {currentUser ? (

@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export default function CreateAccountForm(props) {
-  const { changeUser } = props;
+  const { changeUser, changeProfileAvatar } = props;
   const navigate = useNavigate();
   const [usernameExists, setUsernameExists] = useState(false);
 
@@ -49,6 +49,7 @@ export default function CreateAccountForm(props) {
         if (response.code === 200) {
           changeUser(values.username);
           navigate("/game");
+          changeProfileAvatar(0);
         } else if (response.code === 500) {
           setUsernameExists(true);
         }
