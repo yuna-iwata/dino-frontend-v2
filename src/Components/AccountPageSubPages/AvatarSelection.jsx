@@ -17,7 +17,7 @@ export default function AvatarSelection({
         minWidth: 300,
       }}
     >
-      <Typography sx={{ p: 2 }}>Select an avatar</Typography>
+      <Typography sx={{ p: 2, color: "#74D193" }}>Select an avatar</Typography>
       <AvatarMap
         username={username}
         changeProfileAvatar={changeProfileAvatar}

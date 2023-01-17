@@ -73,6 +73,7 @@ export default function Account({
         <DeleteAccountConfirmation
           username={username}
           changeUser={changeUser}
+          changeTab={changeTab}
         />
       ),
     },
