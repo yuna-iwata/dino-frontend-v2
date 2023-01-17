@@ -7,20 +7,16 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
+import { fetchPersonalLeaderBoard } from "../../Networking";
 
 export default function PersonalLeaderBoard({ username }) {
   const [scoreList, setScoreList] = useState([]);
   const [byScoreClicked, setByScoreClicked] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const apiResponse = await fetch(
-        `http://127.0.0.1:5000/personal-leaderboard?user=${username}`
-      );
-      const scoredata = await apiResponse.json();
-      setScoreList(scoredata);
-    };
-    fetchData();
+    if (username) {
+      fetchPersonalLeaderBoard(setScoreList, username);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -52,7 +48,7 @@ export default function PersonalLeaderBoard({ username }) {
               <TableCell align="center">Date</TableCell>
             </TableRow>
           </TableHead>
-          {scoreList !== undefined && scoreList.length > 0 ? (
+          {scoreList && scoreList.length > 0 ? (
             <TableBody>
               {scoreList.map((row, index) => (
                 <TableRow

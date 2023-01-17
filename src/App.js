@@ -12,7 +12,7 @@ import "./App.css";
 
 function App() {
   const [game, setGame] = useState(<Game />);
-  const [currentUser, setCurrentUser] = useState("guest");
+  const [currentUser, setCurrentUser] = useState(null);
   const changeUser = (username) => {
     setCurrentUser(username);
   };
