@@ -17,10 +17,6 @@ export default function Leaderboard({ baseUrl, itemData }) {
     fetchGlobalLeaderBoard(setGlobalList);
   }, []);
 
-  useEffect(() => {
-    console.log(globalList);
-  }, [globalList]);
-
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 200 }} aria-label="simple table">
