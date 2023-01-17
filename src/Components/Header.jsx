@@ -12,7 +12,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import Box from "@mui/material/Box";
 import { CardHeader } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
@@ -20,17 +19,6 @@ export default function Header(props) {
   const { currentUser, changeUser, currentAvatar } = props;
 
   const primary = grey[100];
-
-  const useStyles = makeStyles(() => ({
-    title: {
-      flexGrow: 1,
-      textAlign: "center",
-    },
-    avatarTitle: {
-      color: "black",
-    },
-  }));
-  const classes = useStyles();
 
   return (
     <AppBar
@@ -46,10 +34,10 @@ export default function Header(props) {
         <Toolbar disableGutters>
           {currentUser ? (
             <Box>
-              <Tooltip title="Account profile" placement="left-start">
+              <Tooltip className="account-profile" placement="left-start">
                 <Link to="/account-page" style={{ textDecoration: "none" }}>
                   <CardHeader
-                    className={classes.avatarTitle}
+                    className="avatar-title"
                     avatar={<Avatar alt="Dino profile" src={currentAvatar} />}
                     title={currentUser}
                   />
@@ -67,19 +55,20 @@ export default function Header(props) {
               </Typography>
             </Box>
           )}
-
           <Typography
-            className={classes.title}
+            className="avatar-title"
             variant="h5"
             component="div"
             sx={{ flexGrow: 1 }}
           >
-            <Link
-              to="/game"
-              style={{ textDecoration: "none", color: "#74D193" }}
-            >
-              Dino game
-            </Link>
+            <div className="header-center">
+              <Link
+                to="/game"
+                style={{ textDecoration: "none", color: "#74D193" }}
+              >
+                Dino game
+              </Link>
+            </div>
           </Typography>
 
           <Tooltip title="Leaderboard" placement="right-start">

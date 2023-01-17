@@ -103,6 +103,7 @@ export default function Account({
         <Grid container spacing={3}>
           <Grid alignItems="center" display="flex" item xs={6}>
             <CardHeader
+              className="avatar-title"
               avatar={
                 <Avatar
                   alt="Dino profile"
