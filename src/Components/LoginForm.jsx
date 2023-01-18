@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import { checkUser, setUserCookie } from "../Networking.js";
+import { checkUser } from "../Networking.js";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
