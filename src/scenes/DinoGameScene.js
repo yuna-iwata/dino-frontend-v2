@@ -12,7 +12,6 @@ var renderTime = 0;
 var score = 0;
 var hatNum;
 var obstaclesRendered = 0;
-var hatRendered = 0;
 var timeBetweenObstacles = 0;
 var renderHatAfterThisManySeconds = 0;
 var timeForHat = 0;
@@ -220,7 +219,9 @@ export default class DinoGameScene extends Phaser.Scene {
         this.gameOverText.setAlpha(1);
         this.restart.setAlpha(1);
         this.gameOverSound.play();
-        wearHat.setAlpha(0);
+        if (wearHat) {
+          wearHat.setAlpha(0);
+        }
       },
       null,
       this
@@ -235,11 +236,13 @@ export default class DinoGameScene extends Phaser.Scene {
       .setOrigin(0, 1)
       .setImmovable()
       .setScale(scale);
-    console.log("rendered");
   }
 
   collectHat(player, hats) {
     hats.disableBody(true, true);
+    if (wearHat) {
+      wearHat.setAlpha(0);
+    }
     wearHat = this.physics.add
       .sprite(78, height, `skin-${hatNum}`)
       .setOrigin(0, 1)
@@ -247,7 +250,6 @@ export default class DinoGameScene extends Phaser.Scene {
     // this.physics.add.collider(wearHat, this.hatGround);
     wearHat.setCollideWorldBounds(true);
     wearHat.setGravityY(3000);
-    hatRendered += 1;
   }
 
   renderObstacles() {
@@ -311,10 +313,11 @@ export default class DinoGameScene extends Phaser.Scene {
       player.body.offset.y = 0;
       obstacles.clear(true, true);
       hats.clear(true, true);
-      wearHat.disableBody(true, true);
+      if (wearHat) {
+        wearHat.disableBody(true, true);
+      }
       runGame = true;
       score = 0;
-      hatRendered = 0;
       this.gameOverText.setAlpha(0);
       this.restart.setAlpha(0);
       this.physics.resume();
@@ -323,12 +326,17 @@ export default class DinoGameScene extends Phaser.Scene {
     if (cursors.down.isDown && player.body.velocity.x === 0) {
       player.body.height = 58 * scale;
       player.body.offset.y = 34;
-      wearHat.setAlpha(0);
+      if (wearHat) {
+        wearHat.setAlpha(0);
+      }
     }
     if (cursors.up.isDown && player.body.velocity.x === 0) {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
-      wearHat.setAlpha(1);
+
+      if (wearHat) {
+        wearHat.setAlpha(1);
+      }
     }
 
     if (player.body.deltaAbsY() > 0) {
@@ -374,29 +382,25 @@ export default class DinoGameScene extends Phaser.Scene {
       Phaser.Actions.IncX(hats.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
       timeForHat += delta * this.speed * 0.08;
-      renderHatAfterThisManySeconds = 2000;
+      renderHatAfterThisManySeconds = 5000;
+      console.log(renderTime);
       if (renderTime >= 500 && obstaclesRendered === 0) {
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         this.renderObstacles();
         obstaclesRendered += 1;
         renderTime = 0;
-      } else if (
-        renderTime >= timeBetweenObstacles &&
-        obstaclesRendered > 0 &&
-        ((timeForHat >= 500 &&
-          timeForHat <= renderHatAfterThisManySeconds - 200) ||
-          hatRendered >= 1)
-      ) {
+      } else if (renderTime >= timeBetweenObstacles && obstaclesRendered > 0) {
         this.renderObstacles();
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         renderTime = 0;
+        console.log("obstacle");
       } else if (
         timeForHat >= renderHatAfterThisManySeconds &&
-        hatRendered < 1
+        renderTime >= 200
       ) {
         let hat = this.renderHats();
         timeForHat = 0;
-        console.log("hat", hatRendered);
+        console.log("renderhat");
       }
       this.keyCommands();
     }
