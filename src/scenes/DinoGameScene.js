@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import Phaser from "phaser";
 var player;
 var cursors;
@@ -8,6 +7,8 @@ var hats;
 var wearHat;
 var readyForBird = 0;
 var runGame = false;
+var allHatsCollected = false;
+var totalNumOfHats = 6;
 var renderTime = 0;
 var score = 0;
 var hatNum = 1;
@@ -43,9 +44,16 @@ export default class DinoGameScene extends Phaser.Scene {
     this.load.image("hat-1", "baseball-cap.png");
     this.load.image("hat-2", "sombrero.png");
     this.load.image("hat-3", "sigma-hat.png");
+    this.load.image("hat-4", "glasses.png");
+    this.load.image("hat-5", "spiderman-mask.png");
+    this.load.image("hat-6", "rainbow-hat.png");
     this.load.image("skin-1", "dino-baseball-legless.png");
     this.load.image("skin-2", "dino-mariachi-legless.png");
     this.load.image("skin-3", "dino-sigma-legless.png");
+    this.load.image("skin-4", "dino-disco-legless.png");
+    this.load.image("skin-5", "missing");
+    this.load.image("skin-6", "dino-rainbow.png");
+    this.load.image("start-box", "white-box.png");
     //**********LOAD SPRITEs********//
     this.load.spritesheet("enemy-bird", "enemy-bird.png", {
       frameWidth: 92,
@@ -79,7 +87,7 @@ export default class DinoGameScene extends Phaser.Scene {
       .setScale(scale);
 
     startBox = this.physics.add
-      .sprite(0, height - 100, "hi")
+      .sprite(0, height - 100, "start-box")
       .setOrigin(0, 1)
       .setImmovable();
 
@@ -160,6 +168,14 @@ export default class DinoGameScene extends Phaser.Scene {
       })
       .setOrigin(1, 0)
       .setAlpha(0);
+    this.displayItemScore = this.add
+      .text(width - 120, 6, "items: 0/6", {
+        fill: "#535353",
+        font: "900 25px Courier",
+        resolution: 5,
+      })
+      .setOrigin(1, 0)
+      .setAlpha(0);
     // this.scoreLabel = this.add.bitmapText(50, "myfont", "0", 128);
     this.startGame();
     this.createColliders();
@@ -187,6 +203,7 @@ export default class DinoGameScene extends Phaser.Scene {
             runGame = true
             player.setVelocityX(0);
             this.displayScore.setAlpha(1);
+            this.displayItemScore.setAlpha(1);
             expandGround.remove()
           
           }
@@ -231,11 +248,15 @@ export default class DinoGameScene extends Phaser.Scene {
 
   renderHats() {
     console.log(hatNum);
+    if (hatNum > totalNumOfHats) {
+      hatNum = 1;
+    }
     let hat = hats
       .create(width, height, `hat-${hatNum}`)
       .setOrigin(0, 1)
       .setImmovable()
       .setScale(scale);
+    console.log(hat); //netlify
   }
 
   collectHat(player, hats) {
@@ -245,15 +266,20 @@ export default class DinoGameScene extends Phaser.Scene {
     }
     //78
     wearHat = this.physics.add
-      .sprite(91, height, `skin-${hatNum}`)
+      .sprite(92, height, `skin-${hatNum}`)
       .setOrigin(0, 1)
       .setScale(scale);
     // this.physics.add.collider(wearHat, this.hatGround);
     wearHat.setCollideWorldBounds(true);
     wearHat.setGravityY(3000);
+    console.log(allHatsCollected);
+    if (hatNum <= totalNumOfHats && !allHatsCollected) {
+      this.displayItemScore.setText(`items: ${hatNum}/6`);
+    }
     hatNum += 1;
-    if (hatNum === 4) {
+    if (hatNum > totalNumOfHats) {
       hatNum = 1;
+      allHatsCollected = true;
     }
   }
 
@@ -317,6 +343,9 @@ export default class DinoGameScene extends Phaser.Scene {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
       obstacles.clear(true, true);
+      this.displayItemScore.setText(`items: 0/6`);
+      allHatsCollected = false;
+      hatNum = 1;
       hats.clear(true, true);
       if (wearHat) {
         wearHat.disableBody(true, true);
@@ -370,7 +399,6 @@ export default class DinoGameScene extends Phaser.Scene {
         wearHat.setVelocityY(-900);
         wearHat.setAlpha(1);
       }
-      console.log("jump");
     }
     //**********START GAME********//
     if (runGame) {
@@ -387,8 +415,7 @@ export default class DinoGameScene extends Phaser.Scene {
       Phaser.Actions.IncX(hats.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
       timeForHat += delta * this.speed * 0.08;
-      renderHatAfterThisManySeconds = 29000;
-      console.log(renderTime);
+      renderHatAfterThisManySeconds = 5000;
       if (renderTime >= 500 && obstaclesRendered === 0) {
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         this.renderObstacles();
@@ -404,6 +431,7 @@ export default class DinoGameScene extends Phaser.Scene {
         renderTime >= 400
       ) {
         let hat = this.renderHats();
+        console.log(hat); //netlify
         timeForHat = 0;
         console.log("renderhat");
       }
