@@ -1,14 +1,21 @@
+import { render } from "@testing-library/react";
 import Phaser from "phaser";
 var player;
 var cursors;
 var startBox;
 var obstacles;
+var hats;
+var wearHat;
 var readyForBird = 0;
 var runGame = false;
 var renderTime = 0;
 var score = 0;
+var hatNum;
 var obstaclesRendered = 0;
+var hatRendered = 0;
 var timeBetweenObstacles = 0;
+var renderHatAfterThisManySeconds = 0;
+var timeForHat = 0;
 const width = 1000;
 const height = 300;
 const scale = 0.5;
@@ -31,6 +38,12 @@ export default class DinoGameScene extends Phaser.Scene {
     this.load.image("restart", "restart.png");
     this.load.image("game-over", "game-over.png");
     this.load.image("cloud", "cloud.png");
+    this.load.image("hat-1", "baseball-cap.png");
+    this.load.image("hat-2", "sombrero.png");
+    this.load.image("hat-3", "sigma-hat.png");
+    this.load.image("skin-1", "dino-baseball-legless.png");
+    this.load.image("skin-2", "dino-mariachi-legless.png");
+    this.load.image("skin-3", "dino-sigma-legless.png");
     //**********LOAD SPRITEs********//
     this.load.spritesheet("enemy-bird", "enemy-bird.png", {
       frameWidth: 92,
@@ -55,7 +68,7 @@ export default class DinoGameScene extends Phaser.Scene {
   }
   create() {
     //**********SET UP STATIC OBJECTS********//
-    this.speed = 10;
+    this.speed = 12;
     score = 0;
 
     this.ground = this.add
@@ -77,6 +90,8 @@ export default class DinoGameScene extends Phaser.Scene {
     player.setGravityY(3000);
 
     obstacles = this.physics.add.group();
+    hats = this.physics.add.group();
+    this.physics.add.overlap(player, hats, this.collectHat, null, this);
 
     this.gameOverText = this.add
       .image(width / 2, height / 2, "game-over")
@@ -197,7 +212,7 @@ export default class DinoGameScene extends Phaser.Scene {
         player.setTexture("dino-hurt");
         renderTime = 0;
         readyForBird = 0;
-        this.speed = 10;
+        this.speed = 12;
         this.gameOverText.setAlpha(1);
         this.restart.setAlpha(1);
         this.gameOverSound.play();
@@ -205,6 +220,29 @@ export default class DinoGameScene extends Phaser.Scene {
       null,
       this
     );
+  }
+
+  renderHats() {
+    hatNum = Math.floor(Math.random() * 3) + 1;
+    console.log(hatNum);
+    let hat = hats
+      .create(width, height, `hat-${hatNum}`)
+      .setOrigin(0, 1)
+      .setImmovable()
+      .setScale(scale);
+    console.log("rendered");
+  }
+
+  collectHat(player, hats) {
+    hats.disableBody(true, true);
+    wearHat = this.physics.add
+      .sprite(110, height, `skin-${hatNum}`)
+      .setOrigin(0, 1)
+      .setScale(scale);
+    // this.physics.add.collider(wearHat, this.hatGround);
+    wearHat.setCollideWorldBounds(true);
+    wearHat.setGravityY(3000);
+    hatRendered += 1;
   }
 
   renderObstacles() {
@@ -266,8 +304,11 @@ export default class DinoGameScene extends Phaser.Scene {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
       obstacles.clear(true, true);
+      hats.clear(true, true);
+      wearHat.setAlpha(0);
       runGame = true;
       score = 0;
+      hatRendered = 0;
       this.gameOverText.setAlpha(0);
       this.restart.setAlpha(0);
       this.physics.resume();
@@ -304,6 +345,9 @@ export default class DinoGameScene extends Phaser.Scene {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
       player.setVelocityY(-900);
+      if (wearHat && wearHat.body.onFloor() && wearHat.body.velocity.x === 0) {
+        wearHat.setVelocityY(-900);
+      }
       console.log("jump");
     }
     //**********START GAME********//
@@ -318,16 +362,32 @@ export default class DinoGameScene extends Phaser.Scene {
       this.ground.tilePositionX += this.speed;
       //**********OBSTACLES********//
       Phaser.Actions.IncX(obstacles.getChildren(), -this.speed * scale);
+      Phaser.Actions.IncX(hats.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
+      timeForHat += delta * this.speed * 0.08;
+      renderHatAfterThisManySeconds = 2000;
       if (renderTime >= 500 && obstaclesRendered === 0) {
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         this.renderObstacles();
         obstaclesRendered += 1;
         renderTime = 0;
-      } else if (renderTime >= timeBetweenObstacles && obstaclesRendered > 0) {
+      } else if (
+        renderTime >= timeBetweenObstacles &&
+        obstaclesRendered > 0 &&
+        ((timeForHat >= 500 &&
+          timeForHat <= renderHatAfterThisManySeconds - 200) ||
+          hatRendered >= 1)
+      ) {
         this.renderObstacles();
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         renderTime = 0;
+      } else if (
+        timeForHat >= renderHatAfterThisManySeconds &&
+        hatRendered < 1
+      ) {
+        let hat = this.renderHats();
+        timeForHat = 0;
+        console.log("hat", hatRendered);
       }
       this.keyCommands();
     }
