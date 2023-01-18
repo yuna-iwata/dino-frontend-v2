@@ -15,6 +15,9 @@ export default function ChangeUsername(props) {
     if (!values.newUsername) {
       errors.newUsername = "Required";
     }
+    if (values.newUsername === username) {
+      errors.newUsername = "Please choose a new username";
+    }
     if (!values.password) {
       errors.password = "Required";
     }
