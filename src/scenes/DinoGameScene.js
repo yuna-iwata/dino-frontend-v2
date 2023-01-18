@@ -214,6 +214,7 @@ export default class DinoGameScene extends Phaser.Scene {
         this.anims.pauseAll();
         player.setTexture("dino-hurt");
         renderTime = 0;
+        timeForHat = 0;
         readyForBird = 0;
         this.speed = 12;
         this.gameOverText.setAlpha(1);
@@ -242,8 +243,9 @@ export default class DinoGameScene extends Phaser.Scene {
     if (wearHat) {
       wearHat.setAlpha(0);
     }
+    //78
     wearHat = this.physics.add
-      .sprite(78, height, `skin-${hatNum}`)
+      .sprite(91, height, `skin-${hatNum}`)
       .setOrigin(0, 1)
       .setScale(scale);
     // this.physics.add.collider(wearHat, this.hatGround);
@@ -385,7 +387,7 @@ export default class DinoGameScene extends Phaser.Scene {
       Phaser.Actions.IncX(hats.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
       timeForHat += delta * this.speed * 0.08;
-      renderHatAfterThisManySeconds = 5000;
+      renderHatAfterThisManySeconds = 29000;
       console.log(renderTime);
       if (renderTime >= 500 && obstaclesRendered === 0) {
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
@@ -399,7 +401,7 @@ export default class DinoGameScene extends Phaser.Scene {
         console.log("obstacle");
       } else if (
         timeForHat >= renderHatAfterThisManySeconds &&
-        renderTime >= 200
+        renderTime >= 400
       ) {
         let hat = this.renderHats();
         timeForHat = 0;

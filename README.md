@@ -1,9 +1,4 @@
-# Phaser 3 + Create React App
-
-## What's included? - [Check the preview](https://create-react-phaser3-app.netlify.app/)
-
-- [Phaser 3](https://github.com/photonstorm/phaser) - overlaid canvas with the config in `src/PhaserGame.ts` and a scene in `src/scenes/`
-- [Create React App](https://github.com/facebook/create-react-app) - React, TSX, ES6, TypeScript, no need to install bundler, ...etc
+# Dino Game
 
 ## Getting started
 
