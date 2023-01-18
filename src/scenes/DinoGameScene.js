@@ -179,7 +179,7 @@ export default class DinoGameScene extends Phaser.Scene {
 
   createScore() {
     if (!runGame) {
-      return score;
+      return score
     } else {
       return 0;
     }
