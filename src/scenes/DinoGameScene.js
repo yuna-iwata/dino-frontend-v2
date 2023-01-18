@@ -169,7 +169,7 @@ export default class DinoGameScene extends Phaser.Scene {
     this.physics.add.overlap(startBox, player, () => {
       startBox.disableBody(true,true)
       const expandGround = this.time.addEvent({
-        delay: 20,
+        delay: 1,
         loop:true,
         callbackScope: this,
         callback: () => {
@@ -216,6 +216,7 @@ export default class DinoGameScene extends Phaser.Scene {
         this.gameOverText.setAlpha(1);
         this.restart.setAlpha(1);
         this.gameOverSound.play();
+        wearHat.setAlpha(0);
       },
       null,
       this
@@ -236,7 +237,7 @@ export default class DinoGameScene extends Phaser.Scene {
   collectHat(player, hats) {
     hats.disableBody(true, true);
     wearHat = this.physics.add
-      .sprite(110, height, `skin-${hatNum}`)
+      .sprite(78, height, `skin-${hatNum}`)
       .setOrigin(0, 1)
       .setScale(scale);
     // this.physics.add.collider(wearHat, this.hatGround);
@@ -305,7 +306,7 @@ export default class DinoGameScene extends Phaser.Scene {
       player.body.offset.y = 0;
       obstacles.clear(true, true);
       hats.clear(true, true);
-      wearHat.setAlpha(0);
+      wearHat.disableBody(true, true);
       runGame = true;
       score = 0;
       hatRendered = 0;
@@ -317,10 +318,12 @@ export default class DinoGameScene extends Phaser.Scene {
     if (cursors.down.isDown && player.body.velocity.x === 0) {
       player.body.height = 58 * scale;
       player.body.offset.y = 34;
+      wearHat.setAlpha(0);
     }
     if (cursors.up.isDown && player.body.velocity.x === 0) {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
+      wearHat.setAlpha(1);
     }
 
     if (player.body.deltaAbsY() > 0) {
@@ -347,6 +350,7 @@ export default class DinoGameScene extends Phaser.Scene {
       player.setVelocityY(-900);
       if (wearHat && wearHat.body.onFloor() && wearHat.body.velocity.x === 0) {
         wearHat.setVelocityY(-900);
+        wearHat.setAlpha(1);
       }
       console.log("jump");
     }
