@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { Game } from "phaser";
+import { BottomNavigation } from "@mui/material";
 import Header from "./Components/Header";
 import WelcomePage from "./Pages/WelcomePage";
 import GamePage from "./Pages/GamePage";
@@ -17,7 +18,7 @@ function App() {
 
   const itemData = [
     {
-      img: "dino-idle.png",
+      img: "dino-idle-formatted.png",
       title: "original dino",
     },
     {
@@ -52,8 +53,8 @@ function App() {
     setCurrentUser(username);
   };
 
-  const changeProfileAvatar = (avatar) => {
-    setCurrentAvatar(`${baseUrl}${itemData[avatar - 1]["img"]}`);
+  const changeProfileAvatar = (avatarID) => {
+    setCurrentAvatar(avatarID);
   };
 
   const rank = 12;
@@ -64,6 +65,8 @@ function App() {
         currentUser={currentUser}
         currentAvatar={currentAvatar}
         changeUser={changeUser}
+        itemData={itemData}
+        baseUrl={baseUrl}
       />
       <Routes>
         <Route path="/" element={<WelcomePage game={game} />} />
@@ -81,7 +84,13 @@ function App() {
         ) : (
           <Route
             path="/create-account"
-            element={<CreateAccountPage changeUser={changeUser} game={game} />}
+            element={
+              <CreateAccountPage
+                changeUser={changeUser}
+                game={game}
+                changeProfileAvatar={changeProfileAvatar}
+              />
+            }
           />
         )}
         {currentUser ? (
@@ -101,7 +110,17 @@ function App() {
             }
           />
         )}
-        <Route path="/leaderboard" element={<LeaderboardPage game={game} />} />
+        <Route
+          path="/leaderboard"
+          element={
+            <LeaderboardPage
+              game={game}
+              changeProfileAvatar={changeProfileAvatar}
+              baseUrl={baseUrl}
+              itemData={itemData}
+            />
+          }
+        />
         {currentUser ? (
           <Route
             path="/account-page"
@@ -126,6 +145,7 @@ function App() {
         )}
         <Route path="*" element={<p>Error 404: Page Not Found</p>} />
       </Routes>
+      <BottomNavigation />
     </BrowserRouter>
   );
 }

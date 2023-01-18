@@ -63,7 +63,7 @@ export default function ChangePassword(props) {
         }}
       >
         <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
-          Fill in the below form to change your password
+          Change your password
         </Typography>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="oldPassword">

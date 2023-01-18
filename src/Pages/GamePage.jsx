@@ -3,8 +3,10 @@ import DinoGameScene from "../scenes/DinoGameScene";
 import Phaser from "phaser";
 import { submitScore } from "../Networking";
 import { Typography, Button, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Gamepage({ game, setGame, currentUser }) {
+  const navigate = useNavigate();
   const gameConfig = {
     type: Phaser.AUTO,
     pixelArt: true,
@@ -21,7 +23,6 @@ export default function Gamepage({ game, setGame, currentUser }) {
     scene: [DinoGameScene],
   };
 
-  console.log(game.key);
   useEffect(() => {
     if (game.key == null) {
       const newGame = new Phaser.Game(gameConfig);
@@ -34,8 +35,12 @@ export default function Gamepage({ game, setGame, currentUser }) {
     let scene = game.scene.keys.helloworld;
     let handlescore = scene.createScore();
     console.log(handlescore);
-    let response = await submitScore(handlescore, currentUser);
-    console.log(response);
+    if (handlescore !== 0) {
+      const response = await submitScore(handlescore, currentUser);
+      console.log(response);
+      navigate("/account-page");
+      handlescore = 0;
+    }
   };
 
   return (
