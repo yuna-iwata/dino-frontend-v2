@@ -10,7 +10,7 @@ var readyForBird = 0;
 var runGame = false;
 var renderTime = 0;
 var score = 0;
-var hatNum;
+var hatNum = 1;
 var obstaclesRendered = 0;
 var timeBetweenObstacles = 0;
 var renderHatAfterThisManySeconds = 0;
@@ -229,7 +229,6 @@ export default class DinoGameScene extends Phaser.Scene {
   }
 
   renderHats() {
-    hatNum = Math.floor(Math.random() * 3) + 1;
     console.log(hatNum);
     let hat = hats
       .create(width, height, `hat-${hatNum}`)
@@ -250,6 +249,10 @@ export default class DinoGameScene extends Phaser.Scene {
     // this.physics.add.collider(wearHat, this.hatGround);
     wearHat.setCollideWorldBounds(true);
     wearHat.setGravityY(3000);
+    hatNum += 1;
+    if (hatNum === 4) {
+      hatNum = 1;
+    }
   }
 
   renderObstacles() {
