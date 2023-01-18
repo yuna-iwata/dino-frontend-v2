@@ -21,7 +21,6 @@ import {
   fetchPersonalLeaderBoard,
   fetchGlobalLeaderBoard,
 } from ".././Networking";
-import { ConstructionOutlined } from "@mui/icons-material";
 
 export default function Account({
   currentAvatar,
