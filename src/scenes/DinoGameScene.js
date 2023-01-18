@@ -11,7 +11,7 @@ var allHatsCollected = false;
 var totalNumOfHats = 6;
 var renderTime = 0;
 var score = 0;
-var hatNum = 1;
+var hatNum = 0;
 var obstaclesRendered = 0;
 var timeBetweenObstacles = 0;
 var renderHatAfterThisManySeconds = 0;
@@ -64,6 +64,18 @@ export default class DinoGameScene extends Phaser.Scene {
       frameHeight: 94,
     });
     this.load.spritesheet("dino-duck", "dino-duck.png", {
+      frameWidth: 118,
+      frameHeight: 94,
+    });
+    this.load.spritesheet("dino-baseball-duck", "dino-baseball-duck.png", {
+      frameWidth: 118,
+      frameHeight: 94,
+    });
+    this.load.spritesheet("dino-mariachi-duck", "dino-mariachi-duck.png", {
+      frameWidth: 118,
+      frameHeight: 94,
+    });
+    this.load.spritesheet("dino-sigma-duck", "dino-sigma-duck.png", {
       frameWidth: 118,
       frameHeight: 94,
     });
@@ -140,6 +152,33 @@ export default class DinoGameScene extends Phaser.Scene {
     this.anims.create({
       key: "dino-duck-anim",
       frames: this.anims.generateFrameNumbers("dino-duck", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "dino-baseball-duck-anim",
+      frames: this.anims.generateFrameNumbers("dino-baseball-duck", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "dino-mariachi-duck-anim",
+      frames: this.anims.generateFrameNumbers("dino-mariachi-duck", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "dino-sigma-duck-anim",
+      frames: this.anims.generateFrameNumbers("dino-sigma-duck", {
         start: 0,
         end: 1,
       }),
@@ -247,12 +286,11 @@ export default class DinoGameScene extends Phaser.Scene {
   }
 
   renderHats() {
-    console.log(hatNum);
     if (hatNum > totalNumOfHats) {
-      hatNum = 1;
+      hatNum = 0;
     }
     let hat = hats
-      .create(width, height, `hat-${hatNum}`)
+      .create(width, height, `hat-${hatNum + 1}`)
       .setOrigin(0, 1)
       .setImmovable()
       .setScale(scale);
@@ -260,6 +298,7 @@ export default class DinoGameScene extends Phaser.Scene {
   }
 
   collectHat(player, hats) {
+    hatNum += 1;
     hats.disableBody(true, true);
     if (wearHat) {
       wearHat.setAlpha(0);
@@ -276,7 +315,6 @@ export default class DinoGameScene extends Phaser.Scene {
     if (hatNum <= totalNumOfHats && !allHatsCollected) {
       this.displayItemScore.setText(`items: ${hatNum}/6`);
     }
-    hatNum += 1;
     if (hatNum > totalNumOfHats) {
       hatNum = 1;
       allHatsCollected = true;
@@ -345,7 +383,7 @@ export default class DinoGameScene extends Phaser.Scene {
       obstacles.clear(true, true);
       this.displayItemScore.setText(`items: 0/6`);
       allHatsCollected = false;
-      hatNum = 1;
+      hatNum = 0;
       hats.clear(true, true);
       if (wearHat) {
         wearHat.disableBody(true, true);
@@ -377,10 +415,19 @@ export default class DinoGameScene extends Phaser.Scene {
       player.anims.stop();
       player.setTexture("dino-run");
     } else {
+      console.log("hatNum", hatNum);
       if (player.body.height === 92 * scale) {
         player.anims.play("dino-run-anim", true);
       } else {
-        player.anims.play("dino-duck-anim", true);
+        if (hatNum === 0 || hatNum === 4 || hatNum === 5 || hatNum === 6) {
+          player.anims.play("dino-duck-anim", true);
+        } else if (hatNum === 1) {
+          player.anims.play("dino-baseball-duck-anim", true);
+        } else if (hatNum === 2) {
+          player.anims.play("dino-mariachi-duck-anim", true);
+        } else if (hatNum === 3) {
+          player.anims.play("dino-sigma-duck-anim", true);
+        }
       }
     }
   }
