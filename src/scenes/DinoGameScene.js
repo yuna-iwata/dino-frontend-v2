@@ -33,7 +33,10 @@ export default class DinoGameScene extends Phaser.Scene {
     this.load.audio("reach-audio", "reach.m4a");
     //**********LOAD IMAGES********//
     this.load.image("ground", "ground.png");
-    this.load.image("dino-idle", "dino-idle.png");
+    this.load.image("dino-idle", "dino-idle.png", {
+      frameWidth: 10,
+      frameHeight: 10,
+    });
     this.load.image("dino-hurt", "dino-hurt.png");
     this.load.image("restart", "restart.png");
     this.load.image("game-over", "game-over.png");
@@ -86,6 +89,7 @@ export default class DinoGameScene extends Phaser.Scene {
       .setOrigin(0, 1)
       .setScale(scale);
 
+    player.body.setSize(50, 92, true);
     player.setCollideWorldBounds(true);
     player.setGravityY(3000);
 
@@ -258,6 +262,7 @@ export default class DinoGameScene extends Phaser.Scene {
         )
         .setOrigin(0, 1)
         .setScale(scale);
+      obstacle.body.setSize(80, 50, true);
       obstacle.anims.play("enemy-bird-anim", 1);
       obstacle.body.height = obstacle.body.height / 1.5;
     } else if (obstacleNum < 7) {
