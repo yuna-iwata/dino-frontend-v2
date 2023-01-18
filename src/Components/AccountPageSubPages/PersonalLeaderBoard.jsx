@@ -6,8 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import Button from "react-bootstrap/Button";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, ButtonGroup, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { fetchPersonalLeaderBoard } from "../../Networking";
 
@@ -47,12 +46,17 @@ export default function PersonalLeaderBoard({ username }) {
         </Typography>
         <Box>
           <Typography sx={{ p: 1, color: "#74D193" }}>order by:</Typography>
-          <Button variant="flat" onClick={onOrderByDateClick}>
-            date
-          </Button>
-          <Button variant="flat" onClick={onOrderByScoreClick}>
-            high score
-          </Button>
+          <ButtonGroup
+            variant="contained"
+            aria-label="outlined primary button group"
+          >
+            <Button variant="flat" onClick={onOrderByDateClick}>
+              date
+            </Button>
+            <Button variant="flat" onClick={onOrderByScoreClick}>
+              high score
+            </Button>
+          </ButtonGroup>
         </Box>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">

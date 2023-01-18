@@ -12,22 +12,22 @@ export default function AvatarSelectionElement({
 }) {
   let backgroundColour;
   if (currentAvatar === index) {
-    backgroundColour = "lightgrey";
+    backgroundColour = "#74D193";
   }
 
   return (
     <ImageListItem>
       <Tooltip title={item.title}>
         <IconButton
-          style={{ borderRadius: 25, background: backgroundColour }}
+          style={{ borderRadius: 50, background: backgroundColour }}
           onClick={() => {
             changeAvatar(index, username);
             changeProfileAvatar(index);
           }}
         >
           <img
-            width="37px"
-            height="37px"
+            width="100px"
+            height="100px"
             alt={item.title}
             src={`${baseUrl}${item.img}`}
           />

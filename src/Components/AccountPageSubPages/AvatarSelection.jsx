@@ -15,11 +15,13 @@ export default function AvatarSelection({
         boxShadow: 1,
         borderRadius: 2,
         p: 2,
-        minWidth: 300,
+        minWidth: 700,
       }}
     >
-      <Typography sx={{ p: 2 }}>Select an avatar</Typography>
-      <ImageList sx={{ width: 500, height: 200 }} cols={3} rowHeight={1.5}>
+      <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
+        Select an avatar
+      </Typography>
+      <ImageList sx={{ width: 600, height: 600 }} cols={3} rowHeight={1.5}>
         {itemData.map((item, index) => (
           <AvatarSelectionElement
             username={username}

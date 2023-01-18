@@ -68,7 +68,7 @@ export default function ChangeUsername(props) {
         }}
       >
         <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
-          Fill in the below form to change your username
+          Change your username
         </Typography>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="newUsername">
