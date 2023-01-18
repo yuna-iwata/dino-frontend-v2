@@ -52,9 +52,9 @@ export default function Account({
     fetchGlobalLeaderBoard(setGlobalList);
   }, []);
   useEffect(() => {
-    if (globalList.length > 0) {
-      const findUser = globalList.filter((item) => item["name"] === username);
-      const findRank = findUser[0]["rank"];
+    const matchedUser = globalList.filter((item) => item["name"] === username);
+    if (globalList.length > 0 && matchedUser > 0) {
+      const findRank = matchedUser[0]["rank"];
       setRank(findRank);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
