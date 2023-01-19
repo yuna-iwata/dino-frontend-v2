@@ -11,14 +11,12 @@ import LeaderboardRoundedIcon from "@mui/icons-material/LeaderboardRounded";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import Box from "@mui/material/Box";
-import { CardHeader } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 
 export default function Header(props) {
   const { currentUser, changeUser, currentAvatar, baseUrl, itemData } = props;
 
-  const primary = grey[100];
   return (
     <AppBar
       position="static"
@@ -26,51 +24,57 @@ export default function Header(props) {
         display: "flex",
         justifyContent: "center",
         width: "100%",
-        bgcolor: primary,
+        bgcolor: "#74D193",
       }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {currentUser ? (
             <Box>
-              <Tooltip className="account-profile" placement="left-start">
-                <Link to="/account-page" style={{ textDecoration: "none" }}>
-                  <CardHeader
-                    className="avatar-title"
-                    avatar={
-                      <Avatar
-                        alt="Dino profile"
-                        src={`${baseUrl}${itemData[currentAvatar]["img"]}`}
-                      />
-                    }
-                    title={currentUser}
-                  />
-                </Link>
-              </Tooltip>
+              <Link
+                to="/account-page"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <Grid container direction="row" placement="left-start">
+                  <Grid item>
+                    <Avatar
+                      alt="Dino profile"
+                      src={`${baseUrl}${itemData[currentAvatar]["img"]}`}
+                    />
+                  </Grid>
+                  <Grid className="avatar-title" item sx={{ mt: 1, ml: 1 }}>
+                    {currentUser}
+                  </Grid>
+                </Grid>
+              </Link>
             </Box>
           ) : (
             <Box>
               <Typography
                 placement="left-start"
                 component="div"
-                sx={{ flexGrow: 1, color: "#6c6c6c" }}
+                sx={{ flexGrow: 1, color: "white", ml: 12 }}
               >
-                Hi, user!
+                <p className="avatar-title">{""}</p>
               </Typography>
             </Box>
           )}
           <Typography
-            className="avatar-title"
-            variant="h5"
+            variant="h3"
             component="div"
+            fontFamily="IBM Plex Sans"
             sx={{ flexGrow: 1 }}
           >
             <div className="header-center">
               <Link
+                className="avatar-title"
                 to="/game"
-                style={{ textDecoration: "none", color: "#74D193" }}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
               >
-                Dino game
+                Dino Game
               </Link>
             </div>
           </Typography>
@@ -78,8 +82,8 @@ export default function Header(props) {
           <Tooltip title="Leaderboard" placement="right-start">
             <Link to="/leaderboard">
               <IconButton size="large" color="inherit">
-                <Badge color="primary">
-                  <LeaderboardRoundedIcon color="action" />
+                <Badge sx={{ color: "white" }}>
+                  <LeaderboardRoundedIcon />
                 </Badge>
               </IconButton>
             </Link>
@@ -93,8 +97,8 @@ export default function Header(props) {
                   color="inherit"
                   onClick={() => changeUser(null)}
                 >
-                  <Badge color="primary">
-                    <LogoutIcon color="action" />
+                  <Badge sx={{ color: "white" }}>
+                    <LogoutIcon />
                   </Badge>
                 </IconButton>
               </Link>
@@ -103,8 +107,8 @@ export default function Header(props) {
             <Tooltip title="Log in" placement="right-start">
               <Link to="/login">
                 <IconButton size="large" colour="inherit">
-                  <Badge color="primary">
-                    <LoginIcon color="action" />
+                  <Badge sx={{ color: "white" }}>
+                    <LoginIcon />
                   </Badge>
                 </IconButton>
               </Link>

@@ -33,7 +33,7 @@ export default function TabButton(props) {
         changeTab(tab);
       }}
     >
-      {tabs[tab].text}
+      <p className="avatar-account-button">{tabs[tab].text}</p>
     </Button>
   );
 }

@@ -60,14 +60,17 @@ export default function ChangePassword(props) {
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
+          mt: 5,
         }}
       >
-        <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
-          Change your password
+        <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+          <p className="avatar-title">Change your password</p>
         </Typography>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="oldPassword">
-            <Form.Label>Old Password</Form.Label>
+            <Form.Label>
+              <p className="avatar-title">Old Password </p>
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Old Password"
@@ -84,7 +87,9 @@ export default function ChangePassword(props) {
             ) : null}
           </Form.Group>
           <Form.Group className="mb-3" controlId="newPassword">
-            <Form.Label>New Password</Form.Label>
+            <Form.Label>
+              <p className="avatar-title">New Password </p>
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="New Password"
@@ -96,7 +101,7 @@ export default function ChangePassword(props) {
             ) : null}
           </Form.Group>
           <Button variant="flat" type="submit">
-            Submit
+            <p className="avatar-title">Submit </p>
           </Button>
         </Form>
       </Box>

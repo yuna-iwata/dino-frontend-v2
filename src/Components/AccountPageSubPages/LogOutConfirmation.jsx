@@ -20,10 +20,11 @@ export default function LogOutConfirmation({ changeTab, changeUser }) {
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
+          mt: 5,
         }}
       >
-        <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
-          Are you sure you want to log out?
+        <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+          <p className="avatar-title">Are you sure you want to log out?</p>
         </Typography>
         <Box
           sx={{ display: "flex", justifyContent: "space-evenly", p: 1, m: 1 }}
@@ -35,7 +36,7 @@ export default function LogOutConfirmation({ changeTab, changeUser }) {
                 changeUser(null);
               }}
             >
-              Yes
+              <p className="avatar-title">Yes</p>
             </Button>
           </Link>
           <Button
@@ -44,7 +45,7 @@ export default function LogOutConfirmation({ changeTab, changeUser }) {
               changeTab("leaderboard");
             }}
           >
-            No
+            <p className="avatar-title">No</p>
           </Button>
         </Box>
       </Box>

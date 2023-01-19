@@ -1,6 +1,6 @@
 import Leaderboard from "../Components/Leaderboard";
-import Cover from "../Components/Coverphoto";
 import React from "react";
+import { Typography } from "@mui/material";
 
 export default function LeaderboardPage({
   game,
@@ -13,7 +13,9 @@ export default function LeaderboardPage({
   }
   return (
     <div>
-      <Cover />
+      <Typography variant="h2" align="center" sx={{ m: 3 }}>
+        <p>Leaderboard</p>
+      </Typography>
       <Leaderboard
         changeProfileAvatar={changeProfileAvatar}
         baseUrl={baseUrl}

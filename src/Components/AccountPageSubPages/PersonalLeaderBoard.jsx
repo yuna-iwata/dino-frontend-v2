@@ -41,29 +41,43 @@ export default function PersonalLeaderBoard({ username }) {
     `}
       </style>
       <Grid container justifyContent="space-between">
-        <Typography variant="h4" align="center" sx={{ color: "#74D193" }}>
-          Personal leaderboard
+        <Typography
+          variant="h6"
+          align="center"
+          sx={{ mt: 5, color: "#74D193", mb: 0 }}
+        >
+          <p className="avatar-leaderboard">Personal leaderboard</p>
         </Typography>
-        <Box>
-          <Typography sx={{ p: 1, color: "#74D193" }}>order by:</Typography>
+        <Box sx={{ mb: 0 }}>
+          <Typography sx={{ color: "#74D193", mt: 3 }}>
+            <p className="avatar-title">order by:</p>
+          </Typography>
           <ButtonGroup
             variant="contained"
             aria-label="outlined primary button group"
           >
             <Button variant="flat" onClick={onOrderByDateClick}>
-              date
+              <p className="avatar-button">DATE</p>
             </Button>
             <Button variant="flat" onClick={onOrderByScoreClick}>
-              high score
+              <p className="avatar-button">HIGH SCORE</p>
             </Button>
           </ButtonGroup>
         </Box>
-        <TableContainer component={Paper}>
+        <TableContainer
+          component={Paper}
+          sx={{ mt: 2 }}
+          style={{ maxHeight: 410, overflow: "auto" }}
+        >
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Score</TableCell>
-                <TableCell align="center">Date</TableCell>
+                <TableCell align="center">
+                  <p className="avatar-title">Score</p>
+                </TableCell>
+                <TableCell align="center">
+                  <p className="avatar-title">Date</p>
+                </TableCell>
               </TableRow>
             </TableHead>
             {scoreList && scoreList.length > 0 ? (
@@ -73,8 +87,12 @@ export default function PersonalLeaderBoard({ username }) {
                     key={index}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell align="center">{row.score}</TableCell>
-                    <TableCell align="center">{row.date}</TableCell>
+                    <TableCell align="center">
+                      <p className="avatar-title">{row.score}</p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <p className="avatar-title">{row.date}</p>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

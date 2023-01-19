@@ -1,5 +1,4 @@
 import Account from "../Components/Account";
-import Cover from "../Components/Coverphoto";
 import React from "react";
 
 export default function AccountPage({
@@ -17,7 +16,6 @@ export default function AccountPage({
   }
   return (
     <div>
-      <Cover />
       <Account
         currentAvatar={currentAvatar}
         username={username}

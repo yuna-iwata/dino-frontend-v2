@@ -69,7 +69,9 @@ export default function CreateAccountForm(props) {
       </style>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="username">
-          <Form.Label>Username</Form.Label>
+          <Form.Label>
+            <p className="avatar-title">Username</p>
+          </Form.Label>
           <Form.Control
             type="username"
             placeholder="Username"
@@ -82,7 +84,9 @@ export default function CreateAccountForm(props) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>
+            <p className="avatar-title">Password</p>
+          </Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
@@ -95,7 +99,9 @@ export default function CreateAccountForm(props) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="repassword">
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label>
+            <p className="avatar-title">Confirm</p>
+          </Form.Label>
           <Form.Control
             type="password"
             placeholder="Password confirmation"
@@ -108,7 +114,7 @@ export default function CreateAccountForm(props) {
         </Form.Group>
 
         <Button variant="flat" type="submit">
-          Submit
+          <p className="avatar-title">Submit</p>
         </Button>
 
         {usernameExists ? (

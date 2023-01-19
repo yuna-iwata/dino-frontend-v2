@@ -39,6 +39,7 @@
 
 .errorMessage {
   color: red;
+  font-family: "Press Start 2P", "cursive";
 }
 
 .welcome-page-container {
@@ -62,6 +63,59 @@
   justify-content: center;
 }
 
-.avatar-title {
-  color: #6c6c6c;
+.header-font {
+  font-family: "IBM Plex Sans";
 }
+
+.avatar-title {
+  font-family: "Press Start 2P", "cursive";
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  margin-top: 15px;
+  margin-bottom: 3px;
+}
+.avatar-leaderboard {
+  font-family: "Press Start 2P", "cursive";
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+
+.avatar-button {
+  font-family: "Press Start 2P", "cursive";
+  font-size: 10px;
+  margin: 0;
+}
+
+.avatar-score {
+  font-family: "Press Start 2P", "cursive";
+  font-size: 10px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+.avatar-number {
+  font-family: "Press Start 2P", "cursive";
+  font-size: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.avatar-account-button {
+  font-family: "Press Start 2P", "cursive";
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  margin-top: 15px;
+  font-size: smaller;
+}
+
+.avatar-button-welcome {
+  font-family: "Press Start 2P", "cursive";
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  margin-bottom: 0px;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Press+Start+2P&display=swap");
