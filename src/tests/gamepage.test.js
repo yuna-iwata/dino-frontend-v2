@@ -1,9 +1,18 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
-import { unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+import Phaser from "phaser";
 import GamePage from "../Pages/GamePage";
 import Leaderboard from "../Components/Leaderboard";
 import App from "../App";
+import { MemoryRouter } from "react-router-dom";
+import "jest-canvas-mock";
+
+jest.mock("../scenes/DinoGameScene");
+
+const mockedUsedNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedUsedNavigate,
+}));
 
 test("test", () => {
   expect(true).toBe(true);
@@ -27,4 +36,15 @@ test("send score to leaderboard button in gamepage", () => {
     name: /send score to leaderboard/i,
   });
   expect(sendToLeaderBoardButton).toBeInTheDocument();
+});
+
+test("send score to leaderboard button in gamepage", () => {
+  render(<GamePage game={<Phaser.Game />} currentUser={null} setGame={null} />);
+  //, {
+  //   wrapper: MemoryRouter,
+  // }
+  // const LeaderboardButton = screen.getByRole("button", {
+  //   name: /send score to leaderboard/i,
+  // });
+  // expect(LeaderboardButton).toBeInTheDocument();
 });
