@@ -18,7 +18,7 @@ export default function Gamepage({ game, setGame, currentUser }) {
         debug: false,
       },
     },
-    width: 1000,
+    width: window.innerWidth,
     height: 300,
     scene: [DinoGameScene],
   };
