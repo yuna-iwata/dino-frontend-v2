@@ -51,8 +51,8 @@ export default class DinoGameScene extends Phaser.Scene {
     this.load.image("skin-2", "dino-mariachi-legless.png");
     this.load.image("skin-3", "dino-sigma-legless.png");
     this.load.image("skin-4", "dino-disco-legless.png");
-    this.load.image("skin-5", "missing");
-    this.load.image("skin-6", "dino-rainbow.png");
+    this.load.image("skin-5", "dino-spiderman-legless.png");
+    this.load.image("skin-6", "dino-rainbow-legless.png");
     this.load.image("start-box", "white-box.png");
     //**********LOAD SPRITEs********//
     this.load.spritesheet("enemy-bird", "enemy-bird.png", {
@@ -76,6 +76,18 @@ export default class DinoGameScene extends Phaser.Scene {
       frameHeight: 94,
     });
     this.load.spritesheet("dino-sigma-duck", "dino-sigma-duck.png", {
+      frameWidth: 118,
+      frameHeight: 94,
+    });
+    this.load.spritesheet("dino-disco-duck", "dino-disco-duck.png", {
+      frameWidth: 118,
+      frameHeight: 94,
+    });
+    this.load.spritesheet("dino-spiderman-duck", "dino-spiderman-duck.png", {
+      frameWidth: 118,
+      frameHeight: 94,
+    });
+    this.load.spritesheet("dino-rainbow-duck", "dino-rainbow-duck.png", {
       frameWidth: 118,
       frameHeight: 94,
     });
@@ -186,6 +198,33 @@ export default class DinoGameScene extends Phaser.Scene {
       repeat: -1,
     });
     this.anims.create({
+      key: "dino-disco-duck-anim",
+      frames: this.anims.generateFrameNumbers("dino-disco-duck", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "dino-spiderman-duck-anim",
+      frames: this.anims.generateFrameNumbers("dino-spiderman-duck", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "dino-rainbow-duck-anim",
+      frames: this.anims.generateFrameNumbers("dino-rainbow-duck", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
       key: "enemy-bird-anim",
       frames: this.anims.generateFrameNumbers("enemy-bird", {
         start: 0,
@@ -241,6 +280,7 @@ export default class DinoGameScene extends Phaser.Scene {
             this.ground.width = width/scale
             runGame = true
             player.setVelocityX(0);
+            player.setPosition(92, height)
             this.displayScore.setAlpha(1);
             this.displayItemScore.setAlpha(1);
             expandGround.remove()
@@ -419,7 +459,7 @@ export default class DinoGameScene extends Phaser.Scene {
       if (player.body.height === 92 * scale) {
         player.anims.play("dino-run-anim", true);
       } else {
-        if (hatNum === 0 || hatNum === 4 || hatNum === 5 || hatNum === 6) {
+        if (hatNum === 0) {
           player.anims.play("dino-duck-anim", true);
         } else if (hatNum === 1) {
           player.anims.play("dino-baseball-duck-anim", true);
@@ -427,6 +467,12 @@ export default class DinoGameScene extends Phaser.Scene {
           player.anims.play("dino-mariachi-duck-anim", true);
         } else if (hatNum === 3) {
           player.anims.play("dino-sigma-duck-anim", true);
+        } else if (hatNum === 4) {
+          player.anims.play("dino-disco-duck-anim", true);
+        } else if (hatNum === 5) {
+          player.anims.play("dino-spiderman-duck-anim", true);
+        } else if (hatNum === 6) {
+          player.anims.play("dino-rainbow-duck-anim", true);
         }
       }
     }
