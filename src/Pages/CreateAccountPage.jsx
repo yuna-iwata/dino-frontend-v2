@@ -22,6 +22,11 @@ export default function CreateAccountPage({
         contrastText: "#fff",
       },
     },
+    typography: {
+      allVariants: {
+        fontFamily: "",
+      },
+    },
   });
 
   return (
@@ -37,17 +42,17 @@ export default function CreateAccountPage({
           p: 2,
         }}
       >
-        <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
-          <p className="avatar-title">Create account</p>
-        </Typography>
-        <CreateAccountForm
-          changeUser={changeUser}
-          changeProfileAvatar={changeProfileAvatar}
-        />
-        <Typography sx={{ mt: 2, mb: 2 }}>
-          <p className="avatar-title">Already have an account?</p>
-        </Typography>
         <ThemeProvider theme={theme}>
+          <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
+            Create account
+          </Typography>
+          <CreateAccountForm
+            changeUser={changeUser}
+            changeProfileAvatar={changeProfileAvatar}
+          />
+          <Typography sx={{ mt: 2, mb: 2 }}>
+            Already have an account?
+          </Typography>
           <div>
             <Link style={{ textDecoration: "none" }} to="/login">
               <Button variant="outlined" color="green">
