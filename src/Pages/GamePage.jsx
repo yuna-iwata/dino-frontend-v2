@@ -24,10 +24,10 @@ export default function Gamepage({ game, setGame, currentUser }) {
   };
 
   useEffect(() => {
-    if (game.key == null) {
-      const newGame = new Phaser.Game(gameConfig);
-      setGame(newGame);
-    }
+    //    if (game.key == null) {
+    const newGame = new Phaser.Game(gameConfig);
+    setGame(newGame);
+    //   }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

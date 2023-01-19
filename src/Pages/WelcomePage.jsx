@@ -47,7 +47,6 @@ export default function WelcomePage({ game }) {
                 <Button
                   variant="contained"
                   color="green"
-                  contrastText="white"
                   startIcon={<PersonAddIcon />}
                 >
                   <p className="avatar-button">Create Account</p>
