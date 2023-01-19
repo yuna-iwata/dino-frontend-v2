@@ -15,7 +15,7 @@ export default function Gamepage({ game, setGame, currentUser }) {
     physics: {
       default: "arcade",
       arcade: {
-        debug: true,
+        debug: false,
       },
     },
     width: 1000,
