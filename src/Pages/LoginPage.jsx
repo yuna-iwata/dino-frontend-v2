@@ -22,7 +22,13 @@ export default function CreateAccountPage({
         contrastText: "#fff",
       },
     },
+    typography: {
+      allVariants: {
+        fontFamily: "",
+      },
+    },
   });
+
   return (
     <Container maxWidth="sm">
       <Box
@@ -37,20 +43,18 @@ export default function CreateAccountPage({
         }}
       >
         <div>
-          <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
-            <p className="avatar-title">Login</p>
-          </Typography>
-          <LoginForm
-            changeUser={changeUser}
-            changeProfileAvatar={changeProfileAvatar}
-          />
-          <Typography sx={{ mb: 2 }}>
-            <p className="avatar-title">Don't have an account?</p>
-          </Typography>
           <ThemeProvider theme={theme}>
+            <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
+              Login
+            </Typography>
+            <LoginForm
+              changeUser={changeUser}
+              changeProfileAvatar={changeProfileAvatar}
+            />
+            <Typography sx={{ mb: 2 }}>Don't have an account?</Typography>
             <Link style={{ textDecoration: "none" }} to="/create-account">
               <Button variant="outlined" color="green">
-                <p className="avatar-button-welcome">Sign Up</p>
+                <Typography>Sign Up</Typography>
               </Button>
             </Link>
           </ThemeProvider>
