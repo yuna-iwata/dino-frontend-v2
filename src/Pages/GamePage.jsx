@@ -5,7 +5,7 @@ import { submitScore } from "../Networking";
 import { Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function Gamepage({ game, setGame, currentUser }) {
+export default function GamePage({ game, setGame, currentUser }) {
   const navigate = useNavigate();
   const gameConfig = {
     type: Phaser.AUTO,
