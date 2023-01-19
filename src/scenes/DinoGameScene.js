@@ -16,7 +16,7 @@ var obstaclesRendered = 0;
 var timeBetweenObstacles = 0;
 var renderHatAfterThisManySeconds = 0;
 var timeForHat = 0;
-const width = 1000;
+const width = window.innerWidth;
 const height = 300;
 const scale = 0.5;
 
@@ -294,7 +294,7 @@ export default class DinoGameScene extends Phaser.Scene {
 
   createScore() {
     if (!runGame) {
-      return score
+      return score;
     } else {
       return 0;
     }
@@ -326,9 +326,10 @@ export default class DinoGameScene extends Phaser.Scene {
   }
 
   renderHats() {
-    if (hatNum > totalNumOfHats) {
+    if (hatNum >= totalNumOfHats) {
       hatNum = 0;
     }
+    console.log(hatNum);
     let hat = hats
       .create(width, height, `hat-${hatNum + 1}`)
       .setOrigin(0, 1)
@@ -462,16 +463,22 @@ export default class DinoGameScene extends Phaser.Scene {
         if (hatNum === 0) {
           player.anims.play("dino-duck-anim", true);
         } else if (hatNum === 1) {
+          wearHat.setAlpha(0);
           player.anims.play("dino-baseball-duck-anim", true);
         } else if (hatNum === 2) {
+          wearHat.setAlpha(0);
           player.anims.play("dino-mariachi-duck-anim", true);
         } else if (hatNum === 3) {
+          wearHat.setAlpha(0);
           player.anims.play("dino-sigma-duck-anim", true);
         } else if (hatNum === 4) {
+          wearHat.setAlpha(0);
           player.anims.play("dino-disco-duck-anim", true);
         } else if (hatNum === 5) {
+          wearHat.setAlpha(0);
           player.anims.play("dino-spiderman-duck-anim", true);
         } else if (hatNum === 6) {
+          wearHat.setAlpha(0);
           player.anims.play("dino-rainbow-duck-anim", true);
         }
       }
