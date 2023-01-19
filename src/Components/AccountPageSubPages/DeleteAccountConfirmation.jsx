@@ -21,10 +21,13 @@ export default function DeleteAccountConfirmation(props) {
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
+          mt: 5,
         }}
       >
-        <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
-          Are you sure you want to delete your account?
+        <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+          <p className="avatar-title">
+            Are you sure you want to delete your account?
+          </p>
         </Typography>
         <Box
           sx={{ display: "flex", justifyContent: "space-evenly", p: 1, m: 1 }}
@@ -37,7 +40,7 @@ export default function DeleteAccountConfirmation(props) {
                 changeUser(null);
               }}
             >
-              Yes
+              <p className="avatar-title">Yes</p>
             </Button>
           </Link>
           <Button
@@ -46,7 +49,7 @@ export default function DeleteAccountConfirmation(props) {
               changeTab("leaderboard");
             }}
           >
-            No
+            <p className="avatar-title">No</p>
           </Button>
         </Box>
       </Box>

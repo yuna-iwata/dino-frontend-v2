@@ -10,7 +10,6 @@ import Stack from "@mui/material/Stack";
 import TabButton from "./TabButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CardHeader } from "@mui/material";
-
 import PersonalLeaderBoard from "./AccountPageSubPages/PersonalLeaderBoard";
 import AvatarSelection from "./AccountPageSubPages/AvatarSelection";
 import ChangeUsername from "./AccountPageSubPages/ChangeUsername";
@@ -59,9 +58,12 @@ export default function Account({
     if (globalList.length > 0 && matchedUser) {
       const findRank = matchedUser["rank"];
       setRank(findRank);
+      console.log(matchedUser);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalList]);
+
+  console.log(globalList);
 
   const changeTab = (tab) => {
     setCurrentTab(tab);
@@ -157,11 +159,14 @@ export default function Account({
           <Grid alignItems="center" display="flex" item xs={2}>
             <EmojiEventsIcon />
             <Box sx={{ p: 2 }}>
-              <Typography sx={{ color: "#75d193" }} variant="body1">
-                High score
+              <Typography
+                sx={{ color: "#64B981", fontWeight: "bold" }}
+                variant="body1"
+              >
+                <p className="avatar-score">High score</p>
               </Typography>
-              <Typography sx={{ color: "#75d193" }} variant="body2">
-                {highScore}
+              <Typography sx={{ color: "#64B981" }} variant="body2">
+                <p className="avatar-number">{highScore}</p>
               </Typography>
             </Box>
           </Grid>
@@ -169,11 +174,14 @@ export default function Account({
           <Grid alignItems="center" display="flex" item xs={2}>
             <PublicIcon color="neutral" />
             <Box sx={{ p: 2 }}>
-              <Typography sx={{ color: "#75d193" }} variant="body1">
-                World ranking
+              <Typography
+                sx={{ color: "#64B981", fontWeight: "bold" }}
+                variant="body1"
+              >
+                <p className="avatar-score">World ranking</p>
               </Typography>
-              <Typography sx={{ color: "#75d193" }} variant="body2">
-                #{rank}
+              <Typography sx={{ color: "#64B981" }} variant="body2">
+                <p className="avatar-number">#{rank}</p>
               </Typography>
             </Box>
           </Grid>
@@ -186,7 +194,7 @@ export default function Account({
         container
         spacing={1}
       >
-        <Grid container xs={6}>
+        <Grid container sx={{ pt: 5 }}>
           <Stack direction="column" spacing={2}>
             <ThemeProvider theme={theme}>
               {Object.keys(tabs).map((tab, i) => {

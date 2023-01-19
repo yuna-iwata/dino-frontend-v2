@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { Game } from "phaser";
-import { BottomNavigation } from "@mui/material";
 import Header from "./Components/Header";
 import WelcomePage from "./Pages/WelcomePage";
 import GamePage from "./Pages/GamePage";
@@ -145,7 +144,6 @@ function App() {
         )}
         <Route path="*" element={<p>Error 404: Page Not Found</p>} />
       </Routes>
-      <BottomNavigation />
     </BrowserRouter>
   );
 }

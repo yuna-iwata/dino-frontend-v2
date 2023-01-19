@@ -68,14 +68,17 @@ export default function ChangeUsername(props) {
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
+          mt: 5.3,
         }}
       >
-        <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
-          Change your username
+        <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+          <p className="avatar-title">Change username</p>
         </Typography>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="newUsername">
-            <Form.Label>New Username</Form.Label>
+            <Form.Label>
+              <p className="avatar-title">New username</p>
+            </Form.Label>
             <Form.Control
               placeholder="New Username"
               onChange={handleChange}
@@ -92,7 +95,9 @@ export default function ChangeUsername(props) {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>
+              <p className="avatar-title">Password</p>
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Password"
@@ -109,7 +114,7 @@ export default function ChangeUsername(props) {
             ) : null}
           </Form.Group>
           <Button variant="flat" type="submit">
-            Submit
+            <p className="avatar-title">submit</p>
           </Button>
         </Form>
       </Box>

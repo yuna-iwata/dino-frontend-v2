@@ -26,20 +26,32 @@ export default function CreateAccountPage({
 
   return (
     <Container maxWidth="sm">
-      <Box display="flex" sx={{ m: 10, flexDirection: "column" }}>
+      <Box
+        display="flex"
+        sx={{
+          m: 10,
+          flexDirection: "column",
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+          p: 2,
+        }}
+      >
         <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
-          Create Account
+          <p className="avatar-title">Create account</p>
         </Typography>
         <CreateAccountForm
           changeUser={changeUser}
           changeProfileAvatar={changeProfileAvatar}
         />
-        <Typography sx={{ mt: 2, mb: 2 }}>Already have an account?</Typography>
+        <Typography sx={{ mt: 2, mb: 2 }}>
+          <p className="avatar-title">Already have an account?</p>
+        </Typography>
         <ThemeProvider theme={theme}>
           <div>
             <Link style={{ textDecoration: "none" }} to="/login">
               <Button variant="outlined" color="green">
-                Log in
+                <p className="avatar-button-welcome">log in</p>
               </Button>
             </Link>
           </div>

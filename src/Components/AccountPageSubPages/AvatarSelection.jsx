@@ -16,12 +16,14 @@ export default function AvatarSelection({
         borderRadius: 2,
         p: 2,
         minWidth: 700,
+        mt: 5,
       }}
+      style={{ maxHeight: 465, overflow: "auto" }}
     >
-      <Typography variant="h4" align="center" sx={{ p: 2, color: "#74D193" }}>
-        Select an avatar
+      <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+        <p className="avatar-title">Select an avatar</p>
       </Typography>
-      <ImageList sx={{ width: 600, height: 600 }} cols={3} rowHeight={1.5}>
+      <ImageList sx={{ width: 700, height: 400 }} cols={3} rowHeight={2}>
         {itemData.map((item, index) => (
           <AvatarSelectionElement
             username={username}
