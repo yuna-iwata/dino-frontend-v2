@@ -74,7 +74,7 @@ export default function Header(props) {
                   color: "white",
                 }}
               >
-                Dino Game
+                Play Game
               </Link>
             </div>
           </Typography>

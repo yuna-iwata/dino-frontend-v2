@@ -5,13 +5,14 @@ import CreateAccountPage from "../Pages/CreateAccountPage";
 import Game from "../scenes/DinoGameScene";
 import { MemoryRouter } from "react-router-dom";
 
-let game = null;
-jest.mock("../scenes/DinoGameScene");
 const mockedUsedNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockedUsedNavigate,
 }));
+
+let game = null;
+jest.mock("../scenes/DinoGameScene");
 
 beforeEach(() => {
   Game.mockClear();
@@ -20,7 +21,7 @@ beforeEach(() => {
   game.key = 1;
 });
 
-test("Create account form contains at least one input field", () => {
+test("Create account form contains three input fields", () => {
   render(<CreateAccountPage game={game} />, { wrapper: MemoryRouter });
   const input_field = screen.getByRole("textbox");
   expect(input_field).toBeInTheDocument();

@@ -57,10 +57,10 @@ export default function PersonalLeaderBoard({ username }) {
             aria-label="outlined primary button group"
           >
             <Button variant="flat" onClick={onOrderByDateClick}>
-              <p className="avatar-button">DATE</p>
+              <h6 className="avatar-button">DATE</h6>
             </Button>
             <Button variant="flat" onClick={onOrderByScoreClick}>
-              <p className="avatar-button">HIGH SCORE</p>
+              <h6 className="avatar-button">SCORE</h6>
             </Button>
           </ButtonGroup>
         </Box>
