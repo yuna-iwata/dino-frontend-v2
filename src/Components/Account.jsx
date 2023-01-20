@@ -54,16 +54,12 @@ export default function Account({
     const matchedUser = globalList.filter(
       (item) => item["name"] === username
     )[0];
-    console.log(matchedUser);
     if (globalList.length > 0 && matchedUser) {
       const findRank = matchedUser["rank"];
       setRank(findRank);
-      console.log(matchedUser);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalList]);
-
-  console.log(globalList);
 
   const changeTab = (tab) => {
     setCurrentTab(tab);

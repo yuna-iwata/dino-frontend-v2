@@ -34,10 +34,8 @@ export default function Gamepage({ game, setGame, currentUser }) {
   const handleSendClick = async () => {
     let scene = game.scene.keys.helloworld;
     let handlescore = scene.createScore();
-    console.log(handlescore);
     if (handlescore !== 0) {
-      const response = await submitScore(handlescore, currentUser);
-      console.log(response);
+      await submitScore(handlescore, currentUser);
       navigate("/account-page");
       handlescore = 0;
     }
