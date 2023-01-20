@@ -38,7 +38,7 @@ test("Header contains log in button", () => {
   expect(loginButton).toBeInTheDocument();
 });
 
-test("Header contains game", () => {
+test("Header contains 'play game' link", () => {
   render(
     <Header
       currentUser={null}
@@ -52,7 +52,7 @@ test("Header contains game", () => {
   expect(gameLink).toBeInTheDocument();
 });
 
-test("Guest sees no icon", () => {
+test("Guest sees no profile picture icon", () => {
   render(
     <Header
       currentUser={null}
@@ -66,7 +66,7 @@ test("Guest sees no icon", () => {
   expect(profileIcon).toBeNull();
 });
 
-test("Logged in user sees icon", () => {
+test("Logged in user sees profile picture icon", () => {
   render(
     <Header
       currentUser="Louis"
