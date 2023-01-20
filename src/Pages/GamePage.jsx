@@ -24,7 +24,7 @@ export default function Gamepage({ game, setGame, currentUser }) {
   };
 
   useEffect(() => {
-    if (game.key == null) {
+    if (game.key === null) {
       const newGame = new Phaser.Game(gameConfig);
       setGame(newGame);
     }
