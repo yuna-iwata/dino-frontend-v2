@@ -64,7 +64,7 @@ export default function ChangePassword(props) {
         }}
       >
         <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
-          <p className="avatar-title">Change your password</p>
+          <p className="avatar-title">Change password</p>
         </Typography>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="oldPassword">
