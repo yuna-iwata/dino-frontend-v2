@@ -118,4 +118,12 @@
   margin-bottom: 0px;
 }
 
+button {
+  font-family: "Press Start 2P", "cursive";
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  margin-bottom: 0px;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Press+Start+2P&display=swap");
