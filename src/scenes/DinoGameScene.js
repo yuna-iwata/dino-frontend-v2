@@ -329,13 +329,11 @@ export default class DinoGameScene extends Phaser.Scene {
     if (hatNum >= totalNumOfHats) {
       hatNum = 0;
     }
-    console.log(hatNum);
-    let hat = hats
+    hats
       .create(width, height, `hat-${hatNum + 1}`)
       .setOrigin(0, 1)
       .setImmovable()
       .setScale(scale);
-    console.log(hat); //netlify
   }
 
   collectHat(player, hats) {
@@ -352,7 +350,6 @@ export default class DinoGameScene extends Phaser.Scene {
     // this.physics.add.collider(wearHat, this.hatGround);
     wearHat.setCollideWorldBounds(true);
     wearHat.setGravityY(3000);
-    console.log(allHatsCollected);
     if (hatNum <= totalNumOfHats && !allHatsCollected) {
       this.displayItemScore.setText(`items: ${hatNum}/6`);
     }
@@ -456,7 +453,6 @@ export default class DinoGameScene extends Phaser.Scene {
       player.anims.stop();
       player.setTexture("dino-run");
     } else {
-      console.log("hatNum", hatNum);
       if (player.body.height === 92 * scale) {
         player.anims.play("dino-run-anim", true);
       } else {
@@ -525,15 +521,12 @@ export default class DinoGameScene extends Phaser.Scene {
         this.renderObstacles();
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         renderTime = 0;
-        console.log("obstacle");
       } else if (
         timeForHat >= renderHatAfterThisManySeconds &&
         renderTime >= 400
       ) {
-        let hat = this.renderHats();
-        console.log(hat); //netlify
+        this.renderHats();
         timeForHat = 0;
-        console.log("renderhat");
       }
       this.keyCommands();
     }
