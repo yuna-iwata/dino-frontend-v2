@@ -8,9 +8,9 @@ export default function LeaderboardPage({
   baseUrl,
   itemData,
 }) {
-  //if (game.key !== null) {
-  game?.destroy(true);
-  //}
+  if (game.key !== null) {
+    game?.destroy(true);
+  }
   return (
     <div>
       <Typography variant="h2" align="center" sx={{ m: 3 }}>
