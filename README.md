@@ -17,6 +17,10 @@ See the running game here: [https://shiny-malabi-e40d14.netlify.app/]
 
 Clone the project and in the project directory, you can run:
 
+### `npm install`
+
+Install all the packages required for create-react-app and phaser
+
 ### `npm start`
 
 Runs the app in the development mode.\
