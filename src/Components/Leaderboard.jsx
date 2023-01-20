@@ -17,6 +17,8 @@ export default function Leaderboard({ baseUrl, itemData }) {
     fetchGlobalLeaderBoard(setGlobalList);
   }, []);
 
+  console.log(globalList);
+
   return (
     <Box
       display="flex"
@@ -46,7 +48,12 @@ export default function Leaderboard({ baseUrl, itemData }) {
                         src={`${baseUrl}${itemData[row.dino_id]["img"]}`}
                       />
                     </Grid>
-                    <Grid className="avatar-title" item sx={{ mt: 1, ml: 1 }}>
+                    <Grid
+                      className="avatar-title"
+                      item
+                      sx={{ mt: 1, ml: 1 }}
+                      data-testid="rowname"
+                    >
                       {row.name}
                     </Grid>
                   </Grid>
