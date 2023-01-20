@@ -1,6 +1,12 @@
-# Dino Game
+#🦖🦖🦖🦖 Dino Game 🦖🦖🦖🦖
 <img width="1111" alt="Screenshot 2023-01-20 at 11 48 40" src="https://user-images.githubusercontent.com/115478706/213688471-3d7ed5ed-1ac3-4e7a-b3ee-b0365c029737.png">
 
+- A new and improved chrome dino game!! 
+- Compete with your friends by saving your scores to a leaderboard and customise your dino
+- You can also collect items in the game 
+- Make sure you create an account and log in to save your scores - playing as a guest won't give you the fun additional features!
+
+See the running game here: [https://shiny-malabi-e40d14.netlify.app/]
 
 ## Getting started
 
