@@ -96,6 +96,7 @@ export default function Header(props) {
                   size="large"
                   color="inherit"
                   onClick={() => changeUser(null)}
+                  label="log in button"
                 >
                   <Badge sx={{ color: "white" }}>
                     <LogoutIcon />

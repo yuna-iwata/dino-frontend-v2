@@ -19,6 +19,11 @@ export default function WelcomePage({ game }) {
         contrastText: "white",
       },
     },
+    typography: {
+      allVariants: {
+        fontFamily: "",
+      },
+    },
   });
 
   return (
@@ -34,22 +39,22 @@ export default function WelcomePage({ game }) {
           p: 2,
         }}
       >
-        <Typography
-          align="center"
-          sx={{ mt: 3, fontSize: 25, color: "#74D193" }}
-        >
-          <p>Welcome, click a button to continue</p>
-        </Typography>
-        <Grid sx={{ m: 10 }}>
-          <Stack direction="column" spacing={8} alignItems="center">
-            <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+          <Typography
+            align="center"
+            sx={{ mt: 3, fontSize: 25, color: "#74D193" }}
+          >
+            Welcome, click a button to continue
+          </Typography>
+          <Grid sx={{ m: 10 }}>
+            <Stack direction="column" spacing={8} alignItems="center">
               <Link style={{ textDecoration: "none" }} to="/create-account">
                 <Button
                   variant="contained"
                   color="green"
                   startIcon={<PersonAddIcon />}
                 >
-                  <p className="avatar-button">Create Account</p>
+                  <Typography>Create Account</Typography>
                 </Button>
               </Link>
               <Link style={{ textDecoration: "none" }} to="/login">
@@ -58,21 +63,22 @@ export default function WelcomePage({ game }) {
                   color="green"
                   startIcon={<LoginIcon />}
                 >
-                  <p className="avatar-button">Log In</p>
+                  <Typography>Log In</Typography>
                 </Button>
               </Link>
+
               <Link style={{ textDecoration: "none" }} to="/game">
                 <Button
                   variant="contained"
                   color="green"
                   startIcon={<PersonOutlineIcon />}
                 >
-                  <p className="avatar-button">Continue As Guest</p>
+                  <Typography>Continue As Guest</Typography>
                 </Button>
               </Link>
-            </ThemeProvider>
-          </Stack>
-        </Grid>
+            </Stack>
+          </Grid>
+        </ThemeProvider>
       </Box>
     </div>
   );
