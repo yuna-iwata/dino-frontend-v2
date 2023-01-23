@@ -2,8 +2,8 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { submitUser } from "../Networking.js";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Form } from "react-bootstrap";
+import { Button, Typography } from "@mui/material";
 
 export default function CreateAccountForm(props) {
   const { changeUser, changeProfileAvatar } = props;
@@ -58,71 +58,61 @@ export default function CreateAccountForm(props) {
   );
 
   return (
-    <div>
-      <style type="text/css">
-        {`
-    .btn-flat {
-      background-color: #75d193;
-      color: white;
-    }
-    `}
-      </style>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="username">
-          <Form.Label>
-            <p className="avatar-title">Username</p>
-          </Form.Label>
-          <Form.Control
-            type="username"
-            placeholder="Username"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.username && errors.username ? (
-            <div className="errorMessage">{errors.username}</div>
-          ) : null}
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Label>
-            <p className="avatar-title">Password</p>
-          </Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.password && errors.password ? (
-            <div className="errorMessage">{errors.password}</div>
-          ) : null}
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="repassword">
-          <Form.Label>
-            <p className="avatar-title">Confirm</p>
-          </Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password confirmation"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.repassword && errors.repassword ? (
-            <div className="errorMessage">{errors.repassword}</div>
-          ) : null}
-        </Form.Group>
-
-        <Button variant="flat" type="submit">
-          <p className="avatar-title">Submit</p>
-        </Button>
-
-        {usernameExists ? (
-          <p className="errorMessage">
-            Username already exists. Please try a different username
-          </p>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="username">
+        <Form.Label>
+          <p className="avatar-title">Username</p>
+        </Form.Label>
+        <Form.Control
+          type="username"
+          placeholder="Username"
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {touched.username && errors.username ? (
+          <div className="errorMessage">{errors.username}</div>
         ) : null}
-      </Form>
-    </div>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="password">
+        <Form.Label>
+          <Typography>Password</Typography>
+        </Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {touched.password && errors.password ? (
+          <div className="errorMessage">{errors.password}</div>
+        ) : null}
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="repassword">
+        <Form.Label>
+          <Typography>Confirm</Typography>
+        </Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Password confirmation"
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {touched.repassword && errors.repassword ? (
+          <div className="errorMessage">{errors.repassword}</div>
+        ) : null}
+      </Form.Group>
+
+      <Button variant="contained" color="greenTheme" type="submit">
+        <Typography>Submit</Typography>
+      </Button>
+
+      {usernameExists ? (
+        <p className="errorMessage">
+          Username already exists. Please try a different username
+        </p>
+      ) : null}
+    </Form>
   );
 }

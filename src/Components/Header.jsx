@@ -1,17 +1,18 @@
-import React from "react";
-import AppBar from "@mui/material/AppBar";
-import Container from "@mui/material/Container";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import Avatar from "@mui/material/Avatar";
-import Badge from "@mui/material/Badge";
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Typography,
+  Tooltip,
+  IconButton,
+  Avatar,
+  Badge,
+  Box,
+  Grid,
+} from "@mui/material";
 import LeaderboardRoundedIcon from "@mui/icons-material/LeaderboardRounded";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 
 export default function Header(props) {
@@ -74,7 +75,7 @@ export default function Header(props) {
                   color: "white",
                 }}
               >
-                Play Game
+                <Typography variant="h3">Play Game</Typography>
               </Link>
             </div>
           </Typography>

@@ -2,8 +2,8 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { checkUser } from "../Networking.js";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Form } from "react-bootstrap";
+import { Button, Typography } from "@mui/material";
 
 export default function CreateAccountForm(props) {
   const { changeUser, changeProfileAvatar } = props;
@@ -54,52 +54,42 @@ export default function CreateAccountForm(props) {
   );
 
   return (
-    <>
-      <style type="text/css">
-        {`
-    .btn-flat {
-      background-color: #75d193;
-      color: white;
-    }
-    `}
-      </style>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="username">
-          <Form.Label>
-            <p className="avatar-title"> Username</p>
-          </Form.Label>
-          <Form.Control
-            type="username"
-            placeholder="Username"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.username && errors.username ? (
-            <div className="errorMessage">{errors.username}</div>
-          ) : null}
-        </Form.Group>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="username">
+        <Form.Label>
+          <p className="avatar-title"> Username</p>
+        </Form.Label>
+        <Form.Control
+          type="username"
+          placeholder="Username"
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {touched.username && errors.username ? (
+          <div className="errorMessage">{errors.username}</div>
+        ) : null}
+      </Form.Group>
 
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Label>
-            <p className="avatar-title">Password</p>
-          </Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.password && errors.password ? (
-            <div className="errorMessage">{errors.password}</div>
-          ) : null}
-        </Form.Group>
+      <Form.Group className="mb-3" controlId="password">
+        <Form.Label>
+          <p className="avatar-title">Password</p>
+        </Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {touched.password && errors.password ? (
+          <div className="errorMessage">{errors.password}</div>
+        ) : null}
+      </Form.Group>
 
-        <Button variant="flat" type="submit">
-          <p className="avatar-title">Submit</p>
-        </Button>
+      <Button variant="contained" color="greenTheme" type="submit">
+        <Typography>Submit</Typography>
+      </Button>
 
-        <p className="errorMessage">{validationError}</p>
-      </Form>
-    </>
+      <p className="errorMessage">{validationError}</p>
+    </Form>
   );
 }

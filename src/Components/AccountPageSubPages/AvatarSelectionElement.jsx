@@ -1,4 +1,3 @@
-import { React } from "react";
 import { ImageListItem, Tooltip, IconButton } from "@mui/material";
 import { changeAvatar } from "../../Networking";
 

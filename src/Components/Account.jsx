@@ -1,25 +1,17 @@
-import { React, useState, useEffect } from "react";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import PublicIcon from "@mui/icons-material/Public";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
+import { useState, useEffect } from "react";
+import { Box, Grid, Container, Stack } from "@mui/material";
 import TabButton from "./TabButton";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CardHeader } from "@mui/material";
 import PersonalLeaderBoard from "./AccountPageSubPages/PersonalLeaderBoard";
 import AvatarSelection from "./AccountPageSubPages/AvatarSelection";
 import ChangeUsername from "./AccountPageSubPages/ChangeUsername";
 import ChangePassword from "./AccountPageSubPages/ChangePassword";
 import LogOutConfirmation from "./AccountPageSubPages/LogOutConfirmation";
 import DeleteAccountConfirmation from "./AccountPageSubPages/DeleteAccountConfirmation";
+import AccountPageBanner from "./AccountPageBanner";
 import {
   fetchPersonalLeaderBoard,
   fetchGlobalLeaderBoard,
-} from ".././Networking";
+} from "../Networking";
 
 export default function Account({
   currentAvatar,
@@ -30,27 +22,16 @@ export default function Account({
   baseUrl,
 }) {
   const [scoreList, setScoreList] = useState([]);
+  const [globalList, setGlobalList] = useState([]);
   const [highScore, setHighScore] = useState(0);
   const [rank, setRank] = useState(0);
+
   useEffect(() => {
     if (username) {
-      fetchPersonalLeaderBoard(setScoreList, username);
+      fetchPersonalLeaderBoard(setScoreList, username, setHighScore);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
-    if (scoreList.length > 0) {
-      scoreList.sort(({ score: a }, { score: b }) => b - a);
-      setHighScore(scoreList[0]["score"]);
-    }
-  }, [scoreList]);
 
-  const [globalList, setGlobalList] = useState([]);
-
-  useEffect(() => {
     fetchGlobalLeaderBoard(setGlobalList);
-  }, []);
-  useEffect(() => {
     const matchedUser = globalList.filter(
       (item) => item["name"] === username
     )[0];
@@ -58,8 +39,7 @@ export default function Account({
       const findRank = matchedUser["rank"];
       setRank(findRank);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [globalList]);
+  }, [globalList, username]);
 
   const changeTab = (tab) => {
     setCurrentTab(tab);
@@ -67,7 +47,7 @@ export default function Account({
   const tabs = {
     leaderboard: {
       text: "your leader board",
-      page: <PersonalLeaderBoard username={username} />,
+      page: <PersonalLeaderBoard username={username} scoreList={scoreList} />,
     },
     avatar: {
       text: "change avatar",
@@ -115,74 +95,17 @@ export default function Account({
   };
   const initialTab = "leaderboard";
   const [currentTab, setCurrentTab] = useState(initialTab);
-  const theme = createTheme({
-    palette: {
-      neutral: {
-        main: "#75d193",
-        contrastText: "#fff",
-      },
-      green: {
-        main: "#75d193",
-        contrastText: "#fff",
-      },
-    },
-  });
 
   return (
     <Container>
-      <Box
-        display="flex"
-        sx={{ width: "auto", height: 80, mt: 3, ml: 5, mb: 5 }}
-      >
-        <Grid container spacing={3}>
-          <Grid alignItems="center" display="flex" item xs={6}>
-            <CardHeader
-              className="avatar-title"
-              avatar={
-                <Avatar
-                  alt="Dino profile"
-                  src={`${baseUrl}${itemData[currentAvatar]["img"]}`}
-                  style={{
-                    border: "0.1px solid lightgray",
-                  }}
-                  sx={{ width: 80, height: 80 }}
-                />
-              }
-              title={username}
-            />
-          </Grid>
-
-          <Grid alignItems="center" display="flex" item xs={2}>
-            <EmojiEventsIcon />
-            <Box sx={{ p: 2 }}>
-              <Typography
-                sx={{ color: "#64B981", fontWeight: "bold" }}
-                variant="body1"
-              >
-                <p className="avatar-score">High Score</p>
-              </Typography>
-              <Typography sx={{ color: "#64B981" }} variant="body2">
-                <p className="avatar-number">{highScore}</p>
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid alignItems="center" display="flex" item xs={2}>
-            <PublicIcon color="neutral" />
-            <Box sx={{ p: 2 }}>
-              <Typography
-                sx={{ color: "#64B981", fontWeight: "bold" }}
-                variant="body1"
-              >
-                <p className="avatar-score">World Ranking</p>
-              </Typography>
-              <Typography sx={{ color: "#64B981" }} variant="body2">
-                <p className="avatar-number">#{rank}</p>
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
+      <AccountPageBanner
+        highScore={highScore}
+        rank={rank}
+        baseUrl={baseUrl}
+        itemData={itemData}
+        currentAvatar={currentAvatar}
+        username={username}
+      />
 
       <Box
         display="flex"
@@ -192,19 +115,17 @@ export default function Account({
       >
         <Grid container sx={{ pt: 5 }}>
           <Stack direction="column" spacing={2}>
-            <ThemeProvider theme={theme}>
-              {Object.keys(tabs).map((tab, i) => {
-                return (
-                  <TabButton
-                    tabs={tabs}
-                    tab={tab}
-                    currentTab={currentTab}
-                    changeTab={changeTab}
-                    key={i}
-                  />
-                );
-              })}
-            </ThemeProvider>
+            {Object.keys(tabs).map((tab, i) => {
+              return (
+                <TabButton
+                  tabs={tabs}
+                  tab={tab}
+                  currentTab={currentTab}
+                  changeTab={changeTab}
+                  key={i}
+                />
+              );
+            })}
           </Stack>
         </Grid>
         <Grid container>{tabs[currentTab].page}</Grid>

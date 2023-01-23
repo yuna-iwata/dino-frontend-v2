@@ -44,30 +44,28 @@ export default function Gamepage({ game, setGame, currentUser }) {
   };
 
   return (
-    <div>
-      <Box
-        sx={{
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Button
+        size="medium"
+        variant="contained"
+        style={{
           display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: "center",
+          flexDirection: "row",
           justifyContent: "center",
+          backgroundColor: "#8e8d8d",
         }}
+        sx={{ m: 3 }}
+        onClick={handleSendClick}
       >
-        <Button
-          size="medium"
-          variant="contained"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            backgroundColor: "#8e8d8d",
-          }}
-          sx={{ m: 3 }}
-          onClick={handleSendClick}
-        >
-          <p className="avatar-button">send score to leaderboard</p>
-        </Button>
-      </Box>
-    </div>
+        <p className="avatar-button">send score to leaderboard</p>
+      </Button>
+    </Box>
   );
 }
