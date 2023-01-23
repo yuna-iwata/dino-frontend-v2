@@ -9,7 +9,6 @@ export default function AccountPageBanner(props) {
       <Grid container spacing={3}>
         <Grid alignItems="center" display="flex" item xs={6}>
           <CardHeader
-            className="avatar-title"
             avatar={
               <Avatar
                 alt="Dino profile"
@@ -20,8 +19,8 @@ export default function AccountPageBanner(props) {
                 sx={{ width: 80, height: 80 }}
               />
             }
-            title={username}
           />
+          <Typography variant="h4">{username}</Typography>
         </Grid>
 
         <Grid alignItems="center" display="flex" item xs={2}>
@@ -29,11 +28,11 @@ export default function AccountPageBanner(props) {
           <Box sx={{ p: 2 }}>
             <Typography
               sx={{ color: "#64B981", fontWeight: "bold" }}
-              variant="body1"
+              variant="h5"
             >
               High Score
             </Typography>
-            <Typography sx={{ color: "#64B981" }} variant="body2">
+            <Typography sx={{ color: "#64B981" }} variant="h6">
               {highScore}
             </Typography>
           </Box>
@@ -44,11 +43,11 @@ export default function AccountPageBanner(props) {
           <Box sx={{ p: 2 }}>
             <Typography
               sx={{ color: "#64B981", fontWeight: "bold" }}
-              variant="body1"
+              variant="h5"
             >
               World Ranking
             </Typography>
-            <Typography sx={{ color: "#64B981" }} variant="body2">
+            <Typography sx={{ color: "#64B981" }} variant="h6">
               #{rank}
             </Typography>
           </Box>

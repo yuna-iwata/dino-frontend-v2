@@ -82,3 +82,8 @@ button {
 }
 
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Press+Start+2P&display=swap");
+
+.MuiButton-iconSizeLarge {
+  padding: 10px 0px;
+  margin-bottom: 5px;
+}

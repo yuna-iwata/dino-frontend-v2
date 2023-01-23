@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import DinoGameScene from "../scenes/DinoGameScene";
 import Phaser from "phaser";
 import { submitScore } from "../Networking";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function Gamepage({ game, setGame, currentUser }) {
@@ -62,7 +62,7 @@ export default function Gamepage({ game, setGame, currentUser }) {
         sx={{ m: 3 }}
         onClick={handleSendClick}
       >
-        <p className="avatar-button">send score to leaderboard</p>
+        <Typography>send score to leaderboard</Typography>
       </Button>
     </Box>
   );

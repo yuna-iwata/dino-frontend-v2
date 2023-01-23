@@ -13,7 +13,7 @@ export default function TabButton(props) {
     icon = <LeaderboardRoundedIcon />;
   } else if (tab === "avatar") {
     icon = <AccountCircleIcon />;
-  } else if (tab === "username") {
+  } else if (tab === "changeUsername") {
     icon = <PersonIcon />;
   } else if (tab === "password") {
     icon = <KeyIcon />;
@@ -31,6 +31,7 @@ export default function TabButton(props) {
         tabs[currentTab].text === tabs[tab].text ? "greenTheme" : "neutralTheme"
       }
       startIcon={icon}
+      size="large"
       onClick={() => {
         changeTab(tab);
       }}

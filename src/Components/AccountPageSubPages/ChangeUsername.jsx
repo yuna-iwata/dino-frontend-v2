@@ -61,7 +61,7 @@ export default function ChangeUsername(props) {
         mt: 5.3,
       }}
     >
-      <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+      <Typography variant="h3" align="center" sx={{ p: 2, color: "#74D193" }}>
         Change username
       </Typography>
       <Form onSubmit={handleSubmit}>

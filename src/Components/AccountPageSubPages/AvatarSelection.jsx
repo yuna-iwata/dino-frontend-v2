@@ -20,7 +20,7 @@ export default function AvatarSelection({
       }}
       style={{ maxHeight: 465, overflow: "auto" }}
     >
-      <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+      <Typography variant="h3" align="center" sx={{ p: 2, color: "#74D193" }}>
         Select an avatar
       </Typography>
       <ImageList sx={{ width: 700, height: 400 }} cols={3} rowHeight={2}>

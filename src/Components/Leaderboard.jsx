@@ -9,6 +9,7 @@ import {
   Avatar,
   Grid,
   Box,
+  Typography,
 } from "@mui/material";
 import { fetchGlobalLeaderBoard } from "../Networking";
 
@@ -38,7 +39,7 @@ export default function Leaderboard({ baseUrl, itemData }) {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row" align="center">
-                  <p className="avatar-score-leaderboard">#{row.rank}</p>
+                  <Typography>#{row.rank}</Typography>
                 </TableCell>
                 <TableCell component="th" scope="row" align="left">
                   <Grid container direction="row" placement="left-start">
@@ -48,18 +49,13 @@ export default function Leaderboard({ baseUrl, itemData }) {
                         src={`${baseUrl}${itemData[row.dino_id]["img"]}`}
                       />
                     </Grid>
-                    <Grid
-                      className="avatar-title"
-                      item
-                      sx={{ mt: 1, ml: 1 }}
-                      data-testid="rowname"
-                    >
-                      {row.name}
+                    <Grid item sx={{ mt: 1, ml: 1 }} data-testid="rowname">
+                      <Typography variant="h5">{row.name}</Typography>
                     </Grid>
                   </Grid>
                 </TableCell>
                 <TableCell align="center">
-                  <p className="avatar-title">{row.score}</p>{" "}
+                  <Typography>{row.score}</Typography>
                 </TableCell>
               </TableRow>
             ))}
