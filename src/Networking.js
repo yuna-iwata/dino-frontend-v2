@@ -1,4 +1,4 @@
-const baseUrl = "http://127.0.0.1:5000/";
+const baseUrl = "https://shiny-malabi-e40d14.netlify.app/";
 
 export async function submitUser(username, password) {
   const response = await fetch(`${baseUrl}create-account`, {

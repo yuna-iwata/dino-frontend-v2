@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PersonIcon from "@mui/icons-material/Person";
@@ -35,7 +35,7 @@ export default function TabButton(props) {
         changeTab(tab);
       }}
     >
-      <p className="avatar-account-button">{tabs[tab].text}</p>
+      <Typography>{tabs[tab].text}</Typography>
     </Button>
   );
 }
