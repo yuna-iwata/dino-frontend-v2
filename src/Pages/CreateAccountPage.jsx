@@ -35,7 +35,7 @@ export default function CreateAccountPage({
         <div>
           <Link style={{ textDecoration: "none" }} to="/login">
             <Button variant="outlined" color="greenTheme">
-              <p className="avatar-button-welcome">log in</p>
+              <Typography>log in</Typography>
             </Button>
           </Link>
         </div>
