@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button";
+import { Button } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PersonIcon from "@mui/icons-material/Person";
@@ -27,7 +27,9 @@ export default function TabButton(props) {
       variant={
         tabs[currentTab].text === tabs[tab].text ? "contained" : "outlined"
       }
-      color={tabs[currentTab].text === tabs[tab].text ? "green" : "neutral"}
+      color={
+        tabs[currentTab].text === tabs[tab].text ? "greenTheme" : "neutralTheme"
+      }
       startIcon={icon}
       onClick={() => {
         changeTab(tab);

@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function CreateAccountPage({
   changeUser,
@@ -14,20 +13,6 @@ export default function CreateAccountPage({
   if (game.key !== null) {
     game?.destroy(true);
   }
-
-  const theme = createTheme({
-    palette: {
-      green: {
-        main: "#75d193",
-        contrastText: "#fff",
-      },
-    },
-    typography: {
-      allVariants: {
-        fontFamily: "",
-      },
-    },
-  });
 
   return (
     <Container maxWidth="sm">
@@ -43,21 +28,19 @@ export default function CreateAccountPage({
         }}
       >
         <div>
-          <ThemeProvider theme={theme}>
-            <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
-              Login
-            </Typography>
-            <LoginForm
-              changeUser={changeUser}
-              changeProfileAvatar={changeProfileAvatar}
-            />
-            <Typography sx={{ mb: 2 }}>Don't have an account?</Typography>
-            <Link style={{ textDecoration: "none" }} to="/create-account">
-              <Button variant="outlined" color="green">
-                <Typography>Sign Up</Typography>
-              </Button>
-            </Link>
-          </ThemeProvider>
+          <Typography sx={{ fontSize: 35, fontWeight: 500, mb: 1 }}>
+            Login
+          </Typography>
+          <LoginForm
+            changeUser={changeUser}
+            changeProfileAvatar={changeProfileAvatar}
+          />
+          <Typography sx={{ mb: 2 }}>Don't have an account?</Typography>
+          <Link style={{ textDecoration: "none" }} to="/create-account">
+            <Button variant="outlined" color="greenTheme">
+              <Typography>Sign Up</Typography>
+            </Button>
+          </Link>
         </div>
       </Box>
     </Container>

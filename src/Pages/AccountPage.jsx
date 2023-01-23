@@ -1,5 +1,4 @@
 import Account from "../Components/Account";
-import React from "react";
 
 export default function AccountPage({
   currentAvatar,
@@ -15,16 +14,14 @@ export default function AccountPage({
     game?.destroy(true);
   }
   return (
-    <div>
-      <Account
-        currentAvatar={currentAvatar}
-        username={username}
-        rank={rank}
-        changeUser={changeUser}
-        changeProfileAvatar={changeProfileAvatar}
-        itemData={itemData}
-        baseUrl={baseUrl}
-      />
-    </div>
+    <Account
+      currentAvatar={currentAvatar}
+      username={username}
+      rank={rank}
+      changeUser={changeUser}
+      changeProfileAvatar={changeProfileAvatar}
+      itemData={itemData}
+      baseUrl={baseUrl}
+    />
   );
 }

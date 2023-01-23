@@ -1,54 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Typography, Box } from "@mui/material";
-import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
+import { Typography, Box, Button } from "@mui/material";
 
 export default function LogOutConfirmation({ changeTab, changeUser }) {
+  const navigate = useNavigate();
   return (
-    <>
-      <style type="text/css">
-        {`
-    .btn-flat {
-      background-color: #75d193;
-      color: white;
-    }
-    `}
-      </style>
-      <Box
-        sx={{
-          bgcolor: "background.paper",
-          boxShadow: 1,
-          borderRadius: 2,
-          p: 2,
-          mt: 5,
-        }}
-      >
-        <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
-          <p className="avatar-title">Are you sure you want to log out?</p>
-        </Typography>
-        <Box
-          sx={{ display: "flex", justifyContent: "space-evenly", p: 1, m: 1 }}
+    <Box
+      sx={{
+        bgcolor: "background.paper",
+        boxShadow: 1,
+        borderRadius: 2,
+        p: 2,
+        mt: 5,
+      }}
+    >
+      <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+        <p className="avatar-title">Are you sure you want to log out?</p>
+      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-evenly", p: 1, m: 1 }}>
+        <Button
+          variant="contained"
+          color="greenTheme"
+          onClick={() => {
+            changeUser(null);
+            navigate("/");
+          }}
         >
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Button
-              variant="flat"
-              onClick={() => {
-                changeUser(null);
-              }}
-            >
-              <p className="avatar-title">Yes</p>
-            </Button>
-          </Link>
-          <Button
-            variant="flat"
-            onClick={() => {
-              changeTab("leaderboard");
-            }}
-          >
-            <p className="avatar-title">No</p>
-          </Button>
-        </Box>
+          <Typography>Yes</Typography>
+        </Button>
+        <Button
+          variant="contained"
+          color="greenTheme"
+          onClick={() => {
+            changeTab("leaderboard");
+          }}
+        >
+          <Typography>No</Typography>
+        </Button>
       </Box>
-    </>
+    </Box>
   );
 }

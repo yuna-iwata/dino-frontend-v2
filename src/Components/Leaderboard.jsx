@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Avatar from "@mui/material/Avatar";
-import { Grid, Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+  Avatar,
+  Grid,
+  Box,
+} from "@mui/material";
 import { fetchGlobalLeaderBoard } from "../Networking";
-import { useState } from "react";
 
 export default function Leaderboard({ baseUrl, itemData }) {
   const [globalList, setGlobalList] = useState([]);
 
   useEffect(() => {
     fetchGlobalLeaderBoard(setGlobalList);
-  }, []);
-
-  console.log(globalList);
+  }, [globalList]);
 
   return (
     <Box

@@ -1,10 +1,8 @@
 import { useFormik } from "formik";
 import { useState } from "react";
 import { changePassword } from "../../Networking";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import { Form } from "react-bootstrap";
+import { Box, Typography, Button } from "@mui/material";
 
 export default function ChangePassword(props) {
   const { changeTab, username } = props;
@@ -45,66 +43,54 @@ export default function ChangePassword(props) {
   );
 
   return (
-    <>
-      <style type="text/css">
-        {`
-    .btn-flat {
-      background-color: #75d193;
-      color: white;
-    }
-    `}
-      </style>
-      <Box
-        sx={{
-          bgcolor: "background.paper",
-          boxShadow: 1,
-          borderRadius: 2,
-          p: 2,
-          mt: 5,
-        }}
-      >
-        <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
-          <p className="avatar-title">Change password</p>
-        </Typography>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="oldPassword">
-            <Form.Label>
-              <p className="avatar-title">Old Password </p>
-            </Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Old Password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.oldPassword && errors.oldPassword ? (
-              <div className="errorMessage">{errors.oldPassword}</div>
-            ) : null}
-            {isIncorrectPassword ? (
-              <p className="errorMessage">
-                Password incorrect, please try again
-              </p>
-            ) : null}
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="newPassword">
-            <Form.Label>
-              <p className="avatar-title">New Password </p>
-            </Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="New Password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.newPassword && errors.newPassword ? (
-              <div className="errorMessage">{errors.newPassword}</div>
-            ) : null}
-          </Form.Group>
-          <Button variant="flat" type="submit">
-            <p className="avatar-title">Submit </p>
-          </Button>
-        </Form>
-      </Box>
-    </>
+    <Box
+      sx={{
+        bgcolor: "background.paper",
+        boxShadow: 1,
+        borderRadius: 2,
+        p: 2,
+        mt: 5,
+      }}
+    >
+      <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+        Change password
+      </Typography>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="oldPassword">
+          <Form.Label>
+            <Typography>Old Password</Typography>
+          </Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Old Password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.oldPassword && errors.oldPassword ? (
+            <div className="errorMessage">{errors.oldPassword}</div>
+          ) : null}
+          {isIncorrectPassword ? (
+            <p className="errorMessage">Password incorrect, please try again</p>
+          ) : null}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="newPassword">
+          <Form.Label>
+            <Typography>New Password</Typography>
+          </Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="New Password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.newPassword && errors.newPassword ? (
+            <div className="errorMessage">{errors.newPassword}</div>
+          ) : null}
+        </Form.Group>
+        <Button variant="contained" color="greenTheme" type="submit">
+          <Typography>Submit</Typography>
+        </Button>
+      </Form>
+    </Box>
   );
 }
