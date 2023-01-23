@@ -1,4 +1,4 @@
-const baseUrl = "https://shiny-malabi-e40d14.netlify.app/";
+const baseUrl = "https://the-dino-game-api.herokuapp.com/";
 
 export async function submitUser(username, password) {
   const response = await fetch(`${baseUrl}create-account`, {
