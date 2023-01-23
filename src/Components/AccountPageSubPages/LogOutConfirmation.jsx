@@ -13,7 +13,7 @@ export default function LogOutConfirmation({ changeTab, changeUser }) {
         mt: 5,
       }}
     >
-      <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+      <Typography variant="h3" align="center" sx={{ p: 2, color: "#74D193" }}>
         <p className="avatar-title">Are you sure you want to log out?</p>
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "space-evenly", p: 1, m: 1 }}>

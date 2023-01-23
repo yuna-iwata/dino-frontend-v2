@@ -29,23 +29,25 @@ export default function PersonalLeaderBoard({ scoreList }) {
   return (
     <Grid container justifyContent="space-between">
       <Typography
-        variant="h6"
+        variant="h3"
         align="center"
         sx={{ mt: 5, color: "#74D193", mb: 0 }}
       >
         Personal leaderboard
       </Typography>
       <Box sx={{ mb: 0 }}>
-        <Typography sx={{ color: "#74D193", mt: 3 }}>order by:</Typography>
+        <Typography sx={{ color: "#74D193", mt: 3 }} variant="h5">
+          order by:
+        </Typography>
         <ButtonGroup
           variant="contained"
           aria-label="outlined primary button group"
         >
           <Button variant="flat" onClick={onOrderByDateClick}>
-            <Typography>DATE</Typography>
+            <Typography variant="h5">DATE</Typography>
           </Button>
           <Button variant="flat" onClick={onOrderByScoreClick}>
-            <Typography>SCORE</Typography>
+            <Typography variant="h5">SCORE</Typography>
           </Button>
         </ButtonGroup>
       </Box>
@@ -58,10 +60,10 @@ export default function PersonalLeaderBoard({ scoreList }) {
           <TableHead>
             <TableRow>
               <TableCell align="center">
-                <p className="avatar-title">Score</p>
+                <Typography variant="h5">Score</Typography>
               </TableCell>
               <TableCell align="center">
-                <p className="avatar-title">Date</p>
+                <Typography variant="h5">Date</Typography>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -73,10 +75,10 @@ export default function PersonalLeaderBoard({ scoreList }) {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="center">
-                    <p className="avatar-title">{row.score}</p>
+                    <Typography>{row.score}</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <p className="avatar-title">{row.date}</p>
+                    <Typography>{row.date}</Typography>
                   </TableCell>
                 </TableRow>
               ))}

@@ -36,15 +36,20 @@ export default function Header(props) {
                 to="/account-page"
                 style={{ textDecoration: "none", color: "white" }}
               >
-                <Grid container direction="row" placement="left-start">
+                <Grid
+                  alignItems="center"
+                  container
+                  direction="row"
+                  placement="left-start"
+                >
                   <Grid item>
                     <Avatar
                       alt="Dino profile"
                       src={`${baseUrl}${itemData[currentAvatar]["img"]}`}
                     />
                   </Grid>
-                  <Grid className="avatar-title" item sx={{ mt: 1, ml: 1 }}>
-                    {currentUser}
+                  <Grid item sx={{ mt: 1, ml: 1 }}>
+                    <Typography variant="h5">{currentUser}</Typography>
                   </Grid>
                 </Grid>
               </Link>
@@ -75,7 +80,7 @@ export default function Header(props) {
                   color: "white",
                 }}
               >
-                <Typography variant="h3">Play Game</Typography>
+                <Typography variant="h1">Play Game</Typography>
               </Link>
             </div>
           </Typography>

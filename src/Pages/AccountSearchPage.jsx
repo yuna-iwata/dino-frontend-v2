@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Container } from "@mui/material";
 import PersonalLeaderBoard from "../Components/AccountPageSubPages/PersonalLeaderBoard";
 import AccountPageBanner from "../Components/AccountPageBanner";
 import {
@@ -82,7 +82,7 @@ export default function AccountSearchPage(props) {
   }
 
   return (
-    <div>
+    <Container>
       <TextField
         id="outlined-search"
         label="Username"
@@ -93,6 +93,6 @@ export default function AccountSearchPage(props) {
         Submit
       </Button>
       {results}
-    </div>
+    </Container>
   );
 }

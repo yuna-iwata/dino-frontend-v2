@@ -52,7 +52,7 @@ export default function ChangePassword(props) {
         mt: 5,
       }}
     >
-      <Typography variant="h5" align="center" sx={{ p: 2, color: "#74D193" }}>
+      <Typography variant="h3" align="center" sx={{ p: 2, color: "#74D193" }}>
         Change password
       </Typography>
       <Form onSubmit={handleSubmit}>
