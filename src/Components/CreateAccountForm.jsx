@@ -61,7 +61,7 @@ export default function CreateAccountForm(props) {
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="username">
         <Form.Label>
-          <p className="avatar-title">Username</p>
+          <Typography>Username</Typography>
         </Form.Label>
         <Form.Control
           type="username"

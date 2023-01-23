@@ -16,9 +16,7 @@ export default function DeleteAccountConfirmation(props) {
       }}
     >
       <Typography variant="h3" align="center" sx={{ p: 2, color: "#74D193" }}>
-        <p className="avatar-title">
-          Are you sure you want to delete your account?
-        </p>
+        Are you sure you want to delete your account?
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "space-evenly", p: 1, m: 1 }}>
         <Button

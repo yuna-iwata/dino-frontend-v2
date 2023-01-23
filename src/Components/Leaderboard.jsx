@@ -49,12 +49,7 @@ export default function Leaderboard({ baseUrl, itemData }) {
                         src={`${baseUrl}${itemData[row.dino_id]["img"]}`}
                       />
                     </Grid>
-                    <Grid
-                      className="avatar-title"
-                      item
-                      sx={{ mt: 1, ml: 1 }}
-                      data-testid="rowname"
-                    >
+                    <Grid item sx={{ mt: 1, ml: 1 }} data-testid="rowname">
                       <Typography variant="h5">{row.name}</Typography>
                     </Grid>
                   </Grid>

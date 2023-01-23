@@ -61,7 +61,7 @@ export default function Header(props) {
                 component="div"
                 sx={{ flexGrow: 1, color: "white", ml: 12 }}
               >
-                <p className="avatar-title">{""}</p>
+                {""}
               </Typography>
             </Box>
           )}
@@ -73,7 +73,6 @@ export default function Header(props) {
           >
             <div className="header-center">
               <Link
-                className="avatar-title"
                 to="/game"
                 style={{
                   textDecoration: "none",
