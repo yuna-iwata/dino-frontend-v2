@@ -10,16 +10,12 @@ import LogOutConfirmation from "./AccountPageSubPages/LogOutConfirmation";
 import DeleteAccountConfirmation from "./AccountPageSubPages/DeleteAccountConfirmation";
 import AccountPageBanner from "./AccountPageBanner";
 
-import {
-  fetchPersonalLeaderBoard,
-  fetchGlobalLeaderBoard,
-} from "../Networking";
+import { fetchPersonalLeaderBoard, getRank } from "../Networking";
 
 export default function Account(props) {
   const { currentAvatar, currentUser, changeUser, changeProfileAvatar } = props;
 
   const [scoreList, setScoreList] = useState([]);
-  const [globalList, setGlobalList] = useState([]);
   const [highScore, setHighScore] = useState(0);
   const [rank, setRank] = useState(0);
   const [currentTab, setCurrentTab] = useState("leaderboard");
@@ -30,19 +26,8 @@ export default function Account(props) {
 
   useEffect(() => {
     fetchPersonalLeaderBoard(setScoreList, currentUser, setHighScore);
-    fetchGlobalLeaderBoard(setGlobalList);
-    const matchedUser = globalList.filter(
-      (item) => item["name"] === currentUser
-    )[0];
-    if (globalList.length > 0 && matchedUser) {
-      const findRank = matchedUser["rank"];
-      setRank(findRank);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getRank(currentUser, setRank);
   }, [currentUser]);
-  // The eslint comment above is used because leaving the globalList dependency out causes a problem deploying to Netlify.
-  // The globalList dependency needs to be removed because it changes every time filter runs on it which causes a re-render
-  console.log("thingy");
 
   const tabs = {
     leaderboard: {

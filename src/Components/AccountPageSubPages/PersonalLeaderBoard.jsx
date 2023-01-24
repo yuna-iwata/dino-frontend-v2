@@ -58,11 +58,11 @@ export default function PersonalLeaderBoard(props) {
           variant="contained"
           aria-label="outlined primary button group"
         >
-          <Button variant="flat" onClick={() => orderBy("date")}>
-            <Typography variant="h5">DATE</Typography>
-          </Button>
           <Button variant="flat" onClick={() => orderBy("score")}>
             <Typography variant="h5">SCORE</Typography>
+          </Button>
+          <Button variant="flat" onClick={() => orderBy("date")}>
+            <Typography variant="h5">DATE</Typography>
           </Button>
         </ButtonGroup>
       </Box>

@@ -6,7 +6,7 @@ import AccountPageBanner from "../Components/AccountPageBanner";
 
 import {
   fetchPersonalLeaderBoard,
-  fetchGlobalLeaderBoard,
+  getRank,
   checkUserExists,
   getUserAvatar,
 } from "../Networking";
@@ -24,20 +24,11 @@ export default function AccountSearchPage(props) {
   const [scoreList, setScoreList] = useState([]);
   const [highScore, setHighScore] = useState(0);
   const [rank, setRank] = useState(0);
-  const [globalList, setGlobalList] = useState([]);
 
   useEffect(() => {
     getUserAvatar(currentSearchedUser, setCurrentSearchedUserAvatar);
     fetchPersonalLeaderBoard(setScoreList, currentSearchedUser, setHighScore);
-    fetchGlobalLeaderBoard(setGlobalList);
-    const matchedUser = globalList.filter(
-      (item) => item["name"] === currentSearchedUser
-    )[0];
-    if (globalList.length > 0 && matchedUser) {
-      const findRank = matchedUser["rank"];
-      setRank(findRank);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getRank(currentSearchedUser, setRank);
   }, [currentSearchedUser]);
 
   const handleSearchChange = (input) => {
