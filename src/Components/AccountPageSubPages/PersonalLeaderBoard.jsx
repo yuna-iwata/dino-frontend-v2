@@ -16,17 +16,29 @@ import {
 import { useState } from "react";
 
 export default function PersonalLeaderBoard(props) {
-  const { scoreList } = props;
+  const { scoreList, setScoreList } = props;
 
-  const [byScoreClicked, setByScoreClicked] = useState(0);
+  const [currentCriterion, setCurrentCriterion] = useState("score");
 
-  const onOrderByScoreClick = () => {
-    scoreList.sort(({ score: a }, { score: b }) => b - a);
-    setByScoreClicked(byScoreClicked + 1);
-  };
-  const onOrderByDateClick = () => {
-    scoreList.sort(({ date: a }, { date: b }) => new Date(b) - new Date(a));
-    setByScoreClicked(byScoreClicked + 1);
+  const orderBy = (sortCriterion) => {
+    let sortedScoreList;
+    if (sortCriterion === "date" && scoreList.length > 0) {
+      if (currentCriterion === "score") {
+        sortedScoreList = scoreList.sort(
+          ({ date: a }, { date: b }) => new Date(b) - new Date(a)
+        );
+      } else if (currentCriterion === "date") {
+        sortedScoreList = scoreList.reverse();
+      }
+    } else if (sortCriterion === "score" && scoreList.length > 0) {
+      if (currentCriterion === "date") {
+        sortedScoreList = scoreList.sort(({ score: a }, { score: b }) => b - a);
+      } else {
+        sortedScoreList = scoreList.reverse();
+      }
+    }
+    setScoreList([...sortedScoreList]);
+    setCurrentCriterion(sortCriterion);
   };
 
   return (
@@ -46,10 +58,10 @@ export default function PersonalLeaderBoard(props) {
           variant="contained"
           aria-label="outlined primary button group"
         >
-          <Button variant="flat" onClick={onOrderByDateClick}>
+          <Button variant="flat" onClick={() => orderBy("date")}>
             <Typography variant="h5">DATE</Typography>
           </Button>
-          <Button variant="flat" onClick={onOrderByScoreClick}>
+          <Button variant="flat" onClick={() => orderBy("score")}>
             <Typography variant="h5">SCORE</Typography>
           </Button>
         </ButtonGroup>

@@ -29,10 +29,7 @@ export default function Account(props) {
   };
 
   useEffect(() => {
-    if (currentUser) {
-      fetchPersonalLeaderBoard(setScoreList, currentUser, setHighScore);
-    }
-
+    fetchPersonalLeaderBoard(setScoreList, currentUser, setHighScore);
     fetchGlobalLeaderBoard(setGlobalList);
     const matchedUser = globalList.filter(
       (item) => item["name"] === currentUser
@@ -41,7 +38,11 @@ export default function Account(props) {
       const findRank = matchedUser["rank"];
       setRank(findRank);
     }
-  }, [globalList, currentUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser]);
+  // The eslint comment above is used because leaving the globalList dependency out causes a problem deploying to Netlify.
+  // The globalList dependency needs to be removed because it changes every time filter runs on it which causes a re-render
+  console.log("thingy");
 
   const tabs = {
     leaderboard: {
@@ -49,6 +50,7 @@ export default function Account(props) {
       page: (
         <PersonalLeaderBoard
           scoreList={scoreList}
+          setScoreList={setScoreList}
         />
       ),
     },
