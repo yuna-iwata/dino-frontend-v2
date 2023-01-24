@@ -1,4 +1,4 @@
-const baseUrl = "http://127.0.0.1:5000/";
+const baseUrl = "https://the-dino-game-api.herokuapp.com/";
 
 export async function submitUser(username, password) {
   const response = await fetch(`${baseUrl}create-account`, {
