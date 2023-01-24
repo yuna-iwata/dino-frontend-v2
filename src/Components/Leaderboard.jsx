@@ -48,7 +48,7 @@ export default function Leaderboard() {
                     <Grid item>
                       <Avatar
                         alt="Dino profile"
-                        src={`${bucketBaseUrl}${itemData[row.dino_id]["img"]}`}
+                        src={`${bucketBaseUrl}${itemData[row.dinoId]["img"]}`}
                       />
                     </Grid>
                     <Grid item sx={{ mt: 1, ml: 1 }} data-testid="rowname">

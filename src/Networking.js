@@ -1,4 +1,4 @@
-const baseUrl = "https://the-dino-game-api.herokuapp.com/";
+const baseUrl = "http://127.0.0.1:5000/";
 
 export async function submitUser(username, password) {
   const response = await fetch(`${baseUrl}create-account`, {
@@ -126,7 +126,6 @@ export async function fetchPersonalLeaderBoard(
     `${baseUrl}personal-leaderboard?user=${username}`
   );
   const scoreData = await apiResponse.json();
-  scoreData.sort(({ score: a }, { score: b }) => b - a);
   setScoreList(scoreData);
   if (scoreData.length > 0) {
     setHighScore(scoreData[0]["score"]);
@@ -141,6 +140,12 @@ export async function fetchGlobalLeaderBoard(setGlobalList) {
     scoreData[i].rank = i + 1;
   }
   setGlobalList(scoreData);
+}
+
+export async function getRank(username, setRank) {
+  const apiResponse = await fetch(`${baseUrl}get-rank?user=${username}`);
+  let rankData = await apiResponse.json();
+  setRank(rankData[0]);
 }
 
 export async function checkUserExists(username, setCurrentSearchedUser) {
