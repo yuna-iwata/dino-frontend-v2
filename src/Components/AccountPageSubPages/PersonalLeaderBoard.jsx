@@ -13,21 +13,32 @@ import {
   Button,
 } from "@mui/material";
 
+import { useState } from "react";
+
 export default function PersonalLeaderBoard(props) {
   const { scoreList, setScoreList } = props;
 
+  const [currentCriterion, setCurrentCriterion] = useState("score");
+
   const orderBy = (sortCriterion) => {
-    if (sortCriterion === "date") {
-      const sortedScoreList = scoreList.sort(
-        ({ date: a }, { date: b }) => new Date(b) - new Date(a)
-      );
-      setScoreList([...sortedScoreList]);
-    } else if (sortCriterion === "score") {
-      const sortedScoreList = scoreList.sort(
-        ({ score: a }, { score: b }) => b - a
-      );
-      setScoreList([...sortedScoreList]);
+    let sortedScoreList;
+    if (sortCriterion === "date" && scoreList.length > 0) {
+      if (currentCriterion === "score") {
+        sortedScoreList = scoreList.sort(
+          ({ date: a }, { date: b }) => new Date(b) - new Date(a)
+        );
+      } else if (currentCriterion === "date") {
+        sortedScoreList = scoreList.reverse();
+      }
+    } else if (sortCriterion === "score" && scoreList.length > 0) {
+      if (currentCriterion === "date") {
+        sortedScoreList = scoreList.sort(({ score: a }, { score: b }) => b - a);
+      } else {
+        sortedScoreList = scoreList.reverse();
+      }
     }
+    setScoreList([...sortedScoreList]);
+    setCurrentCriterion(sortCriterion);
   };
 
   return (

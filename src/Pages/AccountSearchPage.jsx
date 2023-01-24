@@ -13,7 +13,7 @@ import {
 
 export default function AccountSearchPage(props) {
   const { game } = props;
-  console.log("thingy");
+
   if (game.key !== null) {
     game?.destroy(true);
   }
