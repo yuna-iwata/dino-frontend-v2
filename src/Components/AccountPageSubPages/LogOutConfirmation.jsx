@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Typography, Box, Button } from "@mui/material";
 
-export default function LogOutConfirmation({ changeTab, changeUser }) {
+export default function LogOutConfirmation(props) {
+  const { changeTab, changeUser } = props;
+
   const navigate = useNavigate();
+  
   return (
     <Box
       sx={{

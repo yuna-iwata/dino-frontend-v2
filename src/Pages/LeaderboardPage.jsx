@@ -1,15 +1,13 @@
-import Leaderboard from "../Components/Leaderboard";
 import React from "react";
 import { Typography, Button, CardActions } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function LeaderboardPage({
-  game,
-  changeProfileAvatar,
-  baseUrl,
-  itemData,
-}) {
-  if (game.key != null) {
+import Leaderboard from "../Components/Leaderboard";
+
+export default function LeaderboardPage(props) {
+  const { game, changeProfileAvatar } = props;
+
+  if (game.key !== null) {
     game?.destroy(true);
   }
 
@@ -30,11 +28,7 @@ export default function LeaderboardPage({
           <Typography>Search for an account</Typography>
         </Button>
       </CardActions>
-      <Leaderboard
-        changeProfileAvatar={changeProfileAvatar}
-        baseUrl={baseUrl}
-        itemData={itemData}
-      />
+      <Leaderboard changeProfileAvatar={changeProfileAvatar} />
     </div>
   );
 }

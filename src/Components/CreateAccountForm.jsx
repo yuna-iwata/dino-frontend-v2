@@ -1,13 +1,16 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import { submitUser } from "../Networking.js";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Button, Typography } from "@mui/material";
 
+import { submitUser } from "../Networking.js";
+
 export default function CreateAccountForm(props) {
   const { changeUser, changeProfileAvatar } = props;
+
   const navigate = useNavigate();
+
   const [usernameExists, setUsernameExists] = useState(false);
 
   function validate(values) {

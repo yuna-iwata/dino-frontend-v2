@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Grid from "@mui/material/Grid";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button, Stack, Grid } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
-export default function WelcomePage({ game }) {
+export default function WelcomePage(props) {
+  const { game } = props;
+
   if (game.key !== null) {
     game?.destroy(true);
   }

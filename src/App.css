@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 p,
 h1,
 h2,
@@ -11,48 +7,6 @@ h5,
 h6,
 button {
   font-family: "Press Start 2P";
-}
-
-button {
-  text-align: center;
-  vertical-align: middle;
-  display: table-cell;
-  margin-bottom: 0px;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .errorMessage {
@@ -79,11 +33,4 @@ button {
 .header-center {
   display: flex;
   justify-content: center;
-}
-
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Press+Start+2P&display=swap");
-
-.MuiButton-iconSizeLarge {
-  padding: 10px 0px;
-  margin-bottom: 5px;
 }

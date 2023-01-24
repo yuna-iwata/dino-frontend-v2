@@ -1,27 +1,13 @@
 import { useEffect } from "react";
-import DinoGameScene from "../scenes/DinoGameScene";
 import Phaser from "phaser";
-import { submitScore } from "../Networking";
 import { Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function Gamepage({ game, setGame, currentUser }) {
-  const navigate = useNavigate();
-  const gameConfig = {
-    type: Phaser.AUTO,
-    pixelArt: true,
-    transparent: true,
-    parent: "game",
-    physics: {
-      default: "arcade",
-      arcade: {
-        debug: false,
-      },
-    },
-    width: window.innerWidth,
-    height: 300,
-    scene: [DinoGameScene],
-  };
+import { submitScore } from "../Networking";
+import { gameConfig } from "../data";
+
+export default function Gamepage(props) {
+  const { game, setGame, currentUser } = props;
 
   useEffect(() => {
     if (!game.key) {
@@ -30,6 +16,8 @@ export default function Gamepage({ game, setGame, currentUser }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const navigate = useNavigate();
 
   const handleSendClick = async () => {
     let scene = game.scene.keys.helloworld;

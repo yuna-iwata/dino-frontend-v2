@@ -14,7 +14,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-export default function PersonalLeaderBoard({ scoreList }) {
+export default function PersonalLeaderBoard(props) {
+  const { scoreList } = props;
+
   const [byScoreClicked, setByScoreClicked] = useState(0);
 
   const onOrderByScoreClick = () => {
@@ -33,7 +35,7 @@ export default function PersonalLeaderBoard({ scoreList }) {
         align="center"
         sx={{ mt: 5, color: "#74D193", mb: 0 }}
       >
-        Personal leaderboard
+        Personal Leaderboard
       </Typography>
       <Box sx={{ mb: 0 }}>
         <Typography sx={{ color: "#74D193", mt: 3 }} variant="h5">

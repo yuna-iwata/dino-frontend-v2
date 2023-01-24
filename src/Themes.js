@@ -10,6 +10,10 @@ const theme = createTheme({
       main: "#75d193",
       contrastText: "#fff",
     },
+    whiteTheme: {
+      main: "#fff",
+      contrastText: "#fff",
+    },
   },
   typography: {
     allVariants: {

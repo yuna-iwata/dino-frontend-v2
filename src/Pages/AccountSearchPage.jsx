@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { TextField, Button, Container } from "@mui/material";
+import { TextField, Button, Container, Typography, Box } from "@mui/material";
+
 import PersonalLeaderBoard from "../Components/AccountPageSubPages/PersonalLeaderBoard";
 import AccountPageBanner from "../Components/AccountPageBanner";
+
 import {
   fetchPersonalLeaderBoard,
   fetchGlobalLeaderBoard,
@@ -10,7 +12,8 @@ import {
 } from "../Networking";
 
 export default function AccountSearchPage(props) {
-  const { baseUrl, itemData, game } = props;
+  const { game } = props;
+
   if (game.key !== null) {
     game?.destroy(true);
   }
@@ -24,9 +27,10 @@ export default function AccountSearchPage(props) {
   const [globalList, setGlobalList] = useState([]);
 
   useEffect(() => {
-    if (currentSearchedUser) {
-      fetchPersonalLeaderBoard(setScoreList, currentSearchedUser, setHighScore);
-    }
+    fetchPersonalLeaderBoard(setScoreList, currentSearchedUser, setHighScore);
+
+    getUserAvatar(currentSearchedUser, setCurrentSearchedUserAvatar);
+    fetchGlobalLeaderBoard(setGlobalList);
     const matchedUser = globalList.filter(
       (item) => item["name"] === currentSearchedUser
     )[0];
@@ -34,24 +38,13 @@ export default function AccountSearchPage(props) {
       const findRank = matchedUser["rank"];
       setRank(findRank);
     }
-    getUserAvatar(currentSearchedUser, setCurrentSearchedUserAvatar);
-    if (currentSearchedUser) {
-      fetchGlobalLeaderBoard(setGlobalList);
-      const matchedUser = globalList.filter(
-        (item) => item["name"] === currentSearchedUser
-      )[0];
-      if (globalList.length > 0 && matchedUser) {
-        const findRank = matchedUser["rank"];
-        setRank(findRank);
-      }
-    }
+    console.log(globalList, currentSearchedUser);
   }, [globalList, currentSearchedUser]);
 
   const handleSearchChange = (input) => {
     setSearchInput(input);
   };
-
-  const handleSubmit = () => {
+  const handleSearch = () => {
     checkUserExists(searchInput, setCurrentSearchedUser);
   };
 
@@ -68,13 +61,11 @@ export default function AccountSearchPage(props) {
         <AccountPageBanner
           highScore={highScore}
           rank={rank}
-          baseUrl={baseUrl}
-          itemData={itemData}
           currentAvatar={currentSearchedUserAvatar}
-          username={currentSearchedUser}
+          currentUser={currentSearchedUser}
         />
         <PersonalLeaderBoard
-          username={currentSearchedUser}
+          currentUser={currentSearchedUser}
           scoreList={scoreList}
         />
       </div>
@@ -83,16 +74,37 @@ export default function AccountSearchPage(props) {
 
   return (
     <Container>
-      <TextField
-        id="outlined-search"
-        label="Username"
-        type="search"
-        onChange={(event) => handleSearchChange(event.target.value)}
-      />
-      <Button variant="contained" onClick={handleSubmit}>
-        Submit
-      </Button>
-      {results}
+      <Box
+        display="flex"
+        sx={{
+          m: 10,
+          p: 2,
+          flexDirection: "column",
+          alignItems: "center",
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+        }}
+      >
+        <TextField
+          id="outlined-search"
+          label="Username"
+          type="search"
+          onChange={(event) => handleSearchChange(event.target.value)}
+          color="greenTheme"
+          sx={{ mb: 2 }}
+        />
+        <Button
+          variant="contained"
+          onClick={() => handleSearch()}
+          width="auto"
+          color="greenTheme"
+          sx={{ mb: 2 }}
+        >
+          <Typography>Search</Typography>
+        </Button>
+        {results}
+      </Box>
     </Container>
   );
 }

@@ -1,11 +1,13 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { changeUsername } from "../../Networking";
 import { Form } from "react-bootstrap";
 import { Box, Typography, Button } from "@mui/material";
 
+import { changeUsername } from "../../Networking";
+
 export default function ChangeUsername(props) {
   const { changeTab, changeUser, username } = props;
+
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
   const [isUsernameTaken, setIsUsernameTaken] = useState(false);
 
