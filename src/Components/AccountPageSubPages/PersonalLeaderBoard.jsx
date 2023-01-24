@@ -12,20 +12,22 @@ import {
   ButtonGroup,
   Button,
 } from "@mui/material";
-import { useState } from "react";
 
 export default function PersonalLeaderBoard(props) {
-  const { scoreList } = props;
+  const { scoreList, setScoreList } = props;
 
-  const [byScoreClicked, setByScoreClicked] = useState(0);
-
-  const onOrderByScoreClick = () => {
-    scoreList.sort(({ score: a }, { score: b }) => b - a);
-    setByScoreClicked(byScoreClicked + 1);
-  };
-  const onOrderByDateClick = () => {
-    scoreList.sort(({ date: a }, { date: b }) => new Date(b) - new Date(a));
-    setByScoreClicked(byScoreClicked + 1);
+  const orderBy = (sortCriterion) => {
+    if (sortCriterion === "date") {
+      const sortedScoreList = scoreList.sort(
+        ({ date: a }, { date: b }) => new Date(b) - new Date(a)
+      );
+      setScoreList([...sortedScoreList]);
+    } else if (sortCriterion === "score") {
+      const sortedScoreList = scoreList.sort(
+        ({ score: a }, { score: b }) => b - a
+      );
+      setScoreList([...sortedScoreList]);
+    }
   };
 
   return (
@@ -45,10 +47,10 @@ export default function PersonalLeaderBoard(props) {
           variant="contained"
           aria-label="outlined primary button group"
         >
-          <Button variant="flat" onClick={onOrderByDateClick}>
+          <Button variant="flat" onClick={() => orderBy("date")}>
             <Typography variant="h5">DATE</Typography>
           </Button>
-          <Button variant="flat" onClick={onOrderByScoreClick}>
+          <Button variant="flat" onClick={() => orderBy("score")}>
             <Typography variant="h5">SCORE</Typography>
           </Button>
         </ButtonGroup>

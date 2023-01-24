@@ -13,7 +13,7 @@ import {
 
 export default function AccountSearchPage(props) {
   const { game } = props;
-
+  console.log("thingy");
   if (game.key !== null) {
     game?.destroy(true);
   }
@@ -27,9 +27,8 @@ export default function AccountSearchPage(props) {
   const [globalList, setGlobalList] = useState([]);
 
   useEffect(() => {
-    fetchPersonalLeaderBoard(setScoreList, currentSearchedUser, setHighScore);
-
     getUserAvatar(currentSearchedUser, setCurrentSearchedUserAvatar);
+    fetchPersonalLeaderBoard(setScoreList, currentSearchedUser, setHighScore);
     fetchGlobalLeaderBoard(setGlobalList);
     const matchedUser = globalList.filter(
       (item) => item["name"] === currentSearchedUser
@@ -38,8 +37,8 @@ export default function AccountSearchPage(props) {
       const findRank = matchedUser["rank"];
       setRank(findRank);
     }
-    console.log(globalList, currentSearchedUser);
-  }, [globalList, currentSearchedUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSearchedUser]);
 
   const handleSearchChange = (input) => {
     setSearchInput(input);
@@ -65,8 +64,8 @@ export default function AccountSearchPage(props) {
           currentUser={currentSearchedUser}
         />
         <PersonalLeaderBoard
-          currentUser={currentSearchedUser}
           scoreList={scoreList}
+          setScoreList={setScoreList}
         />
       </div>
     );
