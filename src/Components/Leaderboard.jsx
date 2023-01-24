@@ -11,9 +11,11 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { fetchGlobalLeaderBoard } from "../Networking";
 
-export default function Leaderboard({ baseUrl, itemData }) {
+import { fetchGlobalLeaderBoard } from "../Networking";
+import { itemData, bucketBaseUrl } from "../data";
+
+export default function Leaderboard() {
   const [globalList, setGlobalList] = useState([]);
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function Leaderboard({ baseUrl, itemData }) {
                     <Grid item>
                       <Avatar
                         alt="Dino profile"
-                        src={`${baseUrl}${itemData[row.dino_id]["img"]}`}
+                        src={`${bucketBaseUrl}${itemData[row.dino_id]["img"]}`}
                       />
                     </Grid>
                     <Grid item sx={{ mt: 1, ml: 1 }} data-testid="rowname">

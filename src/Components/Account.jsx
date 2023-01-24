@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Grid, Container, Stack } from "@mui/material";
+
 import TabButton from "./TabButton";
 import PersonalLeaderBoard from "./AccountPageSubPages/PersonalLeaderBoard";
 import AvatarSelection from "./AccountPageSubPages/AvatarSelection";
@@ -8,55 +9,55 @@ import ChangePassword from "./AccountPageSubPages/ChangePassword";
 import LogOutConfirmation from "./AccountPageSubPages/LogOutConfirmation";
 import DeleteAccountConfirmation from "./AccountPageSubPages/DeleteAccountConfirmation";
 import AccountPageBanner from "./AccountPageBanner";
+
 import {
   fetchPersonalLeaderBoard,
   fetchGlobalLeaderBoard,
 } from "../Networking";
 
-export default function Account({
-  currentAvatar,
-  username,
-  changeUser,
-  changeProfileAvatar,
-  itemData,
-  baseUrl,
-}) {
+export default function Account(props) {
+  const { currentAvatar, currentUser, changeUser, changeProfileAvatar } = props;
+
   const [scoreList, setScoreList] = useState([]);
   const [globalList, setGlobalList] = useState([]);
   const [highScore, setHighScore] = useState(0);
   const [rank, setRank] = useState(0);
+  const [currentTab, setCurrentTab] = useState("leaderboard");
+
+  const changeTab = (tab) => {
+    setCurrentTab(tab);
+  };
 
   useEffect(() => {
-    if (username) {
-      fetchPersonalLeaderBoard(setScoreList, username, setHighScore);
+    if (currentUser) {
+      fetchPersonalLeaderBoard(setScoreList, currentUser, setHighScore);
     }
 
     fetchGlobalLeaderBoard(setGlobalList);
     const matchedUser = globalList.filter(
-      (item) => item["name"] === username
+      (item) => item["name"] === currentUser
     )[0];
     if (globalList.length > 0 && matchedUser) {
       const findRank = matchedUser["rank"];
       setRank(findRank);
     }
-  }, [globalList, username]);
+  }, [globalList, currentUser]);
 
-  const changeTab = (tab) => {
-    setCurrentTab(tab);
-  };
   const tabs = {
     leaderboard: {
       text: "your leader board",
-      page: <PersonalLeaderBoard username={username} scoreList={scoreList} />,
+      page: (
+        <PersonalLeaderBoard
+          scoreList={scoreList}
+        />
+      ),
     },
     avatar: {
       text: "change avatar",
       page: (
         <AvatarSelection
-          username={username}
+          currentUser={currentUser}
           changeProfileAvatar={changeProfileAvatar}
-          itemData={itemData}
-          baseUrl={baseUrl}
           currentAvatar={currentAvatar}
           changeTab={changeTab}
         />
@@ -67,14 +68,14 @@ export default function Account({
       page: (
         <ChangeUsername
           changeTab={changeTab}
-          username={username}
+          currentUser={currentUser}
           changeUser={changeUser}
         />
       ),
     },
     password: {
       text: "change password",
-      page: <ChangePassword changeTab={changeTab} username={username} />,
+      page: <ChangePassword changeTab={changeTab} currentUser={currentUser} />,
     },
     signOut: {
       text: "sign out",
@@ -86,25 +87,21 @@ export default function Account({
       text: "delete account",
       page: (
         <DeleteAccountConfirmation
-          username={username}
+          currentUser={currentUser}
           changeUser={changeUser}
           changeTab={changeTab}
         />
       ),
     },
   };
-  const initialTab = "leaderboard";
-  const [currentTab, setCurrentTab] = useState(initialTab);
 
   return (
     <Container>
       <AccountPageBanner
         highScore={highScore}
         rank={rank}
-        baseUrl={baseUrl}
-        itemData={itemData}
         currentAvatar={currentAvatar}
-        username={username}
+        currentUser={currentUser}
       />
 
       <Box

@@ -1,11 +1,13 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { changePassword } from "../../Networking";
-import { Form } from "react-bootstrap";
 import { Box, Typography, Button } from "@mui/material";
+import { Form } from "react-bootstrap";
+
+import { changePassword } from "../../Networking";
 
 export default function ChangePassword(props) {
   const { changeTab, username } = props;
+
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
 
   function validate(values) {

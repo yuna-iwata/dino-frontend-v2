@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { Game } from "phaser";
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material";
+
 import Header from "./Components/Header";
 import WelcomePage from "./Pages/WelcomePage";
 import GamePage from "./Pages/GamePage";
@@ -10,56 +11,21 @@ import LoginPage from "./Pages/LoginPage";
 import LeaderboardPage from "./Pages/LeaderboardPage";
 import AccountPage from "./Pages/AccountPage";
 import AccountSearchPage from "./Pages/AccountSearchPage";
+
 import "./App.css";
 import { theme } from "./Themes";
 
-function App() {
+export default function App() {
   const [game, setGame] = useState(<Game />);
   const [currentUser, setCurrentUser] = useState(null);
   const [currentAvatar, setCurrentAvatar] = useState(null);
 
-  const itemData = [
-    {
-      img: "dino-idle-formatted.png",
-      title: "original dino",
-    },
-    {
-      img: "dino-baseball.png",
-      title: "baseball dino",
-    },
-    {
-      img: "dino-disco.png",
-      title: "disco dino",
-    },
-    {
-      img: "dino-mariachi.png",
-      title: "mariachi dino",
-    },
-    {
-      img: "dino-rainbow.png",
-      title: "rainbow dino",
-    },
-    {
-      img: "dino-sigma.png",
-      title: "sigma dino",
-    },
-    {
-      img: "dino-spiderman.png",
-      title: "spiderman dino",
-    },
-  ];
-
-  const baseUrl = "https://chrome-dino-game.s3.amazonaws.com/assets/";
-
   const changeUser = (username) => {
     setCurrentUser(username);
   };
-
   const changeProfileAvatar = (avatarID) => {
     setCurrentAvatar(avatarID);
   };
-
-  const rank = 12;
 
   return (
     <BrowserRouter>
@@ -68,8 +34,6 @@ function App() {
           currentUser={currentUser}
           currentAvatar={currentAvatar}
           changeUser={changeUser}
-          itemData={itemData}
-          baseUrl={baseUrl}
         />
         <Routes>
           {currentUser ? (
@@ -80,6 +44,7 @@ function App() {
           ) : (
             <Route path="/" element={<WelcomePage game={game} />} />
           )}
+
           <Route
             path="/game"
             element={
@@ -90,6 +55,7 @@ function App() {
               />
             }
           />
+
           {currentUser ? (
             <Route
               path="/create-account"
@@ -107,6 +73,7 @@ function App() {
               }
             />
           )}
+
           {currentUser ? (
             <Route
               path="/login"
@@ -124,29 +91,26 @@ function App() {
               }
             />
           )}
+
           <Route
             path="/leaderboard"
             element={
               <LeaderboardPage
                 game={game}
                 changeProfileAvatar={changeProfileAvatar}
-                baseUrl={baseUrl}
-                itemData={itemData}
               />
             }
           />
+
           {currentUser ? (
             <Route
               path="/account-page"
               element={
                 <AccountPage
-                  currentAvatar={currentAvatar} // avatar
-                  username={currentUser}
-                  rank={rank} // users rank
+                  currentAvatar={currentAvatar}
+                  currentUser={currentUser}
                   changeUser={changeUser}
                   changeProfileAvatar={changeProfileAvatar}
-                  itemData={itemData}
-                  baseUrl={baseUrl}
                   game={game}
                 />
               }
@@ -157,21 +121,15 @@ function App() {
               element={<Navigate to="/login" replace={true} />}
             />
           )}
+
           <Route
             path="/account-search"
-            element={
-              <AccountSearchPage
-                game={game}
-                baseUrl={baseUrl}
-                itemData={itemData}
-              />
-            }
+            element={<AccountSearchPage game={game} />}
           />
+
           <Route path="*" element={<p>Error 404: Page Not Found</p>} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
   );
 }
-
-export default App;

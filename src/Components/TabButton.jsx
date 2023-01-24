@@ -8,6 +8,7 @@ import LeaderboardRoundedIcon from "@mui/icons-material/LeaderboardRounded";
 
 export default function TabButton(props) {
   const { currentTab, tab, changeTab, tabs } = props;
+
   let icon;
   if (tab === "leaderboard") {
     icon = <LeaderboardRoundedIcon />;
@@ -22,6 +23,7 @@ export default function TabButton(props) {
   } else if (tab === "delete") {
     icon = <DeleteIcon />;
   }
+
   return (
     <Button
       variant={
@@ -30,13 +32,16 @@ export default function TabButton(props) {
       color={
         tabs[currentTab].text === tabs[tab].text ? "greenTheme" : "neutralTheme"
       }
-      startIcon={icon}
       size="large"
       onClick={() => {
         changeTab(tab);
       }}
+      sx={{ display: "flex" }}
     >
-      <Typography>{tabs[tab].text}</Typography>
+      {icon}
+      <Typography variant="h5" flexGrow={1} sx={{ ml: 2 }}>
+        {tabs[tab].text}
+      </Typography>
     </Button>
   );
 }

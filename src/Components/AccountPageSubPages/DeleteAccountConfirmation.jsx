@@ -1,10 +1,13 @@
 import { Typography, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
 import { deleteUser } from "../../Networking.js";
 
 export default function DeleteAccountConfirmation(props) {
   const { username, changeUser, changeTab } = props;
+
   const navigate = useNavigate();
+
   return (
     <Box
       sx={{

@@ -1,26 +1,33 @@
-import { ImageListItem, Tooltip, IconButton } from "@mui/material";
-import { changeAvatar } from "../../Networking";
+import { ImageListItem, Tooltip, Button } from "@mui/material";
 
-export default function AvatarSelectionElement({
-  item,
-  index,
-  username,
-  changeProfileAvatar,
-  baseUrl,
-  currentAvatar,
-}) {
-  let backgroundColour;
+import { changeAvatar } from "../../Networking";
+import { bucketBaseUrl } from "../../data";
+
+export default function AvatarSelectionElement(props) {
+  const { item, index, currentUser, changeProfileAvatar, currentAvatar } =
+    props;
+
+  let selectedColour;
+  let selectedVariant;
   if (currentAvatar === index) {
-    backgroundColour = "#74D193";
+    selectedColour = "greenTheme";
+    selectedVariant = "contained";
+  } else {
+    selectedColour = "whiteTheme";
+    selectedVariant = "text";
   }
 
   return (
     <ImageListItem>
       <Tooltip title={item.title}>
-        <IconButton
-          style={{ borderRadius: 50, background: backgroundColour }}
+        <Button
+          color={selectedColour}
+          variant={selectedVariant}
+          sx={{
+            borderRadius: 50,
+          }}
           onClick={() => {
-            changeAvatar(index, username);
+            changeAvatar(index, currentUser);
             changeProfileAvatar(index);
           }}
         >
@@ -28,9 +35,9 @@ export default function AvatarSelectionElement({
             width="100px"
             height="100px"
             alt={item.title}
-            src={`${baseUrl}${item.img}`}
+            src={`${bucketBaseUrl}${item.img}`}
           />
-        </IconButton>
+        </Button>
       </Tooltip>
     </ImageListItem>
   );

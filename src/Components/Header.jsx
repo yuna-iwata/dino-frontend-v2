@@ -15,8 +15,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import { Link } from "react-router-dom";
 
+import { itemData, bucketBaseUrl } from "../data";
+
 export default function Header(props) {
-  const { currentUser, changeUser, currentAvatar, baseUrl, itemData } = props;
+  const { currentUser, changeUser, currentAvatar } = props;
 
   return (
     <AppBar
@@ -45,7 +47,7 @@ export default function Header(props) {
                   <Grid item>
                     <Avatar
                       alt="Dino profile"
-                      src={`${baseUrl}${itemData[currentAvatar]["img"]}`}
+                      src={`${bucketBaseUrl}${itemData[currentAvatar]["img"]}`}
                     />
                   </Grid>
                   <Grid item sx={{ mt: 1, ml: 1 }}>

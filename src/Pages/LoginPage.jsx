@@ -1,15 +1,11 @@
-import LoginForm from "../Components/LoginForm";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
+import { Button, Box, Container, Typography } from "@mui/material";
 
-export default function CreateAccountPage({
-  changeUser,
-  game,
-  changeProfileAvatar,
-}) {
+import LoginForm from "../Components/LoginForm";
+
+export default function CreateAccountPage(props) {
+  const { changeUser, game, changeProfileAvatar } = props;
+
   if (game.key !== null) {
     game?.destroy(true);
   }

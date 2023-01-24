@@ -2,8 +2,11 @@ import { CardHeader, Avatar, Typography, Box, Grid } from "@mui/material";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import PublicIcon from "@mui/icons-material/Public";
 
+import { itemData, bucketBaseUrl } from "../data";
+
 export default function AccountPageBanner(props) {
-  const { baseUrl, itemData, currentAvatar, username, highScore, rank } = props;
+  const { currentAvatar, currentUser, highScore, rank } = props;
+
   return (
     <Box display="flex" sx={{ width: "auto", height: 80, mt: 3, ml: 5, mb: 5 }}>
       <Grid container spacing={3}>
@@ -12,7 +15,7 @@ export default function AccountPageBanner(props) {
             avatar={
               <Avatar
                 alt="Dino profile"
-                src={`${baseUrl}${itemData[currentAvatar]["img"]}`}
+                src={`${bucketBaseUrl}${itemData[currentAvatar]["img"]}`}
                 style={{
                   border: "0.1px solid lightgray",
                 }}
@@ -20,7 +23,7 @@ export default function AccountPageBanner(props) {
               />
             }
           />
-          <Typography variant="h4">{username}</Typography>
+          <Typography variant="h4">{currentUser}</Typography>
         </Grid>
 
         <Grid alignItems="center" display="flex" item xs={2}>

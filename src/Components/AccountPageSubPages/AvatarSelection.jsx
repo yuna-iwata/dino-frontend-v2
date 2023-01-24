@@ -1,13 +1,10 @@
 import { Box, Typography, ImageList } from "@mui/material";
 import AvatarSelectionElement from "./AvatarSelectionElement";
+import { itemData } from "../../data";
 
-export default function AvatarSelection({
-  username,
-  changeProfileAvatar,
-  itemData,
-  baseUrl,
-  currentAvatar,
-}) {
+export default function AvatarSelection(props) {
+  const { currentUser, changeProfileAvatar, currentAvatar } = props;
+
   return (
     <Box
       sx={{
@@ -21,16 +18,15 @@ export default function AvatarSelection({
       style={{ maxHeight: 465, overflow: "auto" }}
     >
       <Typography variant="h3" align="center" sx={{ p: 2, color: "#74D193" }}>
-        Select an avatar
+        Select An Avatar
       </Typography>
       <ImageList sx={{ width: 700, height: 400 }} cols={3} rowHeight={2}>
         {itemData.map((item, index) => (
           <AvatarSelectionElement
-            username={username}
+            currentUser={currentUser}
             changeProfileAvatar={changeProfileAvatar}
             item={item}
             index={index}
-            baseUrl={baseUrl}
             currentAvatar={currentAvatar}
             key={index}
           />
