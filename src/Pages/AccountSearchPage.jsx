@@ -12,14 +12,13 @@ import {
 } from "../Networking";
 
 export default function AccountSearchPage(props) {
-  const { game } = props;
+  const { game, currentSearchedUser, changeSearchedUser } = props;
 
   if (game.key !== null) {
     game?.destroy(true);
   }
 
   const [searchInput, setSearchInput] = useState("");
-  const [currentSearchedUser, setCurrentSearchedUser] = useState(null);
   const [currentSearchedUserAvatar, setCurrentSearchedUserAvatar] = useState(0);
   const [scoreList, setScoreList] = useState([]);
   const [highScore, setHighScore] = useState(0);
@@ -35,7 +34,7 @@ export default function AccountSearchPage(props) {
     setSearchInput(input);
   };
   const handleSearch = () => {
-    checkUserExists(searchInput, setCurrentSearchedUser);
+    checkUserExists(searchInput, changeSearchedUser);
   };
 
   let results;

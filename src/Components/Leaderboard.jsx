@@ -11,11 +11,14 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import { fetchGlobalLeaderBoard } from "../Networking";
 import { itemData, bucketBaseUrl } from "../data";
 
-export default function Leaderboard() {
+export default function Leaderboard(props) {
+  const { changeSearchedUser } = props;
+
   const [globalList, setGlobalList] = useState([]);
 
   useEffect(() => {
@@ -44,17 +47,23 @@ export default function Leaderboard() {
                   <Typography>#{row.rank}</Typography>
                 </TableCell>
                 <TableCell component="th" scope="row" align="left">
-                  <Grid container direction="row" placement="left-start">
-                    <Grid item>
-                      <Avatar
-                        alt="Dino profile"
-                        src={`${bucketBaseUrl}${itemData[row.dinoId]["img"]}`}
-                      />
+                  <Link
+                    to="/account-search"
+                    onClick={() => changeSearchedUser(row.name)}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <Grid container direction="row" placement="left-start">
+                      <Grid item>
+                        <Avatar
+                          alt="Dino profile"
+                          src={`${bucketBaseUrl}${itemData[row.dinoId]["img"]}`}
+                        />
+                      </Grid>
+                      <Grid item sx={{ mt: 1, ml: 1 }} data-testid="rowname">
+                        <Typography variant="h5">{row.name}</Typography>
+                      </Grid>
                     </Grid>
-                    <Grid item sx={{ mt: 1, ml: 1 }} data-testid="rowname">
-                      <Typography variant="h5">{row.name}</Typography>
-                    </Grid>
-                  </Grid>
+                  </Link>
                 </TableCell>
                 <TableCell align="center">
                   <Typography>{row.score}</Typography>

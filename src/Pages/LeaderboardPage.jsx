@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Leaderboard from "../Components/Leaderboard";
 
 export default function LeaderboardPage(props) {
-  const { game, changeProfileAvatar } = props;
+  const { game, changeProfileAvatar, changeSearchedUser } = props;
 
   if (game.key !== null) {
     game?.destroy(true);
@@ -28,7 +28,10 @@ export default function LeaderboardPage(props) {
           <Typography>Search for an account</Typography>
         </Button>
       </CardActions>
-      <Leaderboard changeProfileAvatar={changeProfileAvatar} />
+      <Leaderboard
+        changeProfileAvatar={changeProfileAvatar}
+        changeSearchedUser={changeSearchedUser}
+      />
     </div>
   );
 }
