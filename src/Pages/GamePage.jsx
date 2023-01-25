@@ -19,7 +19,7 @@ export default function Gamepage(props) {
 
   const navigate = useNavigate();
 
-  const handleSendClick = async () => {
+  const handleSubmitClick = async () => {
     let scene = game.scene.keys.helloworld;
     let handlescore = scene.createScore();
     if (handlescore !== 0) {
@@ -38,20 +38,37 @@ export default function Gamepage(props) {
         justifyContent: "center",
       }}
     >
-      <Button
-        size="medium"
-        variant="contained"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          backgroundColor: "#8e8d8d",
-        }}
-        sx={{ m: 3 }}
-        onClick={handleSendClick}
-      >
-        <Typography>send score to leaderboard</Typography>
-      </Button>
+      {currentUser ? (
+        <Button
+          size="medium"
+          variant="contained"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            backgroundColor: "#8e8d8d",
+          }}
+          sx={{ m: 3 }}
+          onClick={handleSubmitClick}
+        >
+          <Typography>send score to leader board</Typography>
+        </Button>
+      ) : (
+        <Button
+          size="medium"
+          variant="contained"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            backgroundColor: "#8e8d8d",
+          }}
+          sx={{ m: 3 }}
+          onClick={() => navigate("/login")}
+        >
+          <Typography>sign in before playing to access leaderboard</Typography>
+        </Button>
+      )}
     </Box>
   );
 }

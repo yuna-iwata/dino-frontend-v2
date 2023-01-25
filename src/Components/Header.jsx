@@ -119,7 +119,7 @@ export default function Header(props) {
               </Link>
             </Tooltip>
           ) : (
-            <Tooltip title="Log in" placement="right-start">
+            <Tooltip title="Log In / Create Account" placement="right-start">
               <Link to="/login">
                 <IconButton size="large" colour="inherit">
                   <Badge sx={{ color: "white" }}>
