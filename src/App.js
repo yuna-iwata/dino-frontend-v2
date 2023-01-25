@@ -19,12 +19,16 @@ export default function App() {
   const [game, setGame] = useState(<Game />);
   const [currentUser, setCurrentUser] = useState(null);
   const [currentAvatar, setCurrentAvatar] = useState(null);
+  const [currentSearchedUser, setCurrentSearchedUser] = useState(null);
 
   const changeUser = (username) => {
     setCurrentUser(username);
   };
   const changeProfileAvatar = (avatarID) => {
     setCurrentAvatar(avatarID);
+  };
+  const changeSearchedUser = (username) => {
+    setCurrentSearchedUser(username);
   };
 
   return (
@@ -98,6 +102,7 @@ export default function App() {
               <LeaderboardPage
                 game={game}
                 changeProfileAvatar={changeProfileAvatar}
+                changeSearchedUser={changeSearchedUser}
               />
             }
           />
@@ -124,7 +129,13 @@ export default function App() {
 
           <Route
             path="/account-search"
-            element={<AccountSearchPage game={game} />}
+            element={
+              <AccountSearchPage
+                game={game}
+                changeSearchedUser={changeSearchedUser}
+                currentSearchedUser={currentSearchedUser}
+              />
+            }
           />
 
           <Route path="*" element={<p>Error 404: Page Not Found</p>} />
