@@ -22,7 +22,7 @@ const scale = 0.5;
 
 export default class DinoGameScene extends Phaser.Scene {
   constructor() {
-    super("helloworld");
+    super("DinoGameScene");
   }
 
   preload() {
@@ -315,6 +315,30 @@ export default class DinoGameScene extends Phaser.Scene {
         this.speed = 12;
         this.gameOverText.setAlpha(1);
         this.restart.setAlpha(1);
+        this.input.keyboard.on("keydown-SPACE", () => {
+          this.scene.restart();
+          // player.setVelocityY(0);
+          // player.body.height = 92 * scale;
+          // player.body.offset.y = 0;
+          // obstacles.clear(true, true);
+          // runGame = true;
+          // this.gameOverText.setAlpha(0);
+          // this.restart.setAlpha(0);
+          // score = 0;
+          // this.physics.resume();
+          wearHat = null;
+          this.anims.resumeAll();
+        });
+        this.input.keyboard.on("keydown-ENTER", () => {
+          this.scene.restart();
+          wearHat = null;
+          this.anims.resumeAll();
+        });
+        this.restart.on("pointerdown", () => {
+          this.scene.restart();
+          wearHat = null;
+          this.anims.resumeAll();
+        });
         this.gameOverSound.play();
         if (wearHat) {
           wearHat.setAlpha(0);
@@ -414,25 +438,6 @@ export default class DinoGameScene extends Phaser.Scene {
   }
 
   keyCommands() {
-    this.restart.on("pointerdown", () => {
-      player.setVelocityY(0);
-      player.body.height = 92 * scale;
-      player.body.offset.y = 0;
-      obstacles.clear(true, true);
-      this.displayItemScore.setText(`items: 0/6`);
-      allHatsCollected = false;
-      hatNum = 0;
-      hats.clear(true, true);
-      if (wearHat) {
-        wearHat.disableBody(true, true);
-      }
-      runGame = true;
-      score = 0;
-      this.gameOverText.setAlpha(0);
-      this.restart.setAlpha(0);
-      this.physics.resume();
-      this.anims.resumeAll();
-    });
     if (cursors.down.isDown && player.body.velocity.x === 0) {
       player.body.height = 58 * scale;
       player.body.offset.y = 34;
@@ -440,7 +445,11 @@ export default class DinoGameScene extends Phaser.Scene {
         wearHat.setAlpha(0);
       }
     }
-    if (cursors.up.isDown && player.body.velocity.x === 0) {
+    if (
+      cursors.down.isUp &&
+      player.body.height === 58 * scale &&
+      player.body.velocity.x === 0
+    ) {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
 
