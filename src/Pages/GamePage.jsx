@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import Phaser from "phaser";
-import { Button, Box, Typography } from "@mui/material";
+import { Button, Box, Typography, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import SpaceBarIcon from "@mui/icons-material/SpaceBar";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 import { submitScore } from "../Networking";
 import { gameConfig } from "../data";
@@ -30,45 +32,70 @@ export default function Gamepage(props) {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: { xs: "column", md: "row" },
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {currentUser ? (
+    <div>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {currentUser ? (
+          <Button
+            size="medium"
+            variant="contained"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              backgroundColor: "#8e8d8d",
+            }}
+            sx={{ m: 3 }}
+            onClick={handleSubmitClick}
+          >
+            <Typography>send score to leader board</Typography>
+          </Button>
+        ) : (
+          <Button
+            size="medium"
+            variant="contained"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              backgroundColor: "#8e8d8d",
+            }}
+            sx={{ m: 3 }}
+            onClick={() => navigate("/login")}
+          >
+            <Typography>
+              sign in before playing to access leaderboard
+            </Typography>
+          </Button>
+        )}
+      </Box>
+      <Box sx={{ ml: [2] }}>
         <Button
-          size="medium"
+          color="greenTheme"
           variant="contained"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            backgroundColor: "#8e8d8d",
-          }}
-          sx={{ m: 3 }}
-          onClick={handleSubmitClick}
+          onClick={() => window.location.reload(false)}
+          sx={{ mb: 5 }}
         >
-          <Typography>send score to leader board</Typography>
+          <Typography variant="h6">Game not working? refresh page</Typography>
         </Button>
-      ) : (
-        <Button
-          size="medium"
-          variant="contained"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            backgroundColor: "#8e8d8d",
-          }}
-          sx={{ m: 3 }}
-          onClick={() => navigate("/login")}
-        >
-          <Typography>sign in before playing to access leaderboard</Typography>
-        </Button>
-      )}
-    </Box>
+        <Grid>
+          <Typography variant="h6">
+            Start/restart: <SpaceBarIcon />
+          </Typography>
+          <Typography variant="h6">
+            Jump: <SpaceBarIcon />
+          </Typography>
+          <Typography variant="h6">
+            Duck: <ArrowDownwardIcon />
+          </Typography>
+        </Grid>
+      </Box>
+    </div>
   );
 }
