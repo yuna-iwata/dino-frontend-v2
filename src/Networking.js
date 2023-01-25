@@ -9,8 +9,45 @@ export async function submitUser(username, password) {
     body: JSON.stringify({ username: username, password: password }),
   });
   const json = await response.json();
-
   return json;
+}
+
+export async function setSession(username, sessionId) {
+  const response = await fetch(`${baseUrl}set-session`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username: username, sessionId: sessionId }),
+  });
+  const json = await response.json();
+  return json;
+}
+
+export async function getSession(sessionId, setCurrentUser, setCurrentAvatar) {
+  const response = await fetch(`${baseUrl}get-session?session=${sessionId}`);
+  const json = await response.json();
+  if (json.length > 0) {
+    setCurrentUser(json[0][0]);
+    setCurrentAvatar(json[0][1]);
+  }
+  return json;
+}
+
+export async function removeSession(sessionId) {
+  try {
+    console.log(sessionId);
+    const response = await fetch(`${baseUrl}delete-session`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sessionId: sessionId }),
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
 }
 
 export async function checkUser(username, password) {

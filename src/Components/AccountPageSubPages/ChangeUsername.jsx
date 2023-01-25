@@ -6,7 +6,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { changeUsername } from "../../Networking";
 
 export default function ChangeUsername(props) {
-  const { changeTab, changeUser, username } = props;
+  const { changeTab, changeUser, currentUser } = props;
 
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
   const [isUsernameTaken, setIsUsernameTaken] = useState(false);
@@ -16,7 +16,7 @@ export default function ChangeUsername(props) {
     if (!values.newUsername) {
       errors.newUsername = "Required";
     }
-    if (values.newUsername === username) {
+    if (values.newUsername === currentUser) {
       errors.newUsername = "Please choose a new username";
     }
     if (!values.password) {
@@ -34,7 +34,7 @@ export default function ChangeUsername(props) {
       validate,
       onSubmit: async (values) => {
         const response = await changeUsername(
-          username,
+          currentUser,
           values.newUsername,
           values.password
         );

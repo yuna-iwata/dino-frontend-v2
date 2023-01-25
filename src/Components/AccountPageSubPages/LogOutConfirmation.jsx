@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { Typography, Box, Button } from "@mui/material";
 
+import { removeSession } from "../../Networking";
+
 export default function LogOutConfirmation(props) {
-  const { changeTab, changeUser } = props;
+  const { changeTab, changeUser, cookies, removeCookie } = props;
 
   const navigate = useNavigate();
-  
+
   return (
     <Box
       sx={{
@@ -26,6 +28,8 @@ export default function LogOutConfirmation(props) {
           onClick={() => {
             changeUser(null);
             navigate("/");
+            removeCookie("user");
+            removeSession(cookies.user);
           }}
         >
           <Typography>Yes</Typography>

@@ -4,7 +4,7 @@ import { Button, Box, Container, Typography } from "@mui/material";
 import CreateAccountForm from "../Components/CreateAccountForm";
 
 export default function CreateAccountPage(props) {
-  const { changeUser, game, changeProfileAvatar } = props;
+  const { changeUser, game, changeProfileAvatar, setCookie } = props;
 
   if (game.key !== null) {
     game?.destroy(true);
@@ -29,6 +29,7 @@ export default function CreateAccountPage(props) {
         <CreateAccountForm
           changeUser={changeUser}
           changeProfileAvatar={changeProfileAvatar}
+          setCookie={setCookie}
         />
         <Typography sx={{ mt: 2, mb: 2 }}>Already have an account?</Typography>
         <div>

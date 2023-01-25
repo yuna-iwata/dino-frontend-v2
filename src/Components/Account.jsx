@@ -13,7 +13,14 @@ import AccountPageBanner from "./AccountPageBanner";
 import { fetchPersonalLeaderBoard, getRank } from "../Networking";
 
 export default function Account(props) {
-  const { currentAvatar, currentUser, changeUser, changeProfileAvatar } = props;
+  const {
+    currentAvatar,
+    currentUser,
+    changeUser,
+    changeProfileAvatar,
+    cookies,
+    removeCookie,
+  } = props;
 
   const [scoreList, setScoreList] = useState([]);
   const [highScore, setHighScore] = useState(0);
@@ -67,7 +74,12 @@ export default function Account(props) {
     signOut: {
       text: "sign out",
       page: (
-        <LogOutConfirmation changeTab={changeTab} changeUser={changeUser} />
+        <LogOutConfirmation
+          changeTab={changeTab}
+          changeUser={changeUser}
+          removeCookie={removeCookie}
+          cookies={cookies}
+        />
       ),
     },
     delete: {
@@ -77,6 +89,7 @@ export default function Account(props) {
           currentUser={currentUser}
           changeUser={changeUser}
           changeTab={changeTab}
+          removeCookie={removeCookie}
         />
       ),
     },
