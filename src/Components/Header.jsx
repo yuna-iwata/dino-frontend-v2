@@ -16,9 +16,11 @@ import LoginIcon from "@mui/icons-material/Login";
 import { Link } from "react-router-dom";
 
 import { itemData, bucketBaseUrl } from "../data";
+import { removeSession } from "../Networking";
 
 export default function Header(props) {
-  const { currentUser, changeUser, currentAvatar } = props;
+  const { currentUser, changeUser, currentAvatar, cookies, removeCookie } =
+    props;
 
   return (
     <AppBar
@@ -102,7 +104,12 @@ export default function Header(props) {
                 <IconButton
                   size="large"
                   color="inherit"
-                  onClick={() => changeUser(null)}
+                  onClick={() => {
+                    console.log(cookies);
+                    changeUser(null);
+                    removeSession(cookies.user);
+                    removeCookie("user");
+                  }}
                   label="log in button"
                 >
                   <Badge sx={{ color: "white" }}>

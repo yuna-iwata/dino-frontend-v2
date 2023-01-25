@@ -6,7 +6,7 @@ import { Form } from "react-bootstrap";
 import { changePassword } from "../../Networking";
 
 export default function ChangePassword(props) {
-  const { changeTab, username } = props;
+  const { changeTab, currentUser } = props;
 
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
 
@@ -30,7 +30,7 @@ export default function ChangePassword(props) {
       validate,
       onSubmit: async (values) => {
         const response = await changePassword(
-          username,
+          currentUser,
           values.oldPassword,
           values.newPassword
         );

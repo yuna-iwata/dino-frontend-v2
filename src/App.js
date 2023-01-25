@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Game } from "phaser";
 import { ThemeProvider } from "@mui/material";
+import { useCookies } from "react-cookie";
 
 import Header from "./Components/Header";
 import WelcomePage from "./Pages/WelcomePage";
@@ -13,6 +14,7 @@ import AccountPage from "./Pages/AccountPage";
 import AccountSearchPage from "./Pages/AccountSearchPage";
 
 import "./App.css";
+import { getSession } from "./Networking";
 import { theme } from "./Themes";
 
 export default function App() {
@@ -20,6 +22,12 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [currentAvatar, setCurrentAvatar] = useState(null);
   const [currentSearchedUser, setCurrentSearchedUser] = useState(null);
+
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+  useEffect(() => {
+    getSession(cookies.user, setCurrentUser, setCurrentAvatar);
+  }, [cookies.user]);
 
   const changeUser = (username) => {
     setCurrentUser(username);
@@ -38,6 +46,8 @@ export default function App() {
           currentUser={currentUser}
           currentAvatar={currentAvatar}
           changeUser={changeUser}
+          removeCookie={removeCookie}
+          cookies={cookies}
         />
         <Routes>
           {currentUser ? (
@@ -73,6 +83,7 @@ export default function App() {
                   changeUser={changeUser}
                   game={game}
                   changeProfileAvatar={changeProfileAvatar}
+                  setCookie={setCookie}
                 />
               }
             />
@@ -91,6 +102,7 @@ export default function App() {
                   changeUser={changeUser}
                   changeProfileAvatar={changeProfileAvatar}
                   game={game}
+                  setCookie={setCookie}
                 />
               }
             />
@@ -117,6 +129,8 @@ export default function App() {
                   changeUser={changeUser}
                   changeProfileAvatar={changeProfileAvatar}
                   game={game}
+                  removeCookie={removeCookie}
+                  cookies={cookies}
                 />
               }
             />

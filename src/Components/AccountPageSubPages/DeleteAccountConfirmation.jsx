@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteUser } from "../../Networking.js";
 
 export default function DeleteAccountConfirmation(props) {
-  const { username, changeUser, changeTab } = props;
+  const { currentUser, changeUser, changeTab, removeCookie } = props;
 
   const navigate = useNavigate();
 
@@ -26,7 +26,8 @@ export default function DeleteAccountConfirmation(props) {
           variant="contained"
           color="greenTheme"
           onClick={() => {
-            deleteUser(username);
+            removeCookie("user");
+            deleteUser(currentUser);
             changeUser(null);
             navigate("/");
           }}

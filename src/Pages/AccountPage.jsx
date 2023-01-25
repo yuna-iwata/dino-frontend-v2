@@ -1,8 +1,15 @@
 import Account from "../Components/Account";
 
 export default function AccountPage(props) {
-  const { currentAvatar, currentUser, changeUser, changeProfileAvatar, game } =
-    props;
+  const {
+    currentAvatar,
+    currentUser,
+    changeUser,
+    changeProfileAvatar,
+    game,
+    cookies,
+    removeCookie,
+  } = props;
 
   if (game.key !== null) {
     game?.destroy(true);
@@ -14,6 +21,8 @@ export default function AccountPage(props) {
       currentUser={currentUser}
       changeUser={changeUser}
       changeProfileAvatar={changeProfileAvatar}
+      removeCookie={removeCookie}
+      cookies={cookies}
     />
   );
 }
