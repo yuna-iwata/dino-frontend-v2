@@ -22,7 +22,7 @@ export default function Gamepage(props) {
   const navigate = useNavigate();
 
   const handleSubmitClick = async () => {
-    let scene = game.scene.keys.helloworld;
+    let scene = game.scene.keys.DinoGameScene;
     let handlescore = scene.createScore();
     if (handlescore !== 0) {
       await submitScore(handlescore, currentUser);
