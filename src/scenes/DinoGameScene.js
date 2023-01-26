@@ -1,21 +1,22 @@
 import Phaser from "phaser";
-var player;
-var cursors;
-var startBox;
-var obstacles;
-var hats;
-var wearHat;
-var readyForBird = 0;
-var runGame = false;
-var allHatsCollected = false;
-var totalNumOfHats = 6;
-var renderTime = 0;
-var score = 0;
-var hatNum = 0;
-var obstaclesRendered = 0;
-var timeBetweenObstacles = 0;
-var renderHatAfterThisManySeconds = 0;
-var timeForHat = 0;
+
+let player;
+let cursors;
+let startBox;
+let obstacles;
+let hats;
+let wearHat;
+let readyForBird = 0;
+let runGame = false;
+let allHatsCollected = false;
+let totalNumOfHats = 6;
+let renderTime = 0;
+let score = 0;
+let hatNum = 0;
+let obstaclesRendered = 0;
+let timeBetweenObstacles = 0;
+let renderHatAfterThisManySeconds = 0;
+let timeForHat = 0;
 const width = window.innerWidth;
 const height = 300;
 const scale = 0.5;
@@ -121,7 +122,7 @@ export default class DinoGameScene extends Phaser.Scene {
       .setScale(scale);
 
     player.setBodySize(30, 92, false);
-    player.setOffset(20);
+    player.setOffset(25);
 
     player.setCollideWorldBounds(true);
     player.setGravityY(3000);
@@ -320,37 +321,17 @@ export default class DinoGameScene extends Phaser.Scene {
         setTimeout(() => {
           this.restart.setAlpha(1);
         }, "1000");
-
-        this.input.keyboard.on("keydown-SPACE", () => {
+        const restartGame = () => {
           if (new Date().getTime() > gameOverTime.getTime() + 1000) {
             this.scene.restart();
-            // player.setVelocityY(0);
-            // player.body.height = 92 * scale;
-            // player.body.offset.y = 0;
-            // obstacles.clear(true, true);
-            // runGame = true;
-            // this.gameOverText.setAlpha(0);
-            // this.restart.setAlpha(0);
-            // score = 0;
-            // this.physics.resume();
+            hatNum = 0;
             wearHat = null;
             this.anims.resumeAll();
           }
-        });
-        this.input.keyboard.on("keydown-ENTER", () => {
-          if (new Date().getTime() > gameOverTime.getTime() + 1000) {
-            this.scene.restart();
-            wearHat = null;
-            this.anims.resumeAll();
-          }
-        });
-        this.restart.on("pointerdown", () => {
-          if (new Date().getTime() > gameOverTime.getTime() + 1000) {
-            this.scene.restart();
-            wearHat = null;
-            this.anims.resumeAll();
-          }
-        });
+        };
+        this.input.keyboard.on("keydown-SPACE", restartGame);
+        this.input.keyboard.on("keydown-ENTER", restartGame);
+        this.restart.on("pointerdown", restartGame);
         this.gameOverSound.play();
         if (wearHat) {
           wearHat.setAlpha(0);
@@ -382,7 +363,10 @@ export default class DinoGameScene extends Phaser.Scene {
     wearHat = this.physics.add
       .sprite(92, height, `skin-${hatNum}`)
       .setOrigin(0, 1)
-      .setScale(scale);
+      .setScale(scale)
+      .setVelocityY(player.body.velocity.y)
+      .setY(player.body.y + 46);
+
     // this.physics.add.collider(wearHat, this.hatGround);
     wearHat.setCollideWorldBounds(true);
     wearHat.setGravityY(3000);
@@ -512,13 +496,17 @@ export default class DinoGameScene extends Phaser.Scene {
       player.body.height = 92 * scale;
       player.body.offset.y = 0;
       player.setVelocityY(-900);
-      if (wearHat && wearHat.body.onFloor() && wearHat.body.velocity.x === 0) {
+      if (wearHat) {
         wearHat.setVelocityY(-900);
         wearHat.setAlpha(1);
       }
     }
-    //**********START GAME********//
+    // if (wearHat && player.body.velocity.y !== 0) {
+    //   wearHat.setVelocityY(player.body.velocity.y);
+    //   wearHat.setY(player.body.y + 46);
+    // }
     if (runGame) {
+      //**********START GAME********//
       this.clouds.setAlpha(1);
       Phaser.Actions.IncX(this.clouds.getChildren(), -this.speed * scale * 0.5);
       this.clouds.getChildren().forEach((cloud) => {
