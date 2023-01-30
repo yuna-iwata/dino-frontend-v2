@@ -22,12 +22,14 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [currentAvatar, setCurrentAvatar] = useState(null);
   const [currentSearchedUser, setCurrentSearchedUser] = useState(null);
+  const [savedScore, setSavedScore] = useState(0);
 
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   useEffect(() => {
-    getSession(cookies.user, setCurrentUser, setCurrentAvatar);
-  }, [cookies.user]);
+    getSession(cookies.user, changeUser, setCurrentAvatar);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeUser = (username) => {
     setCurrentUser(username);
@@ -37,6 +39,9 @@ export default function App() {
   };
   const changeSearchedUser = (username) => {
     setCurrentSearchedUser(username);
+  };
+  const changeScore = (newScore) => {
+    setSavedScore(newScore);
   };
 
   return (
@@ -66,6 +71,7 @@ export default function App() {
                 game={game}
                 setGame={setGame}
                 currentUser={currentUser}
+                changeScore={changeScore}
               />
             }
           />
@@ -84,6 +90,8 @@ export default function App() {
                   game={game}
                   changeProfileAvatar={changeProfileAvatar}
                   setCookie={setCookie}
+                  savedScore={savedScore}
+                  changeScore={changeScore}
                 />
               }
             />
@@ -103,6 +111,8 @@ export default function App() {
                   changeProfileAvatar={changeProfileAvatar}
                   game={game}
                   setCookie={setCookie}
+                  savedScore={savedScore}
+                  changeScore={changeScore}
                 />
               }
             />

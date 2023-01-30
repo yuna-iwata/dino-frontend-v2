@@ -28,7 +28,7 @@ export default function DeleteAccountConfirmation(props) {
           onClick={() => {
             removeCookie("user");
             deleteUser(currentUser);
-            changeUser(null);
+            changeUser("");
             navigate("/");
           }}
         >

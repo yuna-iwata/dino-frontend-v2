@@ -24,19 +24,20 @@ export async function setSession(username, sessionId) {
   return json;
 }
 
-export async function getSession(sessionId, setCurrentUser, setCurrentAvatar) {
+export async function getSession(sessionId, changeUser, setCurrentAvatar) {
   const response = await fetch(`${baseUrl}get-session?session=${sessionId}`);
   const json = await response.json();
   if (json.length > 0) {
-    setCurrentUser(json[0][0]);
+    changeUser(json[0][0]);
     setCurrentAvatar(json[0][1]);
+  } else {
+    changeUser("");
   }
   return json;
 }
 
 export async function removeSession(sessionId) {
   try {
-    console.log(sessionId);
     const response = await fetch(`${baseUrl}delete-session`, {
       method: "DELETE",
       headers: {

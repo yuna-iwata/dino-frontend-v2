@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { GAME_OVER, NEW_GAME } from "./events";
 
 let player;
 let cursors;
@@ -308,7 +309,6 @@ export default class DinoGameScene extends Phaser.Scene {
       player,
       obstacles,
       () => {
-        const gameOverTime = new Date();
         this.physics.pause();
         runGame = false;
         this.anims.pauseAll();
@@ -318,16 +318,14 @@ export default class DinoGameScene extends Phaser.Scene {
         readyForBird = 0;
         this.speed = 12;
         this.gameOverText.setAlpha(1);
-        setTimeout(() => {
-          this.restart.setAlpha(1);
-        }, "1000");
+        this.game.events.emit(GAME_OVER, score);
+        this.restart.setAlpha(1);
         const restartGame = () => {
-          if (new Date().getTime() > gameOverTime.getTime() + 1000) {
-            this.scene.restart();
-            hatNum = 0;
-            wearHat = null;
-            this.anims.resumeAll();
-          }
+          this.scene.restart();
+          hatNum = 0;
+          wearHat = null;
+          this.anims.resumeAll();
+          this.game.events.emit(NEW_GAME);
         };
         this.input.keyboard.on("keydown-SPACE", restartGame);
         this.input.keyboard.on("keydown-ENTER", restartGame);
@@ -501,10 +499,6 @@ export default class DinoGameScene extends Phaser.Scene {
         wearHat.setAlpha(1);
       }
     }
-    // if (wearHat && player.body.velocity.y !== 0) {
-    //   wearHat.setVelocityY(player.body.velocity.y);
-    //   wearHat.setY(player.body.y + 46);
-    // }
     if (runGame) {
       //**********START GAME********//
       this.clouds.setAlpha(1);
