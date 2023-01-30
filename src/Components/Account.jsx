@@ -110,7 +110,7 @@ export default function Account(props) {
         container
         spacing={1}
       >
-        <Grid container sx={{ pt: 5 }}>
+        <Grid container sx={{ pt: 5, mr: 2 }}>
           <Stack direction="column" spacing={2}>
             {Object.keys(tabs).map((tab, i) => {
               return (

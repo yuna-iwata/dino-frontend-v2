@@ -4,10 +4,16 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Button, Typography } from "@mui/material";
 
-import { checkUser, setSession } from "../Networking.js";
+import { checkUser, setSession, submitScore } from "../Networking.js";
 
 export default function CreateAccountForm(props) {
-  const { changeUser, changeProfileAvatar, setCookie } = props;
+  const {
+    changeUser,
+    changeProfileAvatar,
+    setCookie,
+    savedScore,
+    changeScore,
+  } = props;
 
   const navigate = useNavigate();
 
@@ -50,6 +56,10 @@ export default function CreateAccountForm(props) {
           const sessionId = crypto.randomUUID();
           setCookie("user", sessionId);
           setSession(values.username, sessionId);
+          if (savedScore !== 0) {
+            submitScore(savedScore, values.username);
+            changeScore(0);
+          }
         } else if (response.code === 404) {
           setValidationError("Username does not exist. Please try again");
         } else if (response.code === 401) {

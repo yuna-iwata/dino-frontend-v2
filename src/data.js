@@ -1,4 +1,4 @@
-import DinoGameScene from "./scenes/DinoGameScene";
+import DinoGameScene from "./game/DinoGameScene";
 import Phaser from "phaser";
 
 const gameConfig = {

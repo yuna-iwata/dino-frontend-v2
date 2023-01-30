@@ -93,7 +93,7 @@ export default function PersonalLeaderBoard(props) {
                     <Typography>{row.score}</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography>{row.date}</Typography>
+                    <Typography variant="h5">{row.date}</Typography>
                   </TableCell>
                 </TableRow>
               ))}

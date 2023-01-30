@@ -19,6 +19,7 @@ const theme = createTheme({
     allVariants: {
       fontFamily: "",
     },
+    greenTheme: { color: "#75d193" },
     h1: { fontSize: "2.5rem" },
     h2: { fontSize: "2rem" },
     h3: { fontSize: "1.5rem" },

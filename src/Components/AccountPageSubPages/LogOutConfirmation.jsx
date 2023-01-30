@@ -26,7 +26,7 @@ export default function LogOutConfirmation(props) {
           variant="contained"
           color="greenTheme"
           onClick={() => {
-            changeUser(null);
+            changeUser("");
             navigate("/");
             removeCookie("user");
             removeSession(cookies.user);

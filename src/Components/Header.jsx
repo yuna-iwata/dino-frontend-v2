@@ -105,8 +105,7 @@ export default function Header(props) {
                   size="large"
                   color="inherit"
                   onClick={() => {
-                    console.log(cookies);
-                    changeUser(null);
+                    changeUser("");
                     removeSession(cookies.user);
                     removeCookie("user");
                   }}

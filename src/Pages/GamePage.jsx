@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Phaser from "phaser";
-import { Button, Box, Typography, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Button, Box, Typography, Grid } from "@mui/material";
+import { GAME_OVER, NEW_GAME } from "../game/events";
 import SpaceBarIcon from "@mui/icons-material/SpaceBar";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
@@ -9,73 +10,45 @@ import { submitScore } from "../Networking";
 import { gameConfig } from "../data";
 
 export default function Gamepage(props) {
-  const { game, setGame, currentUser } = props;
-
-  useEffect(() => {
-    if (!game.key) {
-      const newGame = new Phaser.Game(gameConfig);
-      setGame(newGame);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { game, setGame, currentUser, changeScore } = props;
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleSubmitClick = async () => {
-    let scene = game.scene.keys.DinoGameScene;
-    let handlescore = scene.createScore();
-    if (handlescore !== 0) {
-      await submitScore(handlescore, currentUser);
-      navigate("/account-page");
-      handlescore = 0;
+  const addListeners = (game) => {
+    game.events.on(GAME_OVER, (score) => {
+      setIsSubmitted(true);
+      if (currentUser) {
+        submitScore(score, currentUser);
+      } else {
+        changeScore(score);
+      }
+    });
+    game.events.on(NEW_GAME, () => {
+      setIsSubmitted(false);
+    });
+  };
+
+  useEffect(() => {
+    if (game.key !== null) {
+      game?.destroy(true);
     }
+    let newGame;
+    if (!game.key && currentUser !== null) {
+      newGame = new Phaser.Game(gameConfig);
+      setGame(newGame);
+      addListeners(newGame);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser]);
+
+  const handleLoginClick = () => {
+    navigate("/login");
   };
 
   return (
     <div>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {currentUser ? (
-          <Button
-            size="medium"
-            variant="contained"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              backgroundColor: "#8e8d8d",
-            }}
-            sx={{ m: 3 }}
-            onClick={handleSubmitClick}
-          >
-            <Typography>send score to leader board</Typography>
-          </Button>
-        ) : (
-          <Button
-            size="medium"
-            variant="contained"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              backgroundColor: "#8e8d8d",
-            }}
-            sx={{ m: 3 }}
-            onClick={() => navigate("/login")}
-          >
-            <Typography>
-              sign in before playing to access leaderboard
-            </Typography>
-          </Button>
-        )}
-      </Box>
-      <Box sx={{ ml: [2] }}>
+      <Box sx={{ ml: 2, mt: 2 }}>
         <Button
           color="greenTheme"
           variant="contained"
@@ -94,6 +67,37 @@ export default function Gamepage(props) {
           <Typography variant="h6">
             Duck: <ArrowDownwardIcon />
           </Typography>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "600px",
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {isSubmitted ? (
+              currentUser ? (
+                <Typography variant="h6" color="#75d193">
+                  Score Submitted to leaderboard
+                </Typography>
+              ) : (
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Button
+                    color="greenTheme"
+                    variant="contained"
+                    onClick={handleLoginClick}
+                  >
+                    <Typography variant="h6">Log In or Sign Up</Typography>
+                  </Button>
+                  <Typography variant="h6" sx={{ ml: 1 }}>
+                    to submit your score to the leaderboard
+                  </Typography>
+                </Box>
+              )
+            ) : null}
+          </Box>
         </Grid>
       </Box>
     </div>
