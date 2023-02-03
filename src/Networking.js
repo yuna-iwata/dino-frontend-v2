@@ -137,7 +137,7 @@ export async function changeAvatar(newAvatar, username) {
   }
 }
 
-export async function submitScore(score, username) {
+export async function submitScore(score, username, items) {
   try {
     const response = await fetch(`${baseUrl}submit-score`, {
       method: "POST",
@@ -147,6 +147,7 @@ export async function submitScore(score, username) {
       body: JSON.stringify({
         username: username,
         score: score,
+        items: items,
       }),
     });
     return await response.json();
@@ -204,4 +205,12 @@ export async function getUserAvatar(username, setSearchedUserAvatar) {
   if (returnedAvatars.length > 0) {
     setSearchedUserAvatar(returnedAvatars[0]);
   }
+}
+
+export async function getUnlockedAvatars(username, setUnlockedAvatars) {
+  const apiResponse = await fetch(
+    `${baseUrl}unlocked-avatars?user=${username}`
+  );
+  const unlockedAvatars = await apiResponse.json();
+  setUnlockedAvatars(unlockedAvatars[0][0]);
 }

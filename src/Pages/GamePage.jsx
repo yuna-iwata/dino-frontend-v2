@@ -18,10 +18,8 @@ export default function Gamepage(props) {
   const addListeners = (game) => {
     game.events.on(GAME_OVER, (score, hatNum) => {
       setIsSubmitted(true);
-      console.log(hatNum);
-      console.log(score);
       if (currentUser) {
-        submitScore(score, currentUser);
+        submitScore(score, currentUser, hatNum);
       } else {
         changeScore(score);
       }

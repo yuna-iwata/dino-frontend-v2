@@ -27,24 +27,24 @@ const itemData = [
     title: "baseball dino",
   },
   {
-    img: "dino-disco.png",
-    title: "disco dino",
-  },
-  {
     img: "dino-mariachi.png",
     title: "mariachi dino",
-  },
-  {
-    img: "dino-rainbow.png",
-    title: "rainbow dino",
   },
   {
     img: "dino-sigma.png",
     title: "sigma dino",
   },
   {
+    img: "dino-disco.png",
+    title: "disco dino",
+  },
+  {
     img: "dino-spiderman.png",
     title: "spiderman dino",
+  },
+  {
+    img: "dino-rainbow.png",
+    title: "rainbow dino",
   },
 ];
 
