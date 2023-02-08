@@ -1,3 +1,5 @@
+import { itemData, lockedItemData } from "./data";
+
 const baseUrl = "https://the-dino-game-api.herokuapp.com/";
 
 export async function submitUser(username, password) {
@@ -207,10 +209,17 @@ export async function getUserAvatar(username, setSearchedUserAvatar) {
   }
 }
 
-export async function getUnlockedAvatars(username, setUnlockedAvatars) {
+export async function getUnlockedAvatars(
+  username,
+  setUnlockedAvatars,
+  setAvatarList,
+  setLockedAvatarList
+) {
   const apiResponse = await fetch(
     `${baseUrl}unlocked-avatars?user=${username}`
   );
   const unlockedAvatars = await apiResponse.json();
   setUnlockedAvatars(unlockedAvatars[0][0]);
+  setAvatarList(itemData.slice(0, unlockedAvatars[0][0] + 1));
+  setLockedAvatarList(lockedItemData.slice(unlockedAvatars[0][0] + 1));
 }
