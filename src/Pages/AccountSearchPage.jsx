@@ -12,7 +12,7 @@ import {
 } from "../Networking";
 
 export default function AccountSearchPage(props) {
-  const { game, currentSearchedUser, changeSearchedUser } = props;
+  const { game, currentSearchedUser, changeSearchedUser, setColour } = props;
 
   if (game.key !== null) {
     game?.destroy(true);
@@ -70,7 +70,7 @@ export default function AccountSearchPage(props) {
           p: 2,
           flexDirection: "column",
           alignItems: "center",
-          bgcolor: "background.paper",
+          bgcolor: setColour,
           boxShadow: 1,
           borderRadius: 2,
         }}

@@ -10,7 +10,7 @@ export default function AvatarSelectionElement(props) {
   let selectedColour;
   let selectedVariant;
   if (currentAvatar === index) {
-    selectedColour = "greenTheme";
+    selectedColour = "darkerTheme";
     selectedVariant = "contained";
   } else {
     selectedColour = "whiteTheme";

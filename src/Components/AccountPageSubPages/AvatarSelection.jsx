@@ -7,7 +7,7 @@ import { useState } from "react";
 import { bucketBaseUrl } from "../../data";
 
 export default function AvatarSelection(props) {
-  const { currentUser, changeProfileAvatar, currentAvatar } = props;
+  const { currentUser, changeProfileAvatar, currentAvatar, setColour } = props;
   const [unlockedAvatars, setUnlockedAvatars] = useState(0);
   const [avatarList, setAvatarList] = useState([]);
   const [lockedAvatarList, setLockedAvatarList] = useState([]);
@@ -24,7 +24,7 @@ export default function AvatarSelection(props) {
   return (
     <Box
       sx={{
-        bgcolor: "background.paper",
+        bgcolor: setColour,
         boxShadow: 1,
         borderRadius: 2,
         p: 2,

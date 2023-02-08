@@ -6,7 +6,7 @@ import { Form } from "react-bootstrap";
 import { changePassword } from "../../Networking";
 
 export default function ChangePassword(props) {
-  const { changeTab, currentUser } = props;
+  const { changeTab, currentUser, setColour } = props;
 
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
 
@@ -47,7 +47,7 @@ export default function ChangePassword(props) {
   return (
     <Box
       sx={{
-        bgcolor: "background.paper",
+        bgcolor: setColour,
         boxShadow: 1,
         borderRadius: 2,
         p: 2,

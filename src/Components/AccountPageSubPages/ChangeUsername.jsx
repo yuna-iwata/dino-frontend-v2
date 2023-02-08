@@ -6,7 +6,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { changeUsername } from "../../Networking";
 
 export default function ChangeUsername(props) {
-  const { changeTab, changeUser, currentUser } = props;
+  const { changeTab, changeUser, currentUser, setColour } = props;
 
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
   const [isUsernameTaken, setIsUsernameTaken] = useState(false);
@@ -56,7 +56,7 @@ export default function ChangeUsername(props) {
   return (
     <Box
       sx={{
-        bgcolor: "background.paper",
+        bgcolor: setColour,
         boxShadow: 1,
         borderRadius: 2,
         p: 2,
