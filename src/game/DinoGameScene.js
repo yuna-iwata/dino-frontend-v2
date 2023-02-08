@@ -512,7 +512,7 @@ export default class DinoGameScene extends Phaser.Scene {
       Phaser.Actions.IncX(obstacles.getChildren(), -this.speed * scale);
       Phaser.Actions.IncX(hats.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
-      if (score > 0 && score % 50 === 0 && !hatRendered) {
+      if (score > 0 && score % 250 === 0 && !hatRendered) {
         timeForHat = true;
       }
       if (renderTime >= 500 && obstaclesRendered === 0) {
