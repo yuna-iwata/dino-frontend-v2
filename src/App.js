@@ -195,5 +195,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-//#f5f5f5
