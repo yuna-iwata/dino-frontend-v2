@@ -26,9 +26,7 @@ export default function TabButton(props) {
 
   return (
     <Button
-      variant={
-        tabs[currentTab].text === tabs[tab].text ? "contained" : "outlined"
-      }
+      variant="contained"
       color={
         tabs[currentTab].text === tabs[tab].text ? "greenTheme" : "neutralTheme"
       }

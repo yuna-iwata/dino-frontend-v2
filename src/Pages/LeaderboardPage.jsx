@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Leaderboard from "../Components/Leaderboard";
 
 export default function LeaderboardPage(props) {
-  const { game, changeProfileAvatar, changeSearchedUser } = props;
+  const { game, changeSearchedUser, setColour } = props;
 
   if (game.key !== null) {
     game?.destroy(true);
@@ -15,7 +15,12 @@ export default function LeaderboardPage(props) {
 
   return (
     <div>
-      <Typography variant="h2" align="center" sx={{ m: 3 }}>
+      <Typography
+        variant="h2"
+        align="center"
+        sx={{ m: 3 }}
+        color="changeingText"
+      >
         Leaderboard
       </Typography>
       <CardActions sx={{ justifyContent: "center" }}>
@@ -29,8 +34,8 @@ export default function LeaderboardPage(props) {
         </Button>
       </CardActions>
       <Leaderboard
-        changeProfileAvatar={changeProfileAvatar}
         changeSearchedUser={changeSearchedUser}
+        setColour={setColour}
       />
     </div>
   );

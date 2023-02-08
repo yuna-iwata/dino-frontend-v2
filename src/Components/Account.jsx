@@ -20,6 +20,7 @@ export default function Account(props) {
     changeProfileAvatar,
     cookies,
     removeCookie,
+    light,
   } = props;
 
   const [scoreList, setScoreList] = useState([]);
@@ -36,6 +37,14 @@ export default function Account(props) {
     getRank(currentUser, setRank);
   }, [currentUser]);
 
+  function setColour() {
+    if (light) {
+      return "background.paper";
+    } else {
+      return "#2f2f2f";
+    }
+  }
+
   const tabs = {
     leaderboard: {
       text: "your leader board",
@@ -43,6 +52,7 @@ export default function Account(props) {
         <PersonalLeaderBoard
           scoreList={scoreList}
           setScoreList={setScoreList}
+          setColour={setColour}
         />
       ),
     },
@@ -54,6 +64,7 @@ export default function Account(props) {
           changeProfileAvatar={changeProfileAvatar}
           currentAvatar={currentAvatar}
           changeTab={changeTab}
+          setColour={setColour}
         />
       ),
     },
@@ -64,12 +75,19 @@ export default function Account(props) {
           changeTab={changeTab}
           currentUser={currentUser}
           changeUser={changeUser}
+          setColour={setColour}
         />
       ),
     },
     password: {
       text: "change password",
-      page: <ChangePassword changeTab={changeTab} currentUser={currentUser} />,
+      page: (
+        <ChangePassword
+          changeTab={changeTab}
+          currentUser={currentUser}
+          setColour={setColour}
+        />
+      ),
     },
     signOut: {
       text: "sign out",
@@ -79,6 +97,7 @@ export default function Account(props) {
           changeUser={changeUser}
           removeCookie={removeCookie}
           cookies={cookies}
+          setColour={setColour}
         />
       ),
     },
@@ -90,6 +109,7 @@ export default function Account(props) {
           changeUser={changeUser}
           changeTab={changeTab}
           removeCookie={removeCookie}
+          setColour={setColour}
         />
       ),
     },
@@ -102,6 +122,7 @@ export default function Account(props) {
         rank={rank}
         currentAvatar={currentAvatar}
         currentUser={currentUser}
+        setColour={setColour}
       />
 
       <Box

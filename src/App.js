@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Game } from "phaser";
 import { ThemeProvider } from "@mui/material";
 import { useCookies } from "react-cookie";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import Header from "./Components/Header";
 import WelcomePage from "./Pages/WelcomePage";
@@ -15,7 +16,8 @@ import AccountSearchPage from "./Pages/AccountSearchPage";
 
 import "./App.css";
 import { getSession } from "./Networking";
-import { theme } from "./Themes";
+import { lightTheme } from "./lightThemes";
+import { darkTheme } from "./darkThemes";
 
 export default function App() {
   const [game, setGame] = useState(<Game />);
@@ -25,6 +27,8 @@ export default function App() {
   const [savedScore, setSavedScore] = useState(0);
 
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+  const [light, setLight] = useState(true);
 
   useEffect(() => {
     getSession(cookies.user, changeUser, setCurrentAvatar);
@@ -44,15 +48,31 @@ export default function App() {
     setSavedScore(newScore);
   };
 
+  const setModeFunction = () => {
+    setLight((prev) => !prev);
+  };
+
+  const setColour = () => {
+    console.log("hello");
+    if (light) {
+      return "background.paper";
+    } else {
+      return "#2F2F2F";
+    }
+  };
+
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={light ? lightTheme : darkTheme}>
+        <CssBaseline />
         <Header
           currentUser={currentUser}
           currentAvatar={currentAvatar}
           changeUser={changeUser}
           removeCookie={removeCookie}
           cookies={cookies}
+          setModeFunction={setModeFunction}
+          light={light}
         />
         <Routes>
           {currentUser ? (
@@ -61,7 +81,10 @@ export default function App() {
               element={<Navigate to="/account-page" replace={true} />}
             />
           ) : (
-            <Route path="/" element={<WelcomePage game={game} />} />
+            <Route
+              path="/"
+              element={<WelcomePage game={game} setColour={setColour} />}
+            />
           )}
 
           <Route
@@ -92,6 +115,7 @@ export default function App() {
                   setCookie={setCookie}
                   savedScore={savedScore}
                   changeScore={changeScore}
+                  setColour={setColour}
                 />
               }
             />
@@ -113,6 +137,7 @@ export default function App() {
                   setCookie={setCookie}
                   savedScore={savedScore}
                   changeScore={changeScore}
+                  setColour={setColour}
                 />
               }
             />
@@ -123,8 +148,8 @@ export default function App() {
             element={
               <LeaderboardPage
                 game={game}
-                changeProfileAvatar={changeProfileAvatar}
                 changeSearchedUser={changeSearchedUser}
+                setColour={setColour}
               />
             }
           />
@@ -141,6 +166,7 @@ export default function App() {
                   game={game}
                   removeCookie={removeCookie}
                   cookies={cookies}
+                  light={light}
                 />
               }
             />
@@ -158,6 +184,7 @@ export default function App() {
                 game={game}
                 changeSearchedUser={changeSearchedUser}
                 currentSearchedUser={currentSearchedUser}
+                setColour={setColour}
               />
             }
           />
@@ -168,3 +195,5 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+//#f5f5f5

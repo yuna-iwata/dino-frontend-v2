@@ -115,7 +115,8 @@ export default class DinoGameScene extends Phaser.Scene {
     startBox = this.physics.add
       .sprite(0, height - 100, "start-box")
       .setOrigin(0, 1)
-      .setImmovable();
+      .setImmovable()
+      .setVisible(false);
 
     player = this.physics.add
       .sprite(0, height, "dino-idle")

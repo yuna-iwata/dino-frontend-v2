@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { deleteUser } from "../../Networking.js";
 
 export default function DeleteAccountConfirmation(props) {
-  const { currentUser, changeUser, changeTab, removeCookie } = props;
+  const { currentUser, changeUser, changeTab, removeCookie, setColour } = props;
 
   const navigate = useNavigate();
 
   return (
     <Box
       sx={{
-        bgcolor: "background.paper",
+        bgcolor: setColour,
         boxShadow: 1,
         borderRadius: 2,
         p: 2,

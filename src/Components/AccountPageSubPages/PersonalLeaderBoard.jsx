@@ -5,7 +5,6 @@ import {
   TableHead,
   TableContainer,
   TableRow,
-  Paper,
   Grid,
   Typography,
   Box,
@@ -15,7 +14,7 @@ import {
 import { useState } from "react";
 
 export default function PersonalLeaderBoard(props) {
-  const { scoreList, setScoreList } = props;
+  const { scoreList, setScoreList, setColour } = props;
 
   const [currentCriterion, setCurrentCriterion] = useState("score");
 
@@ -57,17 +56,16 @@ export default function PersonalLeaderBoard(props) {
           variant="contained"
           aria-label="outlined primary button group"
         >
-          <Button variant="flat" onClick={() => orderBy("date")}>
+          <Button color="buttonLeaderboard" onClick={() => orderBy("date")}>
             <Typography variant="h5">DATE</Typography>
           </Button>
-          <Button variant="flat" onClick={() => orderBy("score")}>
+          <Button color="buttonLeaderboard" onClick={() => orderBy("score")}>
             <Typography variant="h5">SCORE</Typography>
           </Button>
         </ButtonGroup>
       </Box>
       <TableContainer
-        component={Paper}
-        sx={{ mt: 2 }}
+        sx={{ mt: 2, bgcolor: setColour }}
         style={{ maxHeight: 410, overflow: "auto" }}
       >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">

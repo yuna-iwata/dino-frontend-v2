@@ -5,7 +5,6 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Paper,
   Avatar,
   Grid,
   Box,
@@ -17,7 +16,7 @@ import { fetchGlobalLeaderBoard } from "../Networking";
 import { itemData, bucketBaseUrl } from "../data";
 
 export default function Leaderboard(props) {
-  const { changeSearchedUser } = props;
+  const { changeSearchedUser, setColour } = props;
 
   const [globalList, setGlobalList] = useState([]);
 
@@ -33,7 +32,7 @@ export default function Leaderboard(props) {
       minHeight="10vh"
     >
       <TableContainer
-        component={Paper}
+        sx={{ bgcolor: setColour }}
         style={{ maxHeight: 600, maxWidth: "95%", overflow: "auto" }}
       >
         <Table sx={{ minWidth: 200 }} aria-label="simple table">

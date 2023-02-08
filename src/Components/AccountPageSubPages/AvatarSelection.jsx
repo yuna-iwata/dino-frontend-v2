@@ -3,12 +3,12 @@ import AvatarSelectionElement from "./AvatarSelectionElement";
 import { itemData } from "../../data";
 
 export default function AvatarSelection(props) {
-  const { currentUser, changeProfileAvatar, currentAvatar } = props;
+  const { currentUser, changeProfileAvatar, currentAvatar, setColour } = props;
 
   return (
     <Box
       sx={{
-        bgcolor: "background.paper",
+        bgcolor: setColour,
         boxShadow: 1,
         borderRadius: 2,
         p: 2,

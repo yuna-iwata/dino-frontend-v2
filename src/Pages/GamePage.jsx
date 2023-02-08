@@ -58,13 +58,13 @@ export default function Gamepage(props) {
           <Typography variant="h6">Game not working? refresh page</Typography>
         </Button>
         <Grid>
-          <Typography variant="h6">
+          <Typography variant="h6" color="changeingText">
             Start/restart: <SpaceBarIcon />
           </Typography>
-          <Typography variant="h6">
+          <Typography variant="h6" color="changeingText">
             Jump: <SpaceBarIcon />
           </Typography>
-          <Typography variant="h6">
+          <Typography variant="h6" color="changeingText">
             Duck: <ArrowDownwardIcon />
           </Typography>
           <Box
