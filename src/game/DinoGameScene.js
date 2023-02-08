@@ -12,9 +12,9 @@ let runGame = false;
 let allHatsCollected = false;
 let totalNumOfHats = 6;
 let renderTime = 0;
+let timeForHat = false;
 let score = 0;
 let hatNum = 0;
-let hatRendered = false;
 let obstaclesRendered = 0;
 let timeBetweenObstacles = 0;
 const width = window.innerWidth;
@@ -511,19 +511,23 @@ export default class DinoGameScene extends Phaser.Scene {
       Phaser.Actions.IncX(obstacles.getChildren(), -this.speed * scale);
       Phaser.Actions.IncX(hats.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
+      if (score > 0 && score % 250 === 0) {
+        timeForHat = true;
+      }
       if (renderTime >= 500 && obstaclesRendered === 0) {
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         this.renderObstacles();
         obstaclesRendered += 1;
         renderTime = 0;
       } else if (renderTime >= timeBetweenObstacles && obstaclesRendered > 0) {
-        hatRendered = false;
-        this.renderObstacles();
+        if (timeForHat) {
+          this.renderHats();
+          timeForHat = false;
+        } else {
+          this.renderObstacles();
+        }
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         renderTime = 0;
-      } else if (score > 0 && score % 250 === 0 && !hatRendered) {
-        this.renderHats();
-        hatRendered = true;
       }
       this.keyCommands();
     }
