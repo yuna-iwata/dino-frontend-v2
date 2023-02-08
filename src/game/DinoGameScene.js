@@ -521,7 +521,7 @@ export default class DinoGameScene extends Phaser.Scene {
         this.renderObstacles();
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         renderTime = 0;
-      } else if (score > 0 && score % 50 === 0 && !hatRendered) {
+      } else if (score > 0 && score % 250 === 0 && !hatRendered) {
         this.renderHats();
         hatRendered = true;
       }

@@ -1,14 +1,17 @@
 import { Box, Typography, ImageList } from "@mui/material";
+import { ImageListItem, Tooltip, Button } from "@mui/material";
 import AvatarSelectionElement from "./AvatarSelectionElement";
-import { itemData } from "../../data";
+import { itemData, lockedItemData } from "../../data";
 import { useEffect } from "react";
 import { getUnlockedAvatars } from "../../Networking";
 import { useState } from "react";
+import { bucketBaseUrl } from "../../data";
 
 export default function AvatarSelection(props) {
   const { currentUser, changeProfileAvatar, currentAvatar } = props;
   const [unlockedAvatars, setUnlockedAvatars] = useState(0);
   const [avatarList, setAvatarList] = useState();
+  const [lockedAvatarList, setLockedAvatarList] = useState();
 
   useEffect(() => {
     getUnlockedAvatars(currentUser, setUnlockedAvatars);
@@ -17,6 +20,7 @@ export default function AvatarSelection(props) {
 
   useEffect(() => {
     setAvatarList(itemData.slice(0, unlockedAvatars + 1));
+    setLockedAvatarList(lockedItemData.slice(unlockedAvatars + 1));
   }, [unlockedAvatars]);
 
   return (
@@ -46,6 +50,28 @@ export default function AvatarSelection(props) {
                 key={index}
               />
             ))
+          : null}
+        {lockedAvatarList
+          ? lockedAvatarList.map((item, index) => {
+              return (
+                <ImageListItem>
+                  <Tooltip title={item.title}>
+                    <Button
+                      sx={{
+                        borderRadius: 50,
+                      }}
+                    >
+                      <img
+                        width="100px"
+                        height="100px"
+                        alt={item.title}
+                        src={`${bucketBaseUrl}${item.img}`}
+                      />
+                    </Button>
+                  </Tooltip>
+                </ImageListItem>
+              );
+            })
           : null}
       </ImageList>
     </Box>
