@@ -14,10 +14,9 @@ let totalNumOfHats = 6;
 let renderTime = 0;
 let score = 0;
 let hatNum = 0;
+let hatRendered = false;
 let obstaclesRendered = 0;
 let timeBetweenObstacles = 0;
-let renderHatAfterThisManySeconds = 0;
-let timeForHat = 0;
 const width = window.innerWidth;
 const height = 300;
 const scale = 0.5;
@@ -314,11 +313,10 @@ export default class DinoGameScene extends Phaser.Scene {
         this.anims.pauseAll();
         player.setTexture("dino-hurt");
         renderTime = 0;
-        timeForHat = 0;
         readyForBird = 0;
         this.speed = 12;
         this.gameOverText.setAlpha(1);
-        this.game.events.emit(GAME_OVER, score);
+        this.game.events.emit(GAME_OVER, score, hatNum);
         this.restart.setAlpha(1);
         const restartGame = () => {
           this.scene.restart();
@@ -513,23 +511,19 @@ export default class DinoGameScene extends Phaser.Scene {
       Phaser.Actions.IncX(obstacles.getChildren(), -this.speed * scale);
       Phaser.Actions.IncX(hats.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
-      timeForHat += delta * this.speed * 0.08;
-      renderHatAfterThisManySeconds = 5000;
       if (renderTime >= 500 && obstaclesRendered === 0) {
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         this.renderObstacles();
         obstaclesRendered += 1;
         renderTime = 0;
       } else if (renderTime >= timeBetweenObstacles && obstaclesRendered > 0) {
+        hatRendered = false;
         this.renderObstacles();
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
         renderTime = 0;
-      } else if (
-        timeForHat >= renderHatAfterThisManySeconds &&
-        renderTime >= 400
-      ) {
+      } else if (score > 0 && score % 250 === 0 && !hatRendered) {
         this.renderHats();
-        timeForHat = 0;
+        hatRendered = true;
       }
       this.keyCommands();
     }
