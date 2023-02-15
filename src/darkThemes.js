@@ -9,7 +9,7 @@ const darkTheme = createTheme({
       main: "#64B981",
     },
     header: {
-      main: "#3f7250",
+      main: "#75d193",
     },
     greenTheme: {
       main: "#1E1E1E",
@@ -28,9 +28,10 @@ const darkTheme = createTheme({
     },
     buttonLeaderboard: {
       main: "#2F2F2F",
-      contrastText: "black",
+      contrastText: "#F2F2F2",
     },
     changeingText: "#75d193",
+    leaderBoardFont: "#F2F2F2",
   },
   typography: {
     allVariants: {

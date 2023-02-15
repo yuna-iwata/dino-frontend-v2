@@ -43,7 +43,7 @@ export default function Leaderboard(props) {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row" align="center">
-                  <Typography>#{row.rank}</Typography>
+                  <Typography color="leaderBoardFont">#{row.rank}</Typography>
                 </TableCell>
                 <TableCell component="th" scope="row" align="left">
                   <Link
@@ -59,13 +59,15 @@ export default function Leaderboard(props) {
                         />
                       </Grid>
                       <Grid item sx={{ mt: 1, ml: 1 }} data-testid="rowname">
-                        <Typography variant="h5">{row.name}</Typography>
+                        <Typography variant="h5" color="leaderBoardFont">
+                          {row.name}
+                        </Typography>
                       </Grid>
                     </Grid>
                   </Link>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>{row.score}</Typography>
+                  <Typography color="leaderBoardFont">{row.score}</Typography>
                 </TableCell>
               </TableRow>
             ))}

@@ -49,7 +49,7 @@ export default function PersonalLeaderBoard(props) {
         Personal Leaderboard
       </Typography>
       <Box sx={{ mb: 0 }}>
-        <Typography sx={{ color: "#74D193", mt: 3 }} variant="h5">
+        <Typography sx={{ color: "#74D193", mt: 3, mb: 1 }} variant="h5">
           order by:
         </Typography>
         <ButtonGroup
@@ -72,10 +72,14 @@ export default function PersonalLeaderBoard(props) {
           <TableHead>
             <TableRow>
               <TableCell align="center">
-                <Typography variant="h5">Score</Typography>
+                <Typography variant="h5" color="leaderBoardFont">
+                  Score
+                </Typography>
               </TableCell>
               <TableCell align="center">
-                <Typography variant="h5">Date</Typography>
+                <Typography variant="h5" color="leaderBoardFont">
+                  Date
+                </Typography>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -87,10 +91,12 @@ export default function PersonalLeaderBoard(props) {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="center">
-                    <Typography>{row.score}</Typography>
+                    <Typography color="leaderBoardFont">{row.score}</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography variant="h5">{row.date}</Typography>
+                    <Typography variant="h5" color="leaderBoardFont">
+                      {row.date}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}

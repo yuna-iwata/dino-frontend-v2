@@ -26,6 +26,7 @@ const lightTheme = createTheme({
     },
     buttonLeaderboard: { main: "#F5F5F5", contrastText: "black" },
     changeingText: "black",
+    leaderBoardFont: "black",
   },
   typography: {
     allVariants: {
