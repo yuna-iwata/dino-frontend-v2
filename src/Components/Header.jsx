@@ -35,6 +35,14 @@ export default function Header(props) {
     if (light) {
       return "white";
     } else {
+      return "#75d193";
+    }
+  }
+
+  function header() {
+    if (light) {
+      return "#75d193";
+    } else {
       return "#3f7250";
     }
   }
@@ -46,7 +54,7 @@ export default function Header(props) {
         display: "flex",
         justifyContent: "center",
         width: "100%",
-        bgcolor: "#74D193",
+        bgcolor: header(),
       }}
     >
       <Container maxWidth="xl">
