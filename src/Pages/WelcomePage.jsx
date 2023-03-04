@@ -5,7 +5,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 export default function WelcomePage(props) {
-  const { game } = props;
+  const { game, setColour } = props;
 
   if (game.key !== null) {
     game?.destroy(true);
@@ -17,7 +17,7 @@ export default function WelcomePage(props) {
       sx={{
         m: 10,
         flexDirection: "column",
-        bgcolor: "background.paper",
+        bgcolor: setColour,
         boxShadow: 1,
         borderRadius: 2,
         p: 2,

@@ -1,32 +1,30 @@
 import { Box, Typography, ImageList } from "@mui/material";
 import { ImageListItem, Tooltip, Button } from "@mui/material";
 import AvatarSelectionElement from "./AvatarSelectionElement";
-import { itemData, lockedItemData } from "../../data";
 import { useEffect } from "react";
 import { getUnlockedAvatars } from "../../Networking";
 import { useState } from "react";
 import { bucketBaseUrl } from "../../data";
 
 export default function AvatarSelection(props) {
-  const { currentUser, changeProfileAvatar, currentAvatar } = props;
+  const { currentUser, changeProfileAvatar, currentAvatar, setColour } = props;
   const [unlockedAvatars, setUnlockedAvatars] = useState(0);
-  const [avatarList, setAvatarList] = useState();
-  const [lockedAvatarList, setLockedAvatarList] = useState();
+  const [avatarList, setAvatarList] = useState([]);
+  const [lockedAvatarList, setLockedAvatarList] = useState([]);
 
   useEffect(() => {
-    getUnlockedAvatars(currentUser, setUnlockedAvatars);
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    setAvatarList(itemData.slice(0, unlockedAvatars + 1));
-    setLockedAvatarList(lockedItemData.slice(unlockedAvatars + 1));
-  }, [unlockedAvatars]);
+    getUnlockedAvatars(
+      currentUser,
+      setUnlockedAvatars,
+      setAvatarList,
+      setLockedAvatarList
+    );
+  }, [unlockedAvatars, currentUser]);
 
   return (
     <Box
       sx={{
-        bgcolor: "background.paper",
+        bgcolor: setColour,
         boxShadow: 1,
         borderRadius: 2,
         p: 2,

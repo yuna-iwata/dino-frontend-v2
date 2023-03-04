@@ -5,7 +5,6 @@ import {
   TableHead,
   TableContainer,
   TableRow,
-  Paper,
   Grid,
   Typography,
   Box,
@@ -15,7 +14,7 @@ import {
 import { useState } from "react";
 
 export default function PersonalLeaderBoard(props) {
-  const { scoreList, setScoreList } = props;
+  const { scoreList, setScoreList, setColour } = props;
 
   const [currentCriterion, setCurrentCriterion] = useState("score");
 
@@ -50,34 +49,37 @@ export default function PersonalLeaderBoard(props) {
         Personal Leaderboard
       </Typography>
       <Box sx={{ mb: 0 }}>
-        <Typography sx={{ color: "#74D193", mt: 3 }} variant="h5">
+        <Typography sx={{ color: "#74D193", mt: 3, mb: 1 }} variant="h5">
           order by:
         </Typography>
         <ButtonGroup
           variant="contained"
           aria-label="outlined primary button group"
         >
-          <Button variant="flat" onClick={() => orderBy("date")}>
+          <Button color="buttonLeaderboard" onClick={() => orderBy("date")}>
             <Typography variant="h5">DATE</Typography>
           </Button>
-          <Button variant="flat" onClick={() => orderBy("score")}>
+          <Button color="buttonLeaderboard" onClick={() => orderBy("score")}>
             <Typography variant="h5">SCORE</Typography>
           </Button>
         </ButtonGroup>
       </Box>
       <TableContainer
-        component={Paper}
-        sx={{ mt: 2 }}
+        sx={{ mt: 2, bgcolor: setColour }}
         style={{ maxHeight: 410, overflow: "auto" }}
       >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell align="center">
-                <Typography variant="h5">Score</Typography>
+                <Typography variant="h5" color="leaderBoardFont">
+                  Score
+                </Typography>
               </TableCell>
               <TableCell align="center">
-                <Typography variant="h5">Date</Typography>
+                <Typography variant="h5" color="leaderBoardFont">
+                  Date
+                </Typography>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -89,10 +91,12 @@ export default function PersonalLeaderBoard(props) {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="center">
-                    <Typography>{row.score}</Typography>
+                    <Typography color="leaderBoardFont">{row.score}</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography variant="h5">{row.date}</Typography>
+                    <Typography variant="h5" color="leaderBoardFont">
+                      {row.date}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}

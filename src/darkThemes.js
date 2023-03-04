@@ -1,19 +1,37 @@
 import { createTheme } from "@mui/material/styles";
 
-const theme = createTheme({
+const darkTheme = createTheme({
   palette: {
-    greenTheme: {
+    background: {
+      default: "#18191A",
+    },
+    neutral: {
+      main: "#64B981",
+    },
+    header: {
       main: "#75d193",
-      contrastText: "#fff",
+    },
+    greenTheme: {
+      main: "#1E1E1E",
+      contrastText: "#75d193",
+    },
+    darkerTheme: {
+      main: "#64B981",
     },
     neutralTheme: {
-      main: "#75d193",
-      contrastText: "#fff",
+      main: "#2F2F2F",
+      contrastText: "#75d193",
     },
     whiteTheme: {
       main: "#fff",
       contrastText: "#fff",
     },
+    buttonLeaderboard: {
+      main: "#2F2F2F",
+      contrastText: "#F2F2F2",
+    },
+    changeingText: "#75d193",
+    leaderBoardFont: "#F2F2F2",
   },
   typography: {
     allVariants: {
@@ -29,4 +47,4 @@ const theme = createTheme({
   },
 });
 
-export { theme };
+export { darkTheme };

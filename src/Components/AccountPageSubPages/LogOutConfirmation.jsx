@@ -4,14 +4,14 @@ import { Typography, Box, Button } from "@mui/material";
 import { removeSession } from "../../Networking";
 
 export default function LogOutConfirmation(props) {
-  const { changeTab, changeUser, cookies, removeCookie } = props;
+  const { changeTab, changeUser, cookies, removeCookie, setColour } = props;
 
   const navigate = useNavigate();
 
   return (
     <Box
       sx={{
-        bgcolor: "background.paper",
+        bgcolor: setColour,
         boxShadow: 1,
         borderRadius: 2,
         p: 2,

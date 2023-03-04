@@ -23,11 +23,13 @@ export default function AccountPageBanner(props) {
               />
             }
           />
-          <Typography variant="h4">{currentUser}</Typography>
+          <Typography variant="h4" sx={{ color: "#64B981" }}>
+            {currentUser}
+          </Typography>
         </Grid>
 
         <Grid alignItems="center" display="flex" item xs={2}>
-          <EmojiEventsIcon />
+          <EmojiEventsIcon color="neutral" />
           <Box sx={{ p: 2 }}>
             <Typography
               sx={{ color: "#64B981", fontWeight: "bold" }}

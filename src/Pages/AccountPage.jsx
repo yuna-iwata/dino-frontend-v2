@@ -9,6 +9,7 @@ export default function AccountPage(props) {
     game,
     cookies,
     removeCookie,
+    light,
   } = props;
 
   if (game.key !== null) {
@@ -23,6 +24,7 @@ export default function AccountPage(props) {
       changeProfileAvatar={changeProfileAvatar}
       removeCookie={removeCookie}
       cookies={cookies}
+      light={light}
     />
   );
 }

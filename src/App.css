@@ -33,4 +33,5 @@ button {
 .header-center {
   display: flex;
   justify-content: center;
+  padding-left: 1.6cm;
 }

@@ -13,14 +13,39 @@ import {
 import LeaderboardRoundedIcon from "@mui/icons-material/LeaderboardRounded";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import { Link } from "react-router-dom";
 
 import { itemData, bucketBaseUrl } from "../data";
 import { removeSession } from "../Networking";
 
 export default function Header(props) {
-  const { currentUser, changeUser, currentAvatar, cookies, removeCookie } =
-    props;
+  const {
+    currentUser,
+    changeUser,
+    currentAvatar,
+    cookies,
+    removeCookie,
+    light,
+    setModeFunction,
+  } = props;
+
+  function setColour() {
+    if (light) {
+      return "white";
+    } else {
+      return "#75d193";
+    }
+  }
+
+  function header() {
+    if (light) {
+      return "#75d193";
+    } else {
+      return "#3f7250";
+    }
+  }
 
   return (
     <AppBar
@@ -29,7 +54,7 @@ export default function Header(props) {
         display: "flex",
         justifyContent: "center",
         width: "100%",
-        bgcolor: "#74D193",
+        bgcolor: header(),
       }}
     >
       <Container maxWidth="xl">
@@ -38,7 +63,7 @@ export default function Header(props) {
             <Box>
               <Link
                 to="/account-page"
-                style={{ textDecoration: "none", color: "white" }}
+                style={{ textDecoration: "none", color: setColour() }}
               >
                 <Grid
                   alignItems="center"
@@ -53,7 +78,9 @@ export default function Header(props) {
                     />
                   </Grid>
                   <Grid item sx={{ mt: 1, ml: 1 }}>
-                    <Typography variant="h5">{currentUser}</Typography>
+                    <Typography variant="h5" color="whiteText">
+                      {currentUser}
+                    </Typography>
                   </Grid>
                 </Grid>
               </Link>
@@ -63,10 +90,8 @@ export default function Header(props) {
               <Typography
                 placement="left-start"
                 component="div"
-                sx={{ flexGrow: 1, color: "white", ml: 12 }}
-              >
-                {""}
-              </Typography>
+                sx={{ flexGrow: 1, ml: 12 }}
+              ></Typography>
             </Box>
           )}
           <Typography
@@ -80,7 +105,7 @@ export default function Header(props) {
                 to="/game"
                 style={{
                   textDecoration: "none",
-                  color: "white",
+                  color: setColour(),
                 }}
               >
                 <Typography variant="h1">Play Game</Typography>
@@ -88,11 +113,29 @@ export default function Header(props) {
             </div>
           </Typography>
 
+          <Tooltip title="Mode" placement="right-start">
+            <IconButton size="large" color="inherit">
+              <Badge>
+                {light ? (
+                  <DarkModeIcon
+                    color="header"
+                    onClick={() => setModeFunction()}
+                  />
+                ) : (
+                  <LightModeIcon
+                    color="header"
+                    onClick={() => setModeFunction()}
+                  />
+                )}
+              </Badge>
+            </IconButton>
+          </Tooltip>
+
           <Tooltip title="Leaderboard" placement="right-start">
             <Link to="/leaderboard">
-              <IconButton size="large" color="inherit">
-                <Badge sx={{ color: "white" }}>
-                  <LeaderboardRoundedIcon />
+              <IconButton size="large" color="header">
+                <Badge>
+                  <LeaderboardRoundedIcon color="header" />
                 </Badge>
               </IconButton>
             </Link>
@@ -103,7 +146,7 @@ export default function Header(props) {
               <Link to="/">
                 <IconButton
                   size="large"
-                  color="inherit"
+                  color="header"
                   onClick={() => {
                     changeUser("");
                     removeSession(cookies.user);
@@ -111,8 +154,8 @@ export default function Header(props) {
                   }}
                   label="log in button"
                 >
-                  <Badge sx={{ color: "white" }}>
-                    <LogoutIcon />
+                  <Badge>
+                    <LogoutIcon color="header" />
                   </Badge>
                 </IconButton>
               </Link>
@@ -120,9 +163,9 @@ export default function Header(props) {
           ) : (
             <Tooltip title="Log In / Create Account" placement="right-start">
               <Link to="/login">
-                <IconButton size="large" colour="inherit">
-                  <Badge sx={{ color: "white" }}>
-                    <LoginIcon />
+                <IconButton size="large" colour="header">
+                  <Badge>
+                    <LoginIcon color="header" />
                   </Badge>
                 </IconButton>
               </Link>

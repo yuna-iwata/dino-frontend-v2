@@ -1,3 +1,5 @@
+import { itemData, lockedItemData } from "./data";
+
 const backendBaseURL = "https://the-dino-game-api.herokuapp.com/";
 const flickrBaseURL = "https://www.flickr.com/services/rest/";
 const flickrApiKey = "593054fa7e390be7af02ea28725dbc20";
@@ -232,10 +234,17 @@ export async function getUserAvatar(username, setSearchedUserAvatar) {
   }
 }
 
-export async function getUnlockedAvatars(username, setUnlockedAvatars) {
+export async function getUnlockedAvatars(
+  username,
+  setUnlockedAvatars,
+  setAvatarList,
+  setLockedAvatarList
+) {
   const apiResponse = await fetch(
     `${backendBaseURL}unlocked-avatars?user=${username}`
   );
   const unlockedAvatars = await apiResponse.json();
   setUnlockedAvatars(unlockedAvatars[0][0]);
+  setAvatarList(itemData.slice(0, unlockedAvatars[0][0] + 1));
+  setLockedAvatarList(lockedItemData.slice(unlockedAvatars[0][0] + 1));
 }

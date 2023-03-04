@@ -11,6 +11,7 @@ export default function CreateAccountPage(props) {
     setCookie,
     savedScore,
     changeScore,
+    setColour,
   } = props;
 
   if (game.key !== null) {
@@ -24,7 +25,7 @@ export default function CreateAccountPage(props) {
         sx={{
           m: 10,
           flexDirection: "column",
-          bgcolor: "background.paper",
+          bgcolor: setColour,
           boxShadow: 1,
           borderRadius: 2,
           p: 2,
