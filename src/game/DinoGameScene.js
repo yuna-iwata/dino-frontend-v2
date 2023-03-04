@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { GAME_OVER, NEW_GAME } from "./events";
+import { gameImages, gameSpriteSheets, gameAudio } from "../data";
 
 let player;
 let cursors;
@@ -30,76 +31,24 @@ export default class DinoGameScene extends Phaser.Scene {
   preload() {
     this.load.setBaseURL("https://chrome-dino-game.s3.amazonaws.com/assets");
     //**********LOAD AUDIO********//
-    this.load.audio("jump-audio", "jump.m4a");
-    this.load.audio("hit-audio", "hit.m4a");
-    this.load.audio("reach-audio", "reach.m4a");
+    gameAudio.forEach((asset) => {
+      this.load.audio(asset.gameName, `${asset.fileName}.m4a`);
+    });
     //**********LOAD IMAGES********//
-    this.load.image("ground", "ground.png");
+    gameImages.forEach((asset) => {
+      this.load.image(asset.gameName, `${asset.fileName}.png`);
+    });
     this.load.image("dino-idle", "dino-idle-formatted.png", {
       frameWidth: 10,
       frameHeight: 10,
     });
-    this.load.image("dino-hurt", "dino-hurt.png");
-    this.load.image("restart", "restart.png");
-    this.load.image("game-over", "game-over.png");
-    this.load.image("cloud", "cloud.png");
-    this.load.image("hat-1", "baseball-cap.png");
-    this.load.image("hat-2", "sombrero.png");
-    this.load.image("hat-3", "sigma-hat.png");
-    this.load.image("hat-4", "glasses.png");
-    this.load.image("hat-5", "spiderman-mask.png");
-    this.load.image("hat-6", "rainbow-hat.png");
-    this.load.image("skin-1", "dino-baseball-legless.png");
-    this.load.image("skin-2", "dino-mariachi-legless.png");
-    this.load.image("skin-3", "dino-sigma-legless.png");
-    this.load.image("skin-4", "dino-disco-legless.png");
-    this.load.image("skin-5", "dino-spiderman-legless.png");
-    this.load.image("skin-6", "dino-rainbow-legless.png");
-    this.load.image("start-box", "white-box.png");
     //**********LOAD SPRITEs********//
-    this.load.spritesheet("enemy-bird", "enemy-bird.png", {
-      frameWidth: 92,
-      frameHeight: 77,
+    gameSpriteSheets.forEach((asset) => {
+      this.load.spritesheet(asset.gameName, `${asset.fileName}.png`, {
+        frameWidth: asset.frameWidth,
+        frameHeight: asset.frameHeight,
+      });
     });
-    this.load.spritesheet("dino-run", "dino-run.png", {
-      frameWidth: 88,
-      frameHeight: 94,
-    });
-    this.load.spritesheet("dino-duck", "dino-duck.png", {
-      frameWidth: 118,
-      frameHeight: 94,
-    });
-    this.load.spritesheet("dino-baseball-duck", "dino-baseball-duck.png", {
-      frameWidth: 118,
-      frameHeight: 94,
-    });
-    this.load.spritesheet("dino-mariachi-duck", "dino-mariachi-duck.png", {
-      frameWidth: 118,
-      frameHeight: 94,
-    });
-    this.load.spritesheet("dino-sigma-duck", "dino-sigma-duck.png", {
-      frameWidth: 118,
-      frameHeight: 94,
-    });
-    this.load.spritesheet("dino-disco-duck", "dino-disco-duck.png", {
-      frameWidth: 118,
-      frameHeight: 94,
-    });
-    this.load.spritesheet("dino-spiderman-duck", "dino-spiderman-duck.png", {
-      frameWidth: 118,
-      frameHeight: 94,
-    });
-    this.load.spritesheet("dino-rainbow-duck", "dino-rainbow-duck.png", {
-      frameWidth: 118,
-      frameHeight: 94,
-    });
-    //**********LOAD OBSTACLES********//
-    this.load.image("cacti1", "bigcacti-1.png");
-    this.load.image("cacti2", "bigcacti-2.png");
-    this.load.image("cacti3", "bigcacti-3.png");
-    this.load.image("cacti4", "smallcacti-1.png");
-    this.load.image("cacti5", "smallcacti-2.png");
-    this.load.image("cacti6", "smallcacti-3.png");
     this.load.bitmapFont("myfont", "dino-pixel.png", "dino-pixel.fnt");
   }
   create() {

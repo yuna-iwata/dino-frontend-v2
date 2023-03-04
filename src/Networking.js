@@ -1,9 +1,9 @@
 import { itemData, lockedItemData } from "./data";
 
-const baseUrl = "https://the-dino-game-api.herokuapp.com/";
+const backendBaseURL = "https://the-dino-game-api.herokuapp.com/";
 
 export async function submitUser(username, password) {
-  const response = await fetch(`${baseUrl}create-account`, {
+  const response = await fetch(`${backendBaseURL}create-account`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +15,7 @@ export async function submitUser(username, password) {
 }
 
 export async function setSession(username, sessionId) {
-  const response = await fetch(`${baseUrl}set-session`, {
+  const response = await fetch(`${backendBaseURL}set-session`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +27,9 @@ export async function setSession(username, sessionId) {
 }
 
 export async function getSession(sessionId, changeUser, setCurrentAvatar) {
-  const response = await fetch(`${baseUrl}get-session?session=${sessionId}`);
+  const response = await fetch(
+    `${backendBaseURL}get-session?session=${sessionId}`
+  );
   const json = await response.json();
   if (json.length > 0) {
     changeUser(json[0][0]);
@@ -40,7 +42,7 @@ export async function getSession(sessionId, changeUser, setCurrentAvatar) {
 
 export async function removeSession(sessionId) {
   try {
-    const response = await fetch(`${baseUrl}delete-session`, {
+    const response = await fetch(`${backendBaseURL}delete-session`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +57,7 @@ export async function removeSession(sessionId) {
 
 export async function checkUser(username, password) {
   try {
-    const response = await fetch(`${baseUrl}login`, {
+    const response = await fetch(`${backendBaseURL}login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +72,7 @@ export async function checkUser(username, password) {
 
 export async function deleteUser(username) {
   try {
-    const response = await fetch(`${baseUrl}delete-account`, {
+    const response = await fetch(`${backendBaseURL}delete-account`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +87,7 @@ export async function deleteUser(username) {
 
 export async function changePassword(username, oldPassword, newPassword) {
   try {
-    const response = await fetch(`${baseUrl}change-password`, {
+    const response = await fetch(`${backendBaseURL}change-password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -104,7 +106,7 @@ export async function changePassword(username, oldPassword, newPassword) {
 
 export async function changeUsername(oldUsername, newUsername, password) {
   try {
-    const response = await fetch(`${baseUrl}change-username`, {
+    const response = await fetch(`${backendBaseURL}change-username`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -123,7 +125,7 @@ export async function changeUsername(oldUsername, newUsername, password) {
 
 export async function changeAvatar(newAvatar, username) {
   try {
-    const response = await fetch(`${baseUrl}change-avatar`, {
+    const response = await fetch(`${backendBaseURL}change-avatar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +143,7 @@ export async function changeAvatar(newAvatar, username) {
 
 export async function submitScore(score, username, items) {
   try {
-    const response = await fetch(`${baseUrl}submit-score`, {
+    const response = await fetch(`${backendBaseURL}submit-score`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -164,7 +166,7 @@ export async function fetchPersonalLeaderBoard(
   setHighScore
 ) {
   const apiResponse = await fetch(
-    `${baseUrl}personal-leaderboard?user=${username}`
+    `${backendBaseURL}personal-leaderboard?user=${username}`
   );
   const scoreData = await apiResponse.json();
   setScoreList(scoreData);
@@ -174,7 +176,7 @@ export async function fetchPersonalLeaderBoard(
 }
 
 export async function fetchGlobalLeaderBoard(setGlobalList) {
-  const apiResponse = await fetch(`${baseUrl}global-leaderboard`);
+  const apiResponse = await fetch(`${backendBaseURL}global-leaderboard`);
   let scoreData = await apiResponse.json();
   scoreData.sort(({ score: a }, { score: b }) => b - a);
   for (let i = 0; i < scoreData.length; i++) {
@@ -184,14 +186,14 @@ export async function fetchGlobalLeaderBoard(setGlobalList) {
 }
 
 export async function getRank(username, setRank) {
-  const apiResponse = await fetch(`${baseUrl}get-rank?user=${username}`);
+  const apiResponse = await fetch(`${backendBaseURL}get-rank?user=${username}`);
   let rankData = await apiResponse.json();
   setRank(rankData[0]);
 }
 
 export async function checkUserExists(username, setCurrentSearchedUser) {
   const apiResponse = await fetch(
-    `${baseUrl}check-user-exists?user=${username}`
+    `${backendBaseURL}check-user-exists?user=${username}`
   );
   const userData = await apiResponse.json();
   if (userData.length === 0) {
@@ -202,7 +204,9 @@ export async function checkUserExists(username, setCurrentSearchedUser) {
 }
 
 export async function getUserAvatar(username, setSearchedUserAvatar) {
-  const apiResponse = await fetch(`${baseUrl}user-avatar?user=${username}`);
+  const apiResponse = await fetch(
+    `${backendBaseURL}user-avatar?user=${username}`
+  );
   const returnedAvatars = await apiResponse.json();
   if (returnedAvatars.length > 0) {
     setSearchedUserAvatar(returnedAvatars[0]);
@@ -216,7 +220,7 @@ export async function getUnlockedAvatars(
   setLockedAvatarList
 ) {
   const apiResponse = await fetch(
-    `${baseUrl}unlocked-avatars?user=${username}`
+    `${backendBaseURL}unlocked-avatars?user=${username}`
   );
   const unlockedAvatars = await apiResponse.json();
   setUnlockedAvatars(unlockedAvatars[0][0]);
