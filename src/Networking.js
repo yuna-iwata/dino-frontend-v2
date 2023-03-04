@@ -1,27 +1,6 @@
 import { itemData, lockedItemData } from "./data";
 
 const backendBaseURL = "https://the-dino-game-api.herokuapp.com/";
-const flickrBaseURL = "https://www.flickr.com/services/rest/";
-const flickrApiKey = "593054fa7e390be7af02ea28725dbc20";
-const flickrAlbumId = 52724064111;
-
-export async function fetchImage(photoName) {
-  try {
-    const response = await fetch(
-      `${flickrBaseURL}/?method=flickr.photosets.getPhotos&api_key=${flickrApiKey}&photoset_id=${flickrAlbumId}&format=json&nojsoncallback=1`
-    );
-    const data = await response.json();
-    const photo = data.photoset.photo.find((p) => p.title === photoName);
-    if (photo) {
-      const photoResponse = await fetch(
-        `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`
-      );
-      return photoResponse.url;
-    }
-  } catch (e) {
-    console.log(e.message);
-  }
-}
 
 export async function submitUser(username, password) {
   const response = await fetch(`${backendBaseURL}create-account`, {
