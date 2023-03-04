@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { GAME_OVER, NEW_GAME } from "./events";
+import { fetchImage } from "../Networking";
 
 let player;
 let cursors;
@@ -33,7 +34,7 @@ export default class DinoGameScene extends Phaser.Scene {
     this.load.audio("hit-audio", "hit.m4a");
     this.load.audio("reach-audio", "reach.m4a");
     //**********LOAD IMAGES********//
-    this.load.image("ground", "ground.png");
+    this.load.image("ground", fetchImage("ground.png"));
     this.load.image("dino-idle", "dino-idle-formatted.png", {
       frameWidth: 10,
       frameHeight: 10,
