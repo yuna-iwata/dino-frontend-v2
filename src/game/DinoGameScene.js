@@ -13,6 +13,7 @@ let runGame = false;
 let allHatsCollected = false;
 let totalNumOfHats = 6;
 let renderTime = 0;
+let hatRendered = false;
 let timeForHat = false;
 let score = 0;
 let hatNum = 0;
@@ -48,7 +49,7 @@ export default class DinoGameScene extends Phaser.Scene {
         frameHeight: asset.frameHeight,
       });
     });
-    this.load.bitmapFont("myfont", `dino-pixel.png`, `dino-pixel.fnt`);
+    this.load.bitmapFont("myfont", "dino-pixel.png", "dino-pixel.fnt");
   }
   create() {
     //**********SET UP STATIC OBJECTS********//
@@ -63,7 +64,8 @@ export default class DinoGameScene extends Phaser.Scene {
     startBox = this.physics.add
       .sprite(0, height - 100, "start-box")
       .setOrigin(0, 1)
-      .setImmovable();
+      .setImmovable()
+      .setVisible(false);
 
     player = this.physics.add
       .sprite(0, height, "dino-idle")
@@ -460,7 +462,7 @@ export default class DinoGameScene extends Phaser.Scene {
       Phaser.Actions.IncX(obstacles.getChildren(), -this.speed * scale);
       Phaser.Actions.IncX(hats.getChildren(), -this.speed * scale);
       renderTime += delta * this.speed * 0.08;
-      if (score > 0 && score % 250 === 0) {
+      if (score > 0 && score % 200 === 0 && !hatRendered) {
         timeForHat = true;
       }
       if (renderTime >= 500 && obstaclesRendered === 0) {
@@ -470,9 +472,11 @@ export default class DinoGameScene extends Phaser.Scene {
         renderTime = 0;
       } else if (renderTime >= timeBetweenObstacles && obstaclesRendered > 0) {
         if (timeForHat) {
-          this.renderHats();
+          hatRendered = true;
           timeForHat = false;
+          this.renderHats();
         } else {
+          hatRendered = false;
           this.renderObstacles();
         }
         timeBetweenObstacles = Math.floor(Math.random() * 1300) + 500;
